@@ -1,9 +1,9 @@
 {
-  "name": "no  control",
+  "name": "NO CONTROL",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "regain control of facebook.",
-  "homepage_url": "http://extensionizr.com",
+  "description": "Regain control of your facebook feed.",
+  "homepage_url": "http://declaredintent.com",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -11,7 +11,7 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": ["src/background.js"],
+    "scripts": ["src/bg/background.js"],
     "persistent": true
   },
   "options_page": "src/options_custom/index.html",

@@ -1,3 +1,71 @@
-/**
- * Place your custom CSS styles here.
- **/
+/* Hide news in sidebar for my sanity during development */
+#pagelet_trending_tags_and_topics {
+  display: none !important;
+}
+
+#pagelet_ego_pane .pagelet:first-child ._1-ia {
+  padding-top: 0 !important;
+}
+
+.nocontrol-hide {
+  display: none !important;
+}
+
+.nocontrol-type-event {
+  border: 1px solid blue !important;
+}
+
+.nocontrol-type-link {
+  border: 1px solid red !important;
+}
+
+.nocontrol-type-other {
+  border: 1px solid orange !important;
+}
+
+/* Hide/show stories based on body classes */
+.nocontrol-filtering .nocontrol-type {
+  visibility: hidden !important;
+}
+
+.nocontrol-show-link .nocontrol-type.nocontrol-type-link {
+  visibility: visible !important;
+}
+
+.nocontrol-show-event .nocontrol-type.nocontrol-type-event {
+  visibility: visible !important;
+}
+
+.nocontrol-show-other .nocontrol-type.nocontrol-type-other {
+  visibility: visible !important;
+}
+
+/* Tabs */
+#nocontrol-tabs {
+  margin-bottom: 7px;
+}
+
+#nocontrol-tabs ul {
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+}
+
+#nocontrol-tabs li {
+  display: inline-block;
+  list-style-type: none;
+  max-width: 100%;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 8px;
+}
+
+#nocontrol-tabs a {
+  color: #4b4f56;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: baseline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
