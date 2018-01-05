@@ -1,0 +1,28 @@
+/* Misc style during development */
+
+/* Hide news in sidebar for my sanity during development */
+#pagelet_trending_tags_and_topics {
+  display: none !important;
+}
+
+#pagelet_ego_pane .pagelet:first-child ._1-ia {
+  padding-top: 0 !important;
+}
+
+.nocontrol-show-is-personal .nocontrol-post:not(.nocontrol-is-personal),
+.nocontrol-show-is-page .nocontrol-post:not(.nocontrol-is-page),
+.nocontrol-show-storyname-EntEventCreationStory .nocontrol-post:not(.nocontrol-storyname-EntEventCreationStory),
+.nocontrol-show-storyname-EntPhotoUploadBatchNodeBasedEdgeStory
+  .nocontrol-post:not(.nocontrol-storyname-EntPhotoUploadBatchNodeBasedEdgeStory),
+.nocontrol-show-storyname-EntShareCreationStory .nocontrol-post:not(.nocontrol-storyname-EntShareCreationStory),
+.nocontrol-show-storyname-EntSingleUserShareAggregatedStory
+  .nocontrol-post:not(.nocontrol-storyname-EntSingleUserShareAggregatedStory),
+.nocontrol-show-storyname-EntStatusCreationStory .nocontrol-post:not(.nocontrol-storyname-EntStatusCreationStory),
+.nocontrol-show-storyname-EntVideoCreationStory .nocontrol-post:not(.nocontrol-storyname-EntVideoCreationStory) {
+  display: none;
+}
+
+.nocontrol-post-static {
+  border: 2px dotted goldenrod;
+  outline: 2px dotted goldenrod;
+}

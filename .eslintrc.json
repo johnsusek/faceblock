@@ -15,9 +15,11 @@
     "arrow-parens": "off",
     "space-before-function-paren": "off",
     "no-param-reassign": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "prefer-rest-params": "off"
   },
   "globals": {
+    "bigPipe": true,
     "chrome": true,
     "Store": true
   }
