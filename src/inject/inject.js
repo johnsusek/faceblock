@@ -2,25 +2,30 @@
 // - translations
 // - "Other"
 // - "Everything"
-// - Suggestions tab
-
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(mutation => {
-    if (mutation.attributeName === 'data-ft' && mutation.target.dataset.fte && mutation.oldValue.startsWith('{')) {
-      processPost(mutation.target, mutation.oldValue);
-    }
-  });
-});
-
-observer.observe(document.body, {
-  attributeOldValue: true,
-  attributes: true,
-  childList: true,
-  subtree: true
-});
+// - "Suggested Posts"
 
 chrome.extension.sendMessage({}, () => {
   const readyStateCheckInterval = setInterval(() => {
+    if (document.readyState === 'interactive') {
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+          if (
+            mutation.attributeName === 'data-ft' &&
+            mutation.target.dataset.fte &&
+            mutation.oldValue.startsWith('{')
+          ) {
+            processPost(mutation.target, mutation.oldValue);
+          }
+        });
+      });
+
+      observer.observe(document.body, {
+        attributeOldValue: true,
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval);
       injectUI();
@@ -172,6 +177,7 @@ function processPost(el, metaData) {
   }
 
   el.dataset.nocontrolProcessed = true;
+  el.insertAdjacentHTML('afterEnd', `<pre>${JSON.stringify(post, null, 2)}</pre>`);
   el.classList.add(...classesForPost(post));
 }
 

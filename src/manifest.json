@@ -24,7 +24,8 @@
     },
     {
       "matches": ["https://www.facebook.com/*"],
-      "js": ["inject/inject.js"]
+      "js": ["inject/inject.js"],
+      "run_at": "document_start"
     }
   ]
 }
