@@ -1,9 +1,9 @@
 {
   "name": "Feed Filter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "description":
-    "Tame your Facebook feed. Only view personal updates directly from friends, filtering out &lsquo;Pages&rsquo; content. Or view only certain types of items in your feed, like Events, Photos or plain old Status Updates.",
+    "Tame your Facebook feed. When you go to Amazon and shop for a spoon, you can refine and filter based on criteria like color and size. But on Facebook, you have no control over your feed, you just take pellets of information as you scroll down, in whatever order Facebook's algorithm decides. This extension aims to change that, by giving you back some power to control what you see on Facebook.",
   "homepage_url": "http://declaredintent.com",
   "icons": {
     "16": "icons/icon16.png",
@@ -24,7 +24,7 @@
     },
     {
       "matches": ["https://www.facebook.com/*"],
-      "js": ["inject/inject.js"],
+      "js": ["inject/inject.js", "inject/post.js", "inject/markup.js", "inject/comm.js", "inject/error.js"],
       "run_at": "document_start"
     }
   ]
