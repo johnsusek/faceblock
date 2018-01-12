@@ -18,7 +18,13 @@
     },
     {
       "matches": ["https://www.facebook.com/*"],
-      "js": ["inject/scripts/injected.js"],
+      "js": [
+        "inject/scripts/filters.js",
+        "inject/scripts/funcs.js",
+        "inject/scripts/loading.js",
+        "inject/scripts/tabs.js",
+        "inject/scripts/injected.js"
+      ],
       "run_at": "document_start"
     }
   ]
