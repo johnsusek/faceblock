@@ -56,73 +56,95 @@ function injectQueryUI() {
 
   document.getElementById('nocontrol-filter-apply').addEventListener('click', () => {
     let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
-    let postsArray = Object.values(window.posts);
 
-    if (!rules.valid) {
+    if (!rules) {
       return;
     }
 
-    let debugResult;
-
-    if (rules.condition === 'AND') {
-      let paths = [];
-      rules.rules.forEach(rule => paths.push(ruleToPath(rule)));
-      let path = paths.join(' | ');
-      let ruleResult = window.jmespath.search(postsArray, path);
-
-      debugResult = JSON.stringify(ruleResult, null, 2);
-    } else if (rules.condition === 'OR') {
-      let results = [];
-
-      // Build an array of all results, for each of the "OR" conditions
-      rules.rules.forEach(rule => {
-        let path = ruleToPath(rule);
-        let ruleResult = window.jmespath.search(postsArray, path);
-        ruleResult.forEach(r => results.push(r));
-      });
-
-      // De-dupe that array, for multiple negated queries
-      results = results.filter((r, i, self) => self.findIndex(t => t.id === r.id) === i);
-
-      debugResult = JSON.stringify(results, null, 2);
-    }
-
+    const query = createQueryFromRules([rules]);
+    let ruleResult = window.jmespath.search(Object.values(window.posts), query);
+    const debugResult = JSON.stringify(ruleResult, null, 2);
     document.querySelector('#nocontrol-query code').innerText = debugResult;
     window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
   });
 }
 
-function ruleToPath(rule) {
-  console.log(rule);
-  // Assume: string operator
-  switch (rule.operator) {
-    case 'equal':
-      return `[?${rule.field}=='${rule.value}']`;
-    case 'not_equal':
-      return `[?${rule.field}!='${rule.value}']`;
-    case 'in':
-      return `[?contains([${rule.value}], ${rule.field})]`;
-    case 'not_in':
-      return `[?!contains([${rule.value}], ${rule.field})]`;
-    case 'begins_with':
-      return `[?starts_with(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'not_begins_with':
-      return `[?!starts_with(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'contains':
-      return `[?contains(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'not_contains':
-      return `[?!contains(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'ends_with':
-      return `[?ends_with(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'not_ends_with':
-      return `[?!ends_with(${rule.field}, '${rule.value}') == \`true\`]`;
-    case 'is_empty':
-    case 'is_null':
-      return "==''";
-    case 'is_not_empty':
-    case 'is_not_null':
-      return "!=''";
-    default:
-      console.error('could not find an operator transform');
-  }
+function createQueryFromRules(rules) {
+  let query = '[? ';
+  query += rulesToPath(rules);
+  query += ' ]';
+  console.log(query);
+  console.log("[? ( elId != '321' && elID != '123') ]");
+  return "[? ( elId != '321' && elID != '123') ]";
+}
+
+// function processRules(rules, currentCondition = '') {
+//   rules.forEach(rule => {
+//     if (rule.condition && rule.rules) {
+//       return processRules(rule.rules, rule.condition);
+//     } else {
+//       return rulesToPath(rules, currentCondition);
+//     }
+//   });
+//   return rules;
+// }
+
+// 100% functional
+function rulesToPath(rules, conditional) {
+  console.log('Creating a path from these rules and this conditional!', rules, conditional);
+
+  let ruleStr = '( ';
+
+  let separator = conditional === 'AND' ? ' && ' : ' || ';
+
+  rules.forEach((rule, index) => {
+    if (rule.rules && rule.condition) {
+      ruleStr += rulesToPath(rule.rules, rule.condition);
+    }
+
+    switch (rule.operator) {
+      case 'equal':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == '${rule.value}'`;
+        break;
+      case 'not_equal':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != '${rule.value}'`;
+        break;
+      case 'in':
+        ruleStr += `${index > 0 ? separator : ''} contains([${rule.value}], ${rule.field})`;
+        break;
+      case 'not_in':
+        ruleStr += `${index > 0 ? separator : ''} !contains([${rule.value}], ${rule.field})`;
+        break;
+      case 'begins_with':
+        ruleStr += `${index > 0 ? separator : ''} starts_with(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      case 'not_begins_with':
+        ruleStr += `${index > 0 ? separator : ''} !starts_with(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      case 'contains':
+        ruleStr += `${index > 0 ? separator : ''} contains(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      case 'not_contains':
+        ruleStr += `${index > 0 ? separator : ''} !contains(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      case 'ends_with':
+        ruleStr += `${index > 0 ? separator : ''} ends_with(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      case 'not_ends_with':
+        ruleStr += `${index > 0 ? separator : ''} !ends_with(${rule.field}, '${rule.value}') == \`true\``;
+        break;
+      // case 'is_empty':
+      // case 'is_null':
+      //   ruleStr += "==''";
+      // case 'is_not_empty':
+      // case 'is_not_null':
+      //   ruleStr += "!=''";
+      default:
+        console.error('could not find an operator transform for operation', rule.operator, rule);
+    }
+  });
+
+  ruleStr += ' )';
+
+  return ruleStr;
 }

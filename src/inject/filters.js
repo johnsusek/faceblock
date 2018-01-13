@@ -1,5 +1,4 @@
 window.hidePostOnFilterCriteria = function(post) {
-  console.log('Deciding to hide post or not', post);
   // Tabs
   if (!window.currentFilter) {
     document.getElementById(post.elId).style.display = 'block';
