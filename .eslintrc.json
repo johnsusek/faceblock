@@ -5,6 +5,8 @@
   },
   "extends": "airbnb",
   "rules": {
+    "prefer-const": "off",
+    "max-len": "off",
     "func-names": "off",
     "no-console": "off",
     "no-debugger": "off",
@@ -16,9 +18,11 @@
     "space-before-function-paren": "off",
     "no-param-reassign": "off",
     "consistent-return": "off",
+    "prefer-template": "off",
     "prefer-rest-params": "off"
   },
   "globals": {
+    "html": true,
     "chrome": true
   }
 }

@@ -1,4 +1,4 @@
-const interactiveCheckInterval = setInterval(() => {
+let interactiveCheckInterval = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(interactiveCheckInterval);
     window.injectLoaderUI();
@@ -7,15 +7,13 @@ const interactiveCheckInterval = setInterval(() => {
 
 window.loadingMarkup = window.html`
   <div id="nocontrol-wait" class="nocontrol-panel">
-    Trying to find additional posts that match filters &#183; <a href="/">
-      Clear all filters
-    </a>
-
     <div class="nocontrol-spinner">
       <div class="nocontrol-bounce1"></div>
       <div class="nocontrol-bounce2"></div>
       <div class="nocontrol-bounce3"></div>
     </div>
+    Trying to find additional posts that match filters
+    </a>
   </div>
 `;
 

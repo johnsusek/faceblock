@@ -14,16 +14,30 @@
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],
-      "css": ["inject/styles/style.css", "inject/styles/components.css"]
+      "css": [
+        "inject/lib/highlight.min.css",
+        "inject/lib/bootstrap.min.css",
+        "inject/lib/query-builder.default.css",
+        "inject/filters.css",
+        "inject/nocontrol.css",
+        "inject/spinner.css",
+        "inject/stories.css"
+      ]
     },
     {
       "matches": ["https://www.facebook.com/*"],
       "js": [
-        "inject/scripts/filters.js",
-        "inject/scripts/funcs.js",
-        "inject/scripts/loading.js",
-        "inject/scripts/tabs.js",
-        "inject/scripts/injected.js"
+        "inject/lib/highlight.min.js",
+        "inject/lib/jmespath.js",
+        "inject/lib/jquery-1.12.4.min.js",
+        "inject/lib/query-builder.standalone.js",
+        "inject/filters.js",
+        "inject/funcs.js",
+        "inject/loading.js",
+        "inject/posts.js",
+        "inject/query.js",
+        "inject/search.js",
+        "inject/tabs.js"
       ],
       "run_at": "document_start"
     }

@@ -1,12 +1,12 @@
-const readyCheckInterval = setInterval(() => {
+let tabsCheckInterval = setInterval(() => {
   if (document.querySelector('[role="feed"]')) {
-    clearInterval(readyCheckInterval);
-    window.injectFilterUI();
+    clearInterval(tabsCheckInterval);
+    injectFilterUI();
   }
 }, 10);
 
-window.tabsMarkup = window.html`
-  <div id="nocontrol">
+let tabsMarkup = window.html`
+  <div id="nocontrol-filters">
     <div id="nocontrol-tabs">
       <ul>
         <li>
@@ -32,14 +32,16 @@ window.tabsMarkup = window.html`
   </div>
 `;
 
-window.injectFilterUI = function() {
+function injectFilterUI() {
   // Place tabs
-  document.querySelector('[role="feed"]').insertAdjacentHTML('beforeBegin', window.tabsMarkup());
+  document.querySelector('[role="feed"]').insertAdjacentHTML('beforeBegin', tabsMarkup());
 
+  // Toggles
   document.getElementById('nocontrol-toggles').addEventListener('change', e => {
     handleToggles(e);
   });
 
+  // Tabs
   document.getElementById('nocontrol-tabs').addEventListener('click', e => {
     document.querySelector('[role="feed"]').style.transition = 'opacity 1s';
     document.querySelector('[role="feed"]').style.opacity = 0.5;
@@ -48,11 +50,11 @@ window.injectFilterUI = function() {
       applyFilter(e);
     }, 10);
   });
-};
+}
 
 function handleToggles(e) {
   // Check each toggle, do the proper thing
-  const toggle = e.target.querySelector('input') || e.target;
+  let toggle = e.target.querySelector('input') || e.target;
   console.log(toggle.checked);
   if (toggle.checked) {
     window.showIsSponsored = true;
@@ -63,7 +65,7 @@ function handleToggles(e) {
 }
 
 function switchTabs(e) {
-  const button = e.target;
+  let button = e.target;
   button
     .closest('ul')
     .querySelectorAll('.nocontrol-tab-active')
@@ -74,7 +76,7 @@ function switchTabs(e) {
 }
 
 function applyFilter(e) {
-  const button = e.target;
+  let button = e.target;
 
   if (button.dataset.nocontrolFilter) {
     window.currentFilter = button.dataset.nocontrolFilter;
@@ -88,7 +90,7 @@ function applyFiltersToPost() {
   console.log('Applying filter', window.currentFilter);
 
   // loop through every post on the page
-  const postMap = new Map(Object.entries(window.posts));
+  let postMap = new Map(Object.entries(window.posts));
   postMap.forEach(post => {
     window.hidePostOnFilterCriteria(post);
   });

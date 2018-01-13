@@ -1,0 +1,24 @@
+/* Hide news in sidebar for my sanity during development */
+
+#pagelet_trending_tags_and_topics {
+  display: none !important;
+}
+#pagelet_ego_pane .pagelet:first-child ._1-ia {
+  padding-top: 0 !important;
+}
+
+/* Generic white box shared by page elements */
+
+.nocontrol-panel {
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 4px;
+  padding: 12px 24px 12px 12px;
+  color: #4b4f56;
+}
+
+/* Hide helper */
+
+.nocontrol-hide {
+  display: none !important;
+}

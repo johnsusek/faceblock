@@ -16,9 +16,15 @@ window.hidePostOnFilterCriteria = function(post) {
   }
 };
 
-const filters = {
+let filters = {
   all() {
     return true;
+  },
+  hasPageInsights(post) {
+    let meta = post.meta;
+    if (meta.page_insights && meta.page_insights[meta.page_id]) {
+      return true;
+    }
   },
   isFriend(post) {
     return !post.meta.page_insights;
@@ -27,12 +33,15 @@ const filters = {
     return post.meta.page_insights;
   },
   isGroup(post) {
-    const meta = post.meta;
-    if (!meta.page_insights || !meta.page_insights[meta.page_id]) {
+    let meta = post.meta;
+
+    if (!filters.hasPageInsights(post)) {
       return false;
-    } else if (meta.page_insights[meta.page_id].psn && meta.page_insights[meta.page_id].psn.startsWith('EntGroup')) {
+    }
+    if (meta.page_insights[meta.page_id].psn && meta.page_insights[meta.page_id].psn.startsWith('EntGroup')) {
       return true;
-    } else if (
+    }
+    if (
       meta.page_insights[meta.page_id].post_context &&
       meta.page_insights[meta.page_id].post_context.story_name &&
       meta.page_insights[meta.page_id].post_context.story_name.startsWith('EntGroup')

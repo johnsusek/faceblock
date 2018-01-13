@@ -1,0 +1,23 @@
+/* By default, hide all stories, so they don't flash onto the page during load */
+/* Our code will overwrite this for stories that should be displayed */
+div[id^='hyperfeed_story_id_'] {
+  display: none;
+}
+
+/* Hide native loader */
+div[id^='more_pager_pagelet'] .async_saving * {
+  display: none !important;
+}
+
+/* Loading box */
+#nocontrol-wait {
+  display: flex;
+}
+
+/* No more stories message */
+.nocontrol-no-more-stories {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-bottom: 5px;
+}

@@ -1,0 +1,64 @@
+/* Filters container */
+
+#nocontrol-filters {
+  margin-bottom: 10px;
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+}
+
+/* Checkbox toggles */
+
+#nocontrol-toggles {
+  margin: 7px;
+}
+
+#nocontrol-filters label {
+  cursor: pointer;
+}
+
+#nocontrol-filters input[type='checkbox'] {
+  margin: 0 2px 0 0;
+  vertical-align: baseline;
+}
+
+/* Tabs */
+
+#nocontrol-tabs li {
+  display: inline-block;
+  list-style-type: none;
+  max-width: 100%;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+#nocontrol-tabs a {
+  color: #1d2129;
+  display: inline-block;
+  vertical-align: baseline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 4px 4px 0 4px;
+  border-bottom: 3px solid transparent;
+}
+
+#nocontrol-tabs a:hover {
+  text-decoration: none;
+  border-bottom-color: #dddddd;
+}
+
+#nocontrol-tabs a.nocontrol-tab-active {
+  border-bottom-color: #4267b2;
+  font-weight: bold;
+}
+
+/* Search */
+
+#nocontrol-search input[type='text'] {
+  box-sizing: border-box;
+  width: 100%;
+}
