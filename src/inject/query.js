@@ -61,38 +61,24 @@ function injectQueryUI() {
       return;
     }
 
-    const query = createQueryFromRules([rules]);
-    let ruleResult = window.jmespath.search(Object.values(window.posts), query);
-    const debugResult = JSON.stringify(ruleResult, null, 2);
-    document.querySelector('#nocontrol-query code').innerText = debugResult;
+    const path = jmesPathFromQueryBuilderRules([rules]);
+    let ruleResult = window.jmespath.search(Object.values(window.posts), path);
+
+    document.querySelector('#nocontrol-query code').innerText = JSON.stringify(ruleResult, null, 2);
     window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
   });
 }
 
-function createQueryFromRules(rules) {
-  let query = '[? ';
-  query += rulesToPath(rules);
-  query += ' ]';
+function jmesPathFromQueryBuilderRules(rules) {
+  if (!rules) {
+    return;
+  }
+  let query = '[? ' + rulesToPath([rules]) + ' ]';
   console.log(query);
-  console.log("[? ( elId != '321' && elID != '123') ]");
-  return "[? ( elId != '321' && elID != '123') ]";
+  return query;
 }
 
-// function processRules(rules, currentCondition = '') {
-//   rules.forEach(rule => {
-//     if (rule.condition && rule.rules) {
-//       return processRules(rule.rules, rule.condition);
-//     } else {
-//       return rulesToPath(rules, currentCondition);
-//     }
-//   });
-//   return rules;
-// }
-
-// 100% functional
 function rulesToPath(rules, conditional) {
-  console.log('Creating a path from these rules and this conditional!', rules, conditional);
-
   let ruleStr = '( ';
 
   let separator = conditional === 'AND' ? ' && ' : ' || ';
@@ -100,6 +86,10 @@ function rulesToPath(rules, conditional) {
   rules.forEach((rule, index) => {
     if (rule.rules && rule.condition) {
       ruleStr += rulesToPath(rule.rules, rule.condition);
+    }
+
+    if (!rule.operator) {
+      return;
     }
 
     switch (rule.operator) {
@@ -133,12 +123,18 @@ function rulesToPath(rules, conditional) {
       case 'not_ends_with':
         ruleStr += `${index > 0 ? separator : ''} !ends_with(${rule.field}, '${rule.value}') == \`true\``;
         break;
-      // case 'is_empty':
-      // case 'is_null':
-      //   ruleStr += "==''";
-      // case 'is_not_empty':
-      // case 'is_not_null':
-      //   ruleStr += "!=''";
+      case 'is_empty':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == ''`;
+        break;
+      case 'is_not_empty':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != ''`;
+        break;
+      case 'is_null':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == null`;
+        break;
+      case 'is_not_null':
+        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != null`;
+        break;
       default:
         console.error('could not find an operator transform for operation', rule.operator, rule);
     }
