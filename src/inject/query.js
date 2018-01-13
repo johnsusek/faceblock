@@ -21,9 +21,19 @@ function injectQueryUI() {
 
     filters: [
       {
+        id: 'text',
+        label: 'text',
+        type: 'string'
+      },
+      {
         id: 'elId',
         label: 'el id',
         type: 'string'
+      },
+      {
+        id: 'elMeta.timestamp',
+        label: 'timestamp',
+        type: 'integer'
       },
       // {
       //   id: 'category',
@@ -61,24 +71,25 @@ function injectQueryUI() {
       return;
     }
 
-    const path = jmesPathFromQueryBuilderRules([rules]);
-    let ruleResult = window.jmespath.search(Object.values(window.posts), path);
-
+    const query = createQueryFromRules([rules]);
+    let ruleResult = window.jmespath.search(Object.values(window.posts), query);
     document.querySelector('#nocontrol-query code').innerText = JSON.stringify(ruleResult, null, 2);
     window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
   });
 }
 
-function jmesPathFromQueryBuilderRules(rules) {
-  if (!rules) {
-    return;
-  }
-  let query = '[? ' + rulesToPath([rules]) + ' ]';
+function createQueryFromRules(rules) {
+  let query = '[? ';
+  query += rulesToPath(rules);
+  query += ' ]';
   console.log(query);
   return query;
 }
 
+// 100% functional
 function rulesToPath(rules, conditional) {
+  console.log('Creating a path from these rules and this conditional!', rules, conditional);
+
   let ruleStr = '( ';
 
   let separator = conditional === 'AND' ? ' && ' : ' || ';
@@ -87,11 +98,9 @@ function rulesToPath(rules, conditional) {
     if (rule.rules && rule.condition) {
       ruleStr += rulesToPath(rule.rules, rule.condition);
     }
-
     if (!rule.operator) {
       return;
     }
-
     switch (rule.operator) {
       case 'equal':
         ruleStr += `${index > 0 ? separator : ''} ${rule.field} == '${rule.value}'`;
