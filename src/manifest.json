@@ -16,7 +16,6 @@
       "matches": ["https://www.facebook.com/*"],
       "css": [
         "inject/lib/highlight.min.css",
-        "inject/lib/bootstrap.min.css",
         "inject/lib/query-builder.default.css",
         "inject/filters.css",
         "inject/nocontrol.css",

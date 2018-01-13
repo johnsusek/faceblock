@@ -62,3 +62,7 @@
   box-sizing: border-box;
   width: 100%;
 }
+
+#nocontrol-query {
+  padding: 0;
+}
