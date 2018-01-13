@@ -15,28 +15,28 @@
     {
       "matches": ["https://www.facebook.com/*"],
       "css": [
-        "inject/lib/highlight.min.css",
-        "inject/lib/query-builder.default.css",
-        "inject/filters.css",
-        "inject/nocontrol.css",
-        "inject/spinner.css",
-        "inject/stories.css"
+        "inject/styles/lib/highlight.min.css",
+        "inject/styles/lib/query-builder.default.css",
+        "inject/styles/filters.css",
+        "inject/styles/nocontrol.css",
+        "inject/styles/spinner.css",
+        "inject/styles/stories.css"
       ]
     },
     {
       "matches": ["https://www.facebook.com/*"],
       "js": [
-        "inject/lib/highlight.min.js",
-        "inject/lib/jmespath.js",
-        "inject/lib/jquery-1.12.4.min.js",
-        "inject/lib/query-builder.standalone.js",
-        "inject/filters.js",
-        "inject/funcs.js",
-        "inject/loading.js",
-        "inject/posts.js",
-        "inject/query.js",
-        "inject/search.js",
-        "inject/tabs.js"
+        "inject/scripts/lib/highlight.min.js",
+        "inject/scripts/lib/jmespath.js",
+        "inject/scripts/lib/jquery-1.12.4.min.js",
+        "inject/scripts/lib/query-builder.standalone.js",
+        "inject/scripts/filters.js",
+        "inject/scripts/funcs.js",
+        "inject/scripts/loading.js",
+        "inject/scripts/posts.js",
+        "inject/scripts/query.js",
+        "inject/scripts/search.js",
+        "inject/scripts/tabs.js"
       ],
       "run_at": "document_start"
     }

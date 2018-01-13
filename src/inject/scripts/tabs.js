@@ -87,7 +87,6 @@ function applyFilter(e) {
 function applyFiltersToPost() {
   // hide the feed to prevent reflows
   document.querySelector('[role="feed"]').style.display = 'none';
-  console.log('Applying filter', window.currentFilter);
 
   // loop through every post on the page
   let postMap = new Map(Object.entries(window.posts));

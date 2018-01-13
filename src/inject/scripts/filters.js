@@ -1,4 +1,6 @@
 window.hidePostOnFilterCriteria = function(post) {
+  console.log('Applying filter', window.currentFilter);
+
   // Tabs
   if (!window.currentFilter) {
     document.getElementById(post.elId).style.display = 'block';
@@ -9,6 +11,7 @@ window.hidePostOnFilterCriteria = function(post) {
   } else {
     document.getElementById(post.elId).style.display = 'none';
   }
+
   // Toggles
   if (!window.showIsSponsored && post.meta.is_sponsored) {
     document.getElementById(post.elId).style.display = 'none';

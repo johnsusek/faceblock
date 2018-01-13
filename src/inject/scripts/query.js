@@ -8,74 +8,110 @@ let queryCheckInterval = setInterval(() => {
 let queryMarkup = html`
   <div id="nocontrol-query" class="nocontrol-panel">
     <div id="nocontrol-querybuilder"></div>
-    <button id="nocontrol-filter-apply">Apply</button>
+    <div id="nocontrol-querybuilder-controls">
+      <button id="nocontrol-filter-apply">Apply</button>
+      <button id="nocontrol-filter-debug">Debug</button>
+    </div>
     <pre><code class="rainbow"></code></pre>
   </div>
 `;
+
+const queryBuilderFilters = [
+  {
+    id: 'text',
+    label: 'text',
+    type: 'string'
+  },
+  {
+    id: 'elId',
+    label: 'el id',
+    type: 'string'
+  },
+  {
+    id: 'elMeta.timestamp',
+    label: 'timestamp',
+    type: 'integer'
+  },
+  {
+    id: 'elMeta.fte',
+    label: 'el meta fte',
+    type: 'integer',
+    input: 'radio',
+    values: {
+      1: 'Yes',
+      0: 'No'
+    },
+    operators: ['equal']
+  }
+];
 
 function injectQueryUI() {
   document.querySelector('[role="feed"]').insertAdjacentHTML('afterBegin', queryMarkup());
 
   window.jQuery('#nocontrol-querybuilder').queryBuilder({
-    // plugins: ['bt-tooltip-errors'],
-
-    filters: [
-      {
-        id: 'text',
-        label: 'text',
-        type: 'string'
-      },
-      {
-        id: 'elId',
-        label: 'el id',
-        type: 'string'
-      },
-      {
-        id: 'elMeta.timestamp',
-        label: 'timestamp',
-        type: 'integer'
-      },
-      // {
-      //   id: 'category',
-      //   label: 'Category',
-      //   type: 'integer',
-      //   input: 'select',
-      //   values: {
-      //     1: 'Books',
-      //     2: 'Movies',
-      //     3: 'Music',
-      //     4: 'Tools',
-      //     5: 'Goodies',
-      //     6: 'Clothes'
-      //   },
-      //   operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
-      // },
-      {
-        id: 'elMeta.fte',
-        label: 'el meta fte',
-        type: 'integer',
-        input: 'radio',
-        values: {
-          1: 'Yes',
-          0: 'No'
-        },
-        operators: ['equal']
-      }
-    ]
+    filters: queryBuilderFilters
   });
 
-  document.getElementById('nocontrol-filter-apply').addEventListener('click', () => {
-    let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+  document.getElementById('nocontrol-filter-apply').addEventListener('click', handleApply);
+  document.getElementById('nocontrol-filter-debug').addEventListener('click', handleDebug);
+}
 
-    if (!rules) {
-      return;
-    }
+function handleApply() {
+  let queryResult = runQuery();
 
-    const query = createQueryFromRules([rules]);
-    let ruleResult = window.jmespath.search(Object.values(window.posts), query);
-    document.querySelector('#nocontrol-query code').innerText = JSON.stringify(ruleResult, null, 2);
-    window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
-  });
+  if (!queryResult) {
+    return;
+  }
+
+  document.querySelector('[role="feed"]').style.transition = 'opacity 1s';
+  document.querySelector('[role="feed"]').style.opacity = 0.5;
+  setTimeout(() => {
+    displayQueryResult(queryResult);
+  }, 10);
+}
+
+function displayQueryResult(queryResult) {
+  // hide the feed to prevent reflows
+  document.querySelector('[role="feed"]').style.display = 'none';
+  console.log('displayQueryResult', queryResult);
+
+  // loop through every post on the page, hiding them
+  let postMap = Object.values(window.posts);
+  postMap.forEach(hidePost);
+
+  // now loop through the query results, just showing them
+  queryResult.forEach(showPost);
+
+  // show the feed again now that we've modified it
+  document.querySelector('[role="feed"]').style.display = 'block';
+  document.querySelector('[role="feed"]').style.opacity = 1;
+}
+
+function showPost(post) {
+  document.getElementById(post.elId).style.display = 'block';
+}
+
+function hidePost(post) {
+  document.getElementById(post.elId).style.display = 'none';
+}
+
+function handleDebug() {
+  let queryResult = runQuery();
+  document.querySelector('#nocontrol-query code').innerText = JSON.stringify(queryResult, null, 2);
+  window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
+}
+
+function runQuery() {
+  let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+
+  if (!rules) {
+    return;
+  }
+
+  const query = createQueryFromRules([rules]);
+  let ruleResult = window.jmespath.search(Object.values(window.posts), query);
+
+  return ruleResult;
 }
 
 function createQueryFromRules(rules) {
@@ -86,7 +122,6 @@ function createQueryFromRules(rules) {
   return query;
 }
 
-// 100% functional
 function rulesToPath(rules, conditional) {
   console.log('Creating a path from these rules and this conditional!', rules, conditional);
 

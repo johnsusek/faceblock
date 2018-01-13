@@ -65,4 +65,14 @@
 
 #nocontrol-query {
   padding: 0;
+  margin-bottom: 10px;
+}
+
+#nocontrol-query pre {
+  margin: 0;
+}
+
+#nocontrol-querybuilder-controls {
+  border-top: 1px solid #dddfe2;
+  padding: 10px;
 }

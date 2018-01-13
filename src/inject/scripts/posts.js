@@ -1,6 +1,7 @@
 window.posts = {};
 window.currentFilter = 'all';
 window.showIsSponsored = true;
+window.filterResult = [];
 
 let postCreateObserver = new MutationObserver(mutations => {
   mutations.forEach(mutation => {
@@ -23,6 +24,10 @@ let postCreateObserver = new MutationObserver(mutations => {
       window.posts[mutation.target.dataset.dedupekey] = post;
       // Hide/show depending on any filters currently applied
       window.hidePostOnFilterCriteria(post);
+
+      if (window.filterResult.length) {
+        console.log('Show post?', post, window.chooseToHideOrShowPostBasedOnFilterResults(post, window.filterResult));
+      }
     }
   });
 });
