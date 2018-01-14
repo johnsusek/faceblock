@@ -10,14 +10,13 @@ div[id^='more_pager_pagelet'] .async_saving * {
 }
 
 /* Loading box */
-#nocontrol-wait {
-  display: flex;
-}
+/* #nocontrol-wait {
+} */
 
 /* No more stories message */
-.nocontrol-no-more-stories {
+/* .nocontrol-no-more-stories {
   text-align: center;
   padding: 20px;
   font-size: 12px;
   margin-bottom: 5px;
-}
+} */

@@ -1,3 +1,5 @@
+// This just watches DOM mutations for new/updated posts, and updates the list
+// of all posts in the global store
 window.posts = {};
 window.currentFilter = 'all';
 window.showIsSponsored = true;
@@ -22,8 +24,11 @@ let postCreateObserver = new MutationObserver(mutations => {
       mutation.target.title = JSON.stringify(post.meta, null, 2);
       // Put into our list of posts for later filtering
       window.posts[mutation.target.dataset.dedupekey] = post;
+      window.store.allPosts[mutation.target.dataset.dedupekey] = post;
+      window.store.onUpdate();
+
       // Hide/show depending on any filters currently applied
-      window.hidePostOnFilterCriteria(post);
+      // window.hidePostOnFilterCriteria(post);
 
       if (window.filterResult.length) {
         console.log('Show post?', post, window.chooseToHideOrShowPostBasedOnFilterResults(post, window.filterResult));
@@ -47,6 +52,8 @@ let postUpdateObserver = new MutationObserver(mutations => {
       window.posts[mutation.target.dataset.dedupekey]
     ) {
       window.posts[mutation.target.dataset.dedupekey].text = mutation.target.innerText;
+      window.store.allPosts[mutation.target.dataset.dedupekey].text = mutation.target.innerText;
+      window.store.onUpdate();
     }
   });
 });

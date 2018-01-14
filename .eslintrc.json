@@ -24,6 +24,7 @@
     "prefer-rest-params": "off"
   },
   "globals": {
+    "jmespath": true,
     "html": true,
     "chrome": true
   }

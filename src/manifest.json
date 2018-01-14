@@ -30,13 +30,14 @@
         "inject/scripts/lib/jmespath.js",
         "inject/scripts/lib/jquery-1.12.4.min.js",
         "inject/scripts/lib/query-builder.standalone.js",
-        "inject/scripts/filters.js",
         "inject/scripts/funcs.js",
-        "inject/scripts/loading.js",
-        "inject/scripts/posts.js",
-        "inject/scripts/query.js",
-        "inject/scripts/search.js",
-        "inject/scripts/tabs.js"
+        "inject/scripts/store.js",
+        "inject/scripts/filteredFeed.js",
+        "inject/scripts/watchPosts.js",
+        "inject/scripts/components/loading.js",
+        "inject/scripts/components/query.js",
+        "inject/scripts/components/search.js",
+        "inject/scripts/components/tabs.js"
       ],
       "run_at": "document_start"
     }

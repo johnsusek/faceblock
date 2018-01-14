@@ -11,6 +11,7 @@ let queryMarkup = html`
     <div id="nocontrol-querybuilder-controls">
       <button id="nocontrol-filter-apply">Apply</button>
       <button id="nocontrol-filter-debug">Debug</button>
+      <button id="nocontrol-filter-set">Set</button>
     </div>
     <pre><code class="rainbow"></code></pre>
   </div>
@@ -52,8 +53,26 @@ function injectQueryUI() {
     filters: queryBuilderFilters
   });
 
+  document.getElementById('nocontrol-filter-set').addEventListener('click', handleSet);
   document.getElementById('nocontrol-filter-apply').addEventListener('click', handleApply);
   document.getElementById('nocontrol-filter-debug').addEventListener('click', handleDebug);
+}
+
+function handleSet() {
+  let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+
+  if (!rules) {
+    return;
+  }
+
+  const path = createPathFromRules([rules]);
+
+  if (!path) {
+    return;
+  }
+
+  window.store.currentFilterPath = path;
+  window.store.onUpdate();
 }
 
 function handleApply() {
@@ -108,13 +127,13 @@ function runQuery() {
     return;
   }
 
-  const query = createQueryFromRules([rules]);
-  let ruleResult = window.jmespath.search(Object.values(window.posts), query);
+  const path = createPathFromRules([rules]);
+  let ruleResult = window.jmespath.search(Object.values(window.posts), path);
 
   return ruleResult;
 }
 
-function createQueryFromRules(rules) {
+function createPathFromRules(rules) {
   let query = '[? ';
   query += rulesToPath(rules);
   query += ' ]';
