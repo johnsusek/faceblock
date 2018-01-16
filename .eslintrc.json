@@ -5,27 +5,29 @@
   },
   "extends": "airbnb",
   "rules": {
-    "prefer-const": "off",
-    "max-len": "off",
-    "func-names": "off",
-    "no-console": "off",
-    "no-else-return": "off",
-    "no-debugger": "off",
-    "function-paren-newline": "off",
-    "no-lonely-if": "off",
-    "comma-dangle": "off",
-    "no-use-before-define": "off",
-    "prefer-destructuring": "off",
     "arrow-parens": "off",
-    "space-before-function-paren": "off",
-    "no-param-reassign": "off",
+    "comma-dangle": "off",
     "consistent-return": "off",
+    "func-names": "off",
+    "function-paren-newline": "off",
+    "max-len": "off",
+    "no-console": "off",
+    "no-debugger": "off",
+    "no-else-return": "off",
+    "no-lonely-if": "off",
+    "no-new": "off",
+    "no-param-reassign": "off",
+    "no-use-before-define": "off",
+    "prefer-const": "off",
+    "prefer-destructuring": "off",
+    "prefer-rest-params": "off",
     "prefer-template": "off",
-    "prefer-rest-params": "off"
+    "space-before-function-paren": "off"
   },
   "globals": {
-    "jmespath": true,
+    "chrome": true,
     "html": true,
-    "chrome": true
+    "jpath": true,
+    "Vue": true
   }
 }

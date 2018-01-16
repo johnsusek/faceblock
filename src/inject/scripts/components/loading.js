@@ -1,11 +1,11 @@
 let interactiveCheckInterval = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(interactiveCheckInterval);
-    window.injectLoaderUI();
+    injectLoaderUI();
   }
 }, 10);
 
-window.loadingMarkup = window.html`
+let loadingMarkup = window.html`
   <div id="nocontrol-wait" class="nocontrol-panel">
     <div class="nocontrol-spinner">
       <div class="nocontrol-bounce1"></div>
@@ -17,11 +17,14 @@ window.loadingMarkup = window.html`
   </div>
 `;
 
-window.injectLoaderUI = function() {
+function injectLoaderUI() {
   // Hide native loading
   [...document.querySelectorAll('a')].filter(a => a.textContent === 'More Stories').forEach(a => {
     a.style.display = 'none';
   });
+
   // Place "Please wait" prompt
-  document.querySelector('[role="feed"]').insertAdjacentHTML('beforeEnd', window.loadingMarkup());
-};
+  document.querySelector('[role="feed"]').insertAdjacentHTML('beforeEnd', loadingMarkup());
+}
+
+// TODO: mutation observer to hide this when done loading

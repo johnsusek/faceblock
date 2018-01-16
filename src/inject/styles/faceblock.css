@@ -1,0 +1,38 @@
+#faceblock {
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+#faceblock label {
+  display: inline-block;
+  cursor: pointer;
+  color: #1d2129;
+  font-weight: normal;
+  padding: 2px 0;
+}
+
+#faceblock-keywords {
+  padding-left: 16px;
+}
+
+#faceblock-keywords ul {
+  padding-top: 2px;
+}
+
+#faceblock-keywords li a {
+  color: rgb(156, 0, 0);
+}
+
+#faceblock-keywords input[type='text'] {
+  width: 100px;
+}
+
+#faceblock input[type='checkbox'] {
+  margin: 0;
+  position: relative;
+  top: -1px;
+}
+
+[v-cloak] {
+  display: none;
+}

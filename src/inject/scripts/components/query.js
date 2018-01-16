@@ -1,209 +1,230 @@
-let queryCheckInterval = setInterval(() => {
-  if (document.querySelector('[role="feed"]')) {
-    clearInterval(queryCheckInterval);
-    injectQueryUI();
-  }
-}, 10);
+// let queryCheckInterval = setInterval(() => {
+//   if (document.querySelector('[role="feed"]')) {
+//     clearInterval(queryCheckInterval);
+//     injectQueryUI();
+//   }
+// }, 10);
 
-let queryMarkup = html`
-  <div id="nocontrol-query" class="nocontrol-panel">
-    <div id="nocontrol-querybuilder"></div>
-    <div id="nocontrol-querybuilder-controls">
-      <button id="nocontrol-filter-apply">Apply</button>
-      <button id="nocontrol-filter-debug">Debug</button>
-      <button id="nocontrol-filter-set">Set</button>
-    </div>
-    <pre><code class="rainbow"></code></pre>
-  </div>
-`;
+// let queryMarkup = html`
+//   <div id="nocontrol-query" class="nocontrol-panel">
+//     <div id="nocontrol-querybuilder"></div>
+//     <div id="nocontrol-querybuilder-controls">
+//       <button id="nocontrol-filter-debug">Debug</button>
+//       <button id="nocontrol-filter-set">Set</button>
+//     </div>
+//     <pre><code class="rainbow"></code></pre>
+//   </div>
+// `;
 
-const queryBuilderFilters = [
-  {
-    id: 'text',
-    label: 'text',
-    type: 'string'
-  },
-  {
-    id: 'elId',
-    label: 'el id',
-    type: 'string'
-  },
-  {
-    id: 'elMeta.timestamp',
-    label: 'timestamp',
-    type: 'integer'
-  },
-  {
-    id: 'elMeta.fte',
-    label: 'el meta fte',
-    type: 'integer',
-    input: 'radio',
-    values: {
-      1: 'Yes',
-      0: 'No'
-    },
-    operators: ['equal']
-  }
-];
+// const queryBuilderFilters = [
+//   {
+//     id: 'id',
+//     label: 'id',
+//     type: 'string'
+//   },
+//   {
+//     id: 'text',
+//     label: 'text',
+//     type: 'string'
+//   },
+//   {
+//     id: 'timestamp',
+//     label: 'timestamp',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'external_links',
+//     label: 'external_links',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'profiles',
+//     label: 'profiles',
+//     type: 'string'
+//   },
+//   {
+//     id: 'hovercards',
+//     label: 'hovercards',
+//     type: 'string'
+//   },
+//   {
+//     id: 'meta.page_insight',
+//     label: 'meta.page_insight',
+//     type: 'boolean'
+//   },
+//   {
+//     id: 'meta.fbfeed_location',
+//     label: 'meta.fbfeed_location',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'meta.call_to_action_type',
+//     label: 'meta.call_to_action_type',
+//     type: 'string'
+//   },
+//   {
+//     id: 'meta.is_sponsored',
+//     label: 'meta.is_sponsored',
+//     type: 'string'
+//   },
+//   {
+//     id: 'meta.page_insight.psn',
+//     label: 'meta.page_insight.psn',
+//     type: 'string'
+//   },
+//   {
+//     id: 'meta.page_insight.role',
+//     label: 'meta.page_insight.role',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'meta.page_insight.sl',
+//     label: 'meta.page_insight.sl',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'meta.page_insight.post_context.object_fbtype',
+//     label: 'meta.page_insight.post_context.object_fbtype',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'meta.page_insight.post_context.publish_time',
+//     label: 'meta.page_insight.post_context.publish_time',
+//     type: 'integer'
+//   },
+//   {
+//     id: 'meta.page_insight.post_context.story_name',
+//     label: 'meta.page_insight.post_context.story_name',
+//     type: 'string'
+//   }
+// ];
 
-function injectQueryUI() {
-  document.querySelector('[role="feed"]').insertAdjacentHTML('afterBegin', queryMarkup());
+// function injectQueryUI() {
+//   document
+//     .querySelector('[id^="topnews_main_stream"], [id^="feed_stream"], [role="feed"]')
+//     .insertAdjacentHTML('afterBegin', queryMarkup());
 
-  window.jQuery('#nocontrol-querybuilder').queryBuilder({
-    filters: queryBuilderFilters
-  });
+//   window.jQuery('#nocontrol-querybuilder').queryBuilder({
+//     filters: queryBuilderFilters
+//   });
 
-  document.getElementById('nocontrol-filter-set').addEventListener('click', handleSet);
-  document.getElementById('nocontrol-filter-apply').addEventListener('click', handleApply);
-  document.getElementById('nocontrol-filter-debug').addEventListener('click', handleDebug);
-}
+//   document.getElementById('nocontrol-filter-set').addEventListener('click', handleSet);
+//   document.getElementById('nocontrol-filter-debug').addEventListener('click', handleDebug);
+// }
 
-function handleSet() {
-  let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+// function handleSet() {
+//   let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
 
-  if (!rules) {
-    return;
-  }
+//   if (!rules) {
+//     return;
+//   }
 
-  const path = createPathFromRules([rules]);
+//   const path = createPathFromRules([rules]);
 
-  if (!path) {
-    return;
-  }
+//   if (!path) {
+//     return;
+//   }
 
-  window.store.currentFilterPath = path;
-  window.store.onUpdate();
-}
+//   window.store.currentFilterPath = path;
+// }
 
-function handleApply() {
-  let queryResult = runQuery();
+// function handleDebug() {
+//   let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+//   let queryResult = runQueryFromRules(rules);
+//   document.querySelector('#nocontrol-query code').innerText = JSON.stringify(queryResult, null, 2);
+//   window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
+// }
 
-  if (!queryResult) {
-    return;
-  }
+// function runQueryFromRules(rules) {
+//   if (!rules) {
+//     return;
+//   }
 
-  document.querySelector('[role="feed"]').style.transition = 'opacity 1s';
-  document.querySelector('[role="feed"]').style.opacity = 0.5;
-  setTimeout(() => {
-    displayQueryResult(queryResult);
-  }, 10);
-}
+//   const path = createPathFromRules([rules]);
+//   let ruleResult = window.jpath.search(Object.values(window.store.allPosts), path);
 
-function displayQueryResult(queryResult) {
-  // hide the feed to prevent reflows
-  document.querySelector('[role="feed"]').style.display = 'none';
-  console.log('displayQueryResult', queryResult);
+//   return ruleResult;
+// }
 
-  // loop through every post on the page, hiding them
-  let postMap = Object.values(window.posts);
-  postMap.forEach(hidePost);
+// function createPathFromRules(rules) {
+//   let query = '[? ' + rulesToPath(rules) + ' ]';
+//   console.log(query);
+//   return query;
+// }
 
-  // now loop through the query results, just showing them
-  queryResult.forEach(showPost);
+// function rulesToPath(rules, conditional) {
+//   console.log('Creating a path from these rules and this conditional!', rules, conditional);
 
-  // show the feed again now that we've modified it
-  document.querySelector('[role="feed"]').style.display = 'block';
-  document.querySelector('[role="feed"]').style.opacity = 1;
-}
+//   let ruleStr = '( ';
 
-function showPost(post) {
-  document.getElementById(post.elId).style.display = 'block';
-}
+//   let separator = conditional === 'AND' ? ' && ' : ' || ';
 
-function hidePost(post) {
-  document.getElementById(post.elId).style.display = 'none';
-}
+//   rules.forEach((rule, index) => {
+//     if (rule.rules && rule.condition) {
+//       ruleStr += rulesToPath(rule.rules, rule.condition);
+//     }
 
-function handleDebug() {
-  let queryResult = runQuery();
-  document.querySelector('#nocontrol-query code').innerText = JSON.stringify(queryResult, null, 2);
-  window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
-}
+//     if (!rule.operator) {
+//       return;
+//     }
 
-function runQuery() {
-  let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+//     let lq = '`';
+//     let rq = '`';
 
-  if (!rules) {
-    return;
-  }
+//     if (rules.type === 'string') {
+//       lq = "'";
+//       rq = "'";
+//     }
 
-  const path = createPathFromRules([rules]);
-  let ruleResult = window.jmespath.search(Object.values(window.posts), path);
+//     switch (rule.operator) {
+//       case 'equal':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} == ${lq}${rule.value}${rq}`;
+//         break;
+//       case 'not_equal':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} != ${lq}${rule.value}${rq}`;
+//         break;
+//       case 'in':
+//         ruleStr += `${index > 0 ? separator : ''} contains([${rule.value}], ${rule.field})`;
+//         break;
+//       case 'not_in':
+//         ruleStr += `${index > 0 ? separator : ''} !contains([${rule.value}], ${rule.field})`;
+//         break;
+//       case 'begins_with':
+//         ruleStr += `${index > 0 ? separator : ''} starts_with(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'not_begins_with':
+//         ruleStr += `${index > 0 ? separator : ''} !starts_with(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'contains':
+//         ruleStr += `${index > 0 ? separator : ''} contains(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'not_contains':
+//         ruleStr += `${index > 0 ? separator : ''} !contains(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'ends_with':
+//         ruleStr += `${index > 0 ? separator : ''} ends_with(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'not_ends_with':
+//         ruleStr += `${index > 0 ? separator : ''} !ends_with(${rule.field}, ${lq}${rule.value}${rq}) == \`true\``;
+//         break;
+//       case 'is_empty':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} == ''`;
+//         break;
+//       case 'is_not_empty':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} != ''`;
+//         break;
+//       case 'is_null':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} == null`;
+//         break;
+//       case 'is_not_null':
+//         ruleStr += `${index > 0 ? separator : ''} ${rule.field} != null`;
+//         break;
+//       default:
+//         console.error('could not find an operator transform for operation', rule.operator, rule);
+//     }
+//   });
 
-  return ruleResult;
-}
+//   ruleStr += ' )';
 
-function createPathFromRules(rules) {
-  let query = '[? ';
-  query += rulesToPath(rules);
-  query += ' ]';
-  console.log(query);
-  return query;
-}
-
-function rulesToPath(rules, conditional) {
-  console.log('Creating a path from these rules and this conditional!', rules, conditional);
-
-  let ruleStr = '( ';
-
-  let separator = conditional === 'AND' ? ' && ' : ' || ';
-
-  rules.forEach((rule, index) => {
-    if (rule.rules && rule.condition) {
-      ruleStr += rulesToPath(rule.rules, rule.condition);
-    }
-    if (!rule.operator) {
-      return;
-    }
-    switch (rule.operator) {
-      case 'equal':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == '${rule.value}'`;
-        break;
-      case 'not_equal':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != '${rule.value}'`;
-        break;
-      case 'in':
-        ruleStr += `${index > 0 ? separator : ''} contains([${rule.value}], ${rule.field})`;
-        break;
-      case 'not_in':
-        ruleStr += `${index > 0 ? separator : ''} !contains([${rule.value}], ${rule.field})`;
-        break;
-      case 'begins_with':
-        ruleStr += `${index > 0 ? separator : ''} starts_with(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'not_begins_with':
-        ruleStr += `${index > 0 ? separator : ''} !starts_with(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'contains':
-        ruleStr += `${index > 0 ? separator : ''} contains(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'not_contains':
-        ruleStr += `${index > 0 ? separator : ''} !contains(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'ends_with':
-        ruleStr += `${index > 0 ? separator : ''} ends_with(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'not_ends_with':
-        ruleStr += `${index > 0 ? separator : ''} !ends_with(${rule.field}, '${rule.value}') == \`true\``;
-        break;
-      case 'is_empty':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == ''`;
-        break;
-      case 'is_not_empty':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != ''`;
-        break;
-      case 'is_null':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} == null`;
-        break;
-      case 'is_not_null':
-        ruleStr += `${index > 0 ? separator : ''} ${rule.field} != null`;
-        break;
-      default:
-        console.error('could not find an operator transform for operation', rule.operator, rule);
-    }
-  });
-
-  ruleStr += ' )';
-
-  return ruleStr;
-}
+//   return ruleStr;
+// }
