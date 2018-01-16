@@ -21,6 +21,7 @@ Vue.component('filtered-feed', {
       this.redrawFeed();
     },
     currentFilterPath() {
+      console.log('currentFilterPath updated to ', this.currentFilterPath);
       if (!this.currentFilterPath) {
         console.log('Tried to apply an empty filter path to feed');
         return;

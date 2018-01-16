@@ -10,20 +10,18 @@ let app = new Vue({
       deep: true
     }
   },
-  // computed: {
-  //   currentFilterPath() {
-  //     // If there is a manual
-  //     if (this.currentFilterPath2) {
-  //     }
-  //     // TODO: If keywords, append those to filter
-  //     }
-  //   }
-  // },
   created() {
     let savedState = this.stateThaw();
     if (savedState) {
       this.store = savedState;
     }
+    this.store.blocklists.subscriptions.forEach(subscription => {
+      const DURATION_2_DAYS = 172800;
+      if (+new Date() - subscription.fetchDate > DURATION_2_DAYS) {
+        // It's been longer than two days, refresh the list
+        window.store.fetchSubscription(subscription);
+      }
+    });
   },
   methods: {
     stateFreeze() {

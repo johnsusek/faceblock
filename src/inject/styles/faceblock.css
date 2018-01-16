@@ -11,14 +11,15 @@
   padding: 2px 0;
 }
 
-#faceblock-keywords {
-  padding-left: 16px;
+#faceblock h5 {
+  margin-top: 10px;
 }
 
 #faceblock-keywords ul {
   padding-top: 2px;
 }
 
+#faceblock-blocklists li a,
 #faceblock-keywords li a {
   color: rgb(156, 0, 0);
 }

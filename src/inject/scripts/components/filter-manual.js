@@ -3,7 +3,8 @@
 Vue.component('filter-manual', {
   template: html`
     <div id="faceblock-filter-manual">
-      Filter: {{ manualPath }}
+      <h5>Filter</h5>
+      {{ manualPath }}
       <input 
         v-model="newManualPath" 
         type="text" 

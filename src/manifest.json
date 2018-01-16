@@ -41,8 +41,9 @@
         "inject/scripts/components/filter-manual.js",
         "inject/scripts/components/filter-toggles.js",
         "inject/scripts/components/filter-keywords.js",
+        "inject/scripts/components/filter-query.js",
+        "inject/scripts/components/filter-blocklists.js",
         "inject/scripts/components/loading.js",
-        "inject/scripts/components/query.js",
         "inject/scripts/components/search.js",
         "inject/scripts/components/tabs.js"
       ],

@@ -3,13 +3,14 @@
 Vue.component('filters', {
   template: html`
     <div id="faceblock-filters">
-      Combined filter: {{ combinedFilter }} <br>
-      <filter-toggles></filter-toggles> <br>
-      <filter-manual></filter-manual> <br>
-      <button @click="applyToFeed">Apply</button>
+      <filter-toggles></filter-toggles> 
+      <filter-keywords></filter-keywords> 
+      <filter-manual></filter-manual> 
+      <filter-blocklists></filter-blocklists> 
+      {{ combinedFilter }} 
     </div>
   `(),
-  store: ['currentFilterPath', 'keywords', 'manualPath', 'toggles'],
+  store: ['blocklists', 'currentFilterPath', 'keywords', 'manualPath', 'toggles'],
   computed: {
     combinedFilter() {
       let filterPath = '[]';
@@ -21,28 +22,40 @@ Vue.component('filters', {
 
       let keywordsPath = '';
 
-      this.keywords.list.forEach(keyword => {
+      this.keywords.forEach(keyword => {
         if (!keyword) {
           return;
         }
-        keywordsPath += ` | [? contains(text, '${keyword}') == \`true\`) ]`;
+        keywordsPath += ` | [? contains(text, '${keyword}') == \`false\` ]`;
       });
 
       if (keywordsPath) {
         filterPath += keywordsPath;
       }
 
+      let blocklistKeywordsPath = '';
+
+      this.blocklists.subscriptions.forEach(subscription => {
+        subscription.keywords.forEach(keyword => {
+          if (!keyword) {
+            return;
+          }
+          blocklistKeywordsPath += ` | [? contains(text, '${keyword}') == \`false\` ]`;
+        });
+      });
+
+      if (blocklistKeywordsPath) {
+        filterPath += blocklistKeywordsPath;
+      }
+
       if (this.manualPath) {
         filterPath += ' | ' + this.manualPath;
       }
 
+      console.log('Setting currentFilterpath to', filterPath);
+      this.currentFilterPath = filterPath;
+
       return filterPath;
-    }
-  },
-  methods: {
-    applyToFeed() {
-      console.log('Apply path to this.currentFilterPath', this.combinedFilter);
-      this.currentFilterPath = this.combinedFilter;
     }
   }
 });

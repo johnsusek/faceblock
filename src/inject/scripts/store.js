@@ -14,50 +14,38 @@ window.store = {
         label: 'Pages',
         checked: false,
         filter: '[? meta.page_insight == null]'
-      },
-      {
-        value: 'groups',
-        label: 'Groups',
-        checked: false,
-        filter: ''
-      },
-      {
-        value: 'external_links',
-        label: 'External links',
-        checked: false,
-        filter: ''
-      },
-      {
-        value: 'friend_commented_on',
-        label: "'Friend commented on'",
-        checked: false,
-        filter: ''
-      },
-      {
-        value: 'video',
-        label: 'Video',
-        checked: false,
-        filter: ''
-      },
-      {
-        value: 'shared_post',
-        label: 'Shared post',
-        checked: false,
-        filter: ''
-      },
-      {
-        value: 'has_attachment',
-        label: 'Has attachment',
-        checked: false,
-        filter: ''
       }
     ],
-    keywords: {
-      value: 'keywords',
-      label: 'Keywords',
-      checked: false,
-      filter: '',
-      list: []
+    keywords: [],
+    blocklists: {
+      subscriptions: [],
+      lists: [
+        {
+          value: 'us_politics',
+          label: 'US Politics',
+          url: 'https://download.declaredintent.com/faceblock/us_politics.json',
+          fetchDate: 0,
+          keywords: []
+        }
+      ]
     }
+  },
+  fetchSubscription(list) {
+    // Fetch the list and put into our state
+    return fetch(list.url)
+      .then(res => {
+        res.json().then(json => {
+          // TODO: upon startup, check this date and refresh the list if > 2 days old
+          list.fetchDate = +new Date();
+          if (json.version === 1) {
+            Vue.set(list, 'keywords', json.payload.keywords);
+          } else {
+            console.log('unknown version number for subscription, bailing', list.url);
+          }
+        });
+      })
+      .catch(() => {
+        console.log('There was an error fetching subscription', list.url);
+      });
   }
 };
