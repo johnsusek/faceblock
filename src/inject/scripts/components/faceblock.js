@@ -10,9 +10,13 @@ let app = new Vue({
       </h4>
       <filters></filters>
       <filtered-feed></filtered-feed>
+      <div>
+        <a :href="aboutUrl">About</a>
+      </div>
     </div>
   `(),
   data: {
+    aboutUrl: chrome.runtime.getURL('about.html'),
     store: window.store.state
   },
   watch: {
@@ -26,22 +30,12 @@ let app = new Vue({
   created() {
     let savedState = this.stateThaw();
     if (savedState) {
+      // TODO check version on saved state, and if different, run migration script
       this.store = savedState;
     }
-    this.store.blocklists.subscriptions.forEach(subscription => {
-      if (!subscription) return;
-      const DURATION_2_DAYS = 172800;
-      if (+new Date() - subscription.fetchDate > DURATION_2_DAYS) {
-        // It's been longer than two days, refresh the list
-        window.store.fetchSubscription(subscription);
-      }
-    });
+    window.store.refreshSubscriptions(this.store.blocklists.subscriptions);
   },
   methods: {
-    toggleFilters() {
-      console.log('toggling filters');
-      this.store.filters.visible = !this.store.filters.visible;
-    },
     stateFreeze() {
       if (this.store) {
         // console.log('Freezing state', JSON.stringify(this.store));

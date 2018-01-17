@@ -6,11 +6,11 @@
 // }, 10);
 
 // let searchMarkup = html`
-//   <div id="nocontrol-search">
+//   <div id="faceblock-search">
 //     <input type="text">
-//     <div id="nocontrol-search-controls">
-//       <button id="nocontrol-search-debug">Debug</button>
-//       <button id="nocontrol-search-set">Set</button>
+//     <div id="faceblock-search-controls">
+//       <button id="faceblock-search-debug">Debug</button>
+//       <button id="faceblock-search-set">Set</button>
 //     </div>
 //     <pre><code class="rainbow"></code></pre>
 //   </div>
@@ -21,24 +21,24 @@
 //     .querySelector('[id^="topnews_main_stream"], [id^="feed_stream"], [role="feed"]')
 //     .insertAdjacentHTML('afterBegin', searchMarkup());
 
-//   document.querySelector('#nocontrol-search input').addEventListener('keydown', e => {
+//   document.querySelector('#faceblock-search input').addEventListener('keydown', e => {
 //     if (e.which === 13) {
 //       handleDebug();
 //     }
 //   });
 
-//   document.getElementById('nocontrol-search-set').addEventListener('click', handleSet);
-//   document.getElementById('nocontrol-search-debug').addEventListener('click', handleDebug);
+//   document.getElementById('faceblock-search-set').addEventListener('click', handleSet);
+//   document.getElementById('faceblock-search-debug').addEventListener('click', handleDebug);
 // }
 
 // function handleSet() {
-//   window.store.currentFilterPath = document.querySelector('#nocontrol-search input').value;
+//   window.store.currentFilterPath = document.querySelector('#faceblock-search input').value;
 // }
 
 // function handleDebug() {
-//   let path = document.querySelector('#nocontrol-search input').value;
+//   let path = document.querySelector('#faceblock-search input').value;
 //   let result = jpath.search(Object.values(window.store.allPosts), path);
 
-//   document.querySelector('#nocontrol-search code').innerText = JSON.stringify(result, null, 2);
-//   window.hljs.highlightBlock(document.querySelector('#nocontrol-search code'));
+//   document.querySelector('#faceblock-search code').innerText = JSON.stringify(result, null, 2);
+//   window.hljs.highlightBlock(document.querySelector('#faceblock-search code'));
 // }

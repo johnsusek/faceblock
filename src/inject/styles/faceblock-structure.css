@@ -62,3 +62,10 @@
 a.delete {
   padding: 0 2px;
 }
+
+#faceblock-wait {
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+  color: #4b4f56;
+}

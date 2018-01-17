@@ -64,9 +64,6 @@ Vue.component('filtered-feed', {
           // update our debugging tooltip
           el.title = JSON.stringify(post, null, 2);
 
-          // so try to get the data from it for the posts array,
-          // since some of that wasn't available on page load.
-          // then update its attributes from the updated element
           Vue.set(this.allPosts, dedupekey, post);
         }
       });

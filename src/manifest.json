@@ -8,7 +8,13 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "permissions": ["tabs", "https://www.facebook.com/*"],
+  "permissions": [
+    "tabs",
+    "https://www.facebook.com/*",
+    "https://log.declaredintent.com/*",
+    "https://static-na.payments-amazon.com/*"
+  ],
+  "content_security_policy": "script-src 'self' https://*.payments-amazon.com https://*.amazon.com; object-src 'self'",
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],
@@ -31,6 +37,8 @@
         "inject/scripts/lib/jmespath.js",
         "inject/scripts/lib/jquery-1.12.4.min.js",
         "inject/scripts/lib/query-builder.standalone.js",
+        "inject/scripts/comm.js",
+        "inject/scripts/errors.js",
         "inject/scripts/funcs.js",
         "inject/scripts/store.js",
         "inject/scripts/components/filteredFeed.js",
@@ -47,5 +55,6 @@
       ],
       "run_at": "document_start"
     }
-  ]
+  ],
+  "web_accessible_resources": ["about.html"]
 }

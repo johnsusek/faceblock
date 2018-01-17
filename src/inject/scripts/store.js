@@ -26,7 +26,7 @@ window.store = {
         {
           value: 'us_politics',
           label: 'US Politics',
-          url: 'https://download.declaredintent.com/faceblock/us_politics.json',
+          url: 'https://faceblock.declaredintent.com/blocklists/us_politics.json',
           fetchDate: 0,
           keywords: []
         }
@@ -34,21 +34,28 @@ window.store = {
     }
   },
   fetchSubscription(list) {
-    // Fetch the list and put into our state
-    return fetch(list.url)
-      .then(res => {
-        res.json().then(json => {
-          // TODO: upon startup, check this date and refresh the list if > 2 days old
-          list.fetchDate = +new Date();
-          if (json.version === 1) {
-            Vue.set(list, 'keywords', json.payload.keywords);
-          } else {
-            console.log('unknown version number for subscription, bailing', list.url);
-          }
-        });
+    return window
+      .getJSON(list.url)
+      .then(json => {
+        list.fetchDate = +new Date();
+        if (json.version === 1) {
+          Vue.set(list, 'keywords', json.payload.keywords);
+        } else {
+          console.log('unknown version number for subscription, bailing', list.url);
+        }
       })
-      .catch(() => {
+      .catch(ex => {
+        window.logException(ex);
         console.log('There was an error fetching subscription', list.url);
       });
+  },
+  refreshSubscriptions(subscriptions) {
+    subscriptions.forEach(subscription => {
+      if (!subscription) return;
+      const DURATION_2_DAYS = 172800;
+      if (+new Date() - subscription.fetchDate > DURATION_2_DAYS) {
+        window.store.fetchSubscription(subscription);
+      }
+    });
   }
 };

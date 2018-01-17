@@ -2,10 +2,10 @@
 
 Vue.component('filter-query', {
   template: html`
-    <section id="nocontrol-query" class="nocontrol-panel">
+    <section id="faceblock-query" class="faceblock-panel">
       <h5>Query</h5>
-      <div id="nocontrol-querybuilder"></div>
-      <div id="nocontrol-querybuilder-controls">
+      <div id="faceblock-querybuilder"></div>
+      <div id="faceblock-querybuilder-controls">
         <button @click="handleSet">Set</button>
         <button @click="handleDebug">Debug</button>
       </div>
@@ -13,13 +13,13 @@ Vue.component('filter-query', {
     </section>
   `(),
   created() {
-    window.jQuery('#nocontrol-querybuilder').queryBuilder({
+    window.jQuery('#faceblock-querybuilder').queryBuilder({
       filters: queryBuilderFilters
     });
   },
   methods: {
     handleSet() {
-      let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+      let rules = window.jQuery('#faceblock-querybuilder').queryBuilder('getRules');
 
       if (!rules) {
         return;
@@ -35,10 +35,10 @@ Vue.component('filter-query', {
     },
 
     handleDebug() {
-      let rules = window.jQuery('#nocontrol-querybuilder').queryBuilder('getRules');
+      let rules = window.jQuery('#faceblock-querybuilder').queryBuilder('getRules');
       let queryResult = runQueryFromRules(rules);
-      document.querySelector('#nocontrol-query code').innerText = JSON.stringify(queryResult, null, 2);
-      window.hljs.highlightBlock(document.querySelector('#nocontrol-query code'));
+      document.querySelector('#faceblock-query code').innerText = JSON.stringify(queryResult, null, 2);
+      window.hljs.highlightBlock(document.querySelector('#faceblock-query code'));
     }
   }
 });

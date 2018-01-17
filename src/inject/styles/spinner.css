@@ -1,6 +1,6 @@
-/* nocontrol-Spinner  */
+/* faceblock-Spinner  */
 
-.nocontrol-spinner {
+.faceblock-spinner {
   display: inline-block;
   margin: 0 auto 0;
   vertical-align: text-bottom;
@@ -8,7 +8,7 @@
   text-align: left;
 }
 
-.nocontrol-spinner > div {
+.faceblock-spinner > div {
   width: 5px;
   height: 5px;
   background-color: #999;
@@ -19,12 +19,12 @@
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.nocontrol-spinner .nocontrol-bounce1 {
+.faceblock-spinner .faceblock-bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.nocontrol-spinner .nocontrol-bounce2 {
+.faceblock-spinner .faceblock-bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }

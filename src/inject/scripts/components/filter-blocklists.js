@@ -6,7 +6,7 @@ Vue.component('filter-blocklists', {
       <h5>Blocklists (beta)</h5>
       <ul>
         <li v-for="subscription in blocklists.subscriptions" v-if="subscription">
-          <a _target="blank" :href="subscription.url">{{ subscription.label }}</a>
+          <a target="_blank" :href="subscription.url">{{ subscription.label }}</a>
           <a @click="removeSubscription(subscription)" class="delete">x</a>
         </li>
       </ul>

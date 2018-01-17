@@ -37,3 +37,7 @@ a.delete:hover {
 #faceblock-filters li {
   list-style: none;
 }
+
+#faceblock-wait {
+  padding: 10px;
+}
