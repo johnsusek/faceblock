@@ -25,9 +25,13 @@
   background: #f6f7f9;
 }
 
-#faceblock-blocklists li a,
-#faceblock-keywords li a {
+a.delete {
   color: rgb(156, 0, 0);
+}
+
+a.delete:hover {
+  background: rgb(156, 0, 0);
+  color: #fff;
 }
 
 #faceblock-filters li {

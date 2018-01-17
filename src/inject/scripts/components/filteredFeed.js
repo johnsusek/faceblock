@@ -56,15 +56,7 @@ Vue.component('filtered-feed', {
           let dedupekey = el.dataset.dedupekey;
           let post = this.allPosts[dedupekey];
 
-          if (!post) {
-            console.log(
-              '!! Could not find post with key when trying to update a mutated post',
-              dedupekey,
-              el.dataset,
-              this.allPosts
-            );
-            return;
-          }
+          if (!post) return;
 
           // add the new information
           post = updatePostFromEl(post, el);

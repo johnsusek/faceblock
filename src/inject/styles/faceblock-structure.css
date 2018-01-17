@@ -58,3 +58,7 @@
 #faceblock section li {
   margin: 4px 0;
 }
+
+a.delete {
+  padding: 0 2px;
+}

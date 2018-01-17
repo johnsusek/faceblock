@@ -7,7 +7,7 @@ Vue.component('filter-keywords', {
       <ul>
         <li v-for="keyword in keywords">
           <span>{{ keyword }}</span>
-          <a @click="removeKeyword(keyword)">x</a>
+          <a @click="removeKeyword(keyword)" class="delete">x</a>
         </li>
       </ul>
       <div>

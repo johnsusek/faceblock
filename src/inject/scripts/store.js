@@ -1,7 +1,7 @@
 window.store = {
   state: {
     filters: {
-      visible: true
+      visible: false
     },
     currentFilterPath: '[]',
     manualPath: '',
