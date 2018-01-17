@@ -8,15 +8,3 @@ div[id^='hyperfeed_story_id_'] {
 div[id^='more_pager_pagelet'] .async_saving * {
   display: none !important;
 }
-
-/* Loading box */
-/* #nocontrol-wait {
-} */
-
-/* No more stories message */
-/* .nocontrol-no-more-stories {
-  text-align: center;
-  padding: 20px;
-  font-size: 12px;
-  margin-bottom: 5px;
-} */

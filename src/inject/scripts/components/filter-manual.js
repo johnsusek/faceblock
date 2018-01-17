@@ -2,14 +2,14 @@
 
 Vue.component('filter-manual', {
   template: html`
-    <div id="faceblock-filter-manual">
+    <section id="faceblock-filter-manual">
       <h5>Filter</h5>
       {{ manualPath }}
       <input 
         v-model="newManualPath" 
         type="text" 
         @keyup.enter="applyNewManualPath">
-    </div>
+    </section>
   `(),
   store: ['manualPath'],
   data() {

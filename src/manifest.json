@@ -17,9 +17,9 @@
       "css": [
         "inject/styles/lib/highlight.min.css",
         "inject/styles/lib/query-builder.default.css",
-        "inject/styles/faceblock.css",
-        "inject/styles/filters.css",
-        "inject/styles/nocontrol.css",
+        "inject/styles/faceblock-style.css",
+        "inject/styles/faceblock-structure.css",
+        "inject/styles/hidenews.css",
         "inject/styles/spinner.css",
         "inject/styles/stories.css"
       ]

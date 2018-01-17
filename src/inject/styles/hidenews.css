@@ -1,0 +1,8 @@
+/* Hide news in sidebar for my sanity during development */
+
+#pagelet_trending_tags_and_topics {
+  display: none !important;
+}
+#pagelet_ego_pane .pagelet:first-child ._1-ia {
+  padding-top: 0 !important;
+}

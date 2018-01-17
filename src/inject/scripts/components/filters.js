@@ -2,15 +2,13 @@
 
 Vue.component('filters', {
   template: html`
-    <div id="faceblock-filters">
+    <div id="faceblock-filters" v-show="filters.visible">
       <filter-toggles></filter-toggles> 
       <filter-keywords></filter-keywords> 
-      <filter-manual></filter-manual> 
       <filter-blocklists></filter-blocklists> 
-      {{ combinedFilter }} 
     </div>
   `(),
-  store: ['blocklists', 'currentFilterPath', 'keywords', 'manualPath', 'toggles'],
+  store: ['filters', 'blocklists', 'currentFilterPath', 'keywords', 'manualPath', 'toggles'],
   computed: {
     combinedFilter() {
       let filterPath = '[]';
@@ -36,6 +34,7 @@ Vue.component('filters', {
       let blocklistKeywordsPath = '';
 
       this.blocklists.subscriptions.forEach(subscription => {
+        if (!subscription) return;
         subscription.keywords.forEach(keyword => {
           if (!keyword) {
             return;
@@ -52,10 +51,13 @@ Vue.component('filters', {
         filterPath += ' | ' + this.manualPath;
       }
 
-      console.log('Setting currentFilterpath to', filterPath);
-      this.currentFilterPath = filterPath;
-
       return filterPath;
+    }
+  },
+  watch: {
+    combinedFilter() {
+      console.log('Setting currentFilterpath to...', this.combinedFilter);
+      this.currentFilterPath = this.combinedFilter;
     }
   }
 });

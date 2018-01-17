@@ -1,0 +1,60 @@
+#faceblock {
+  margin-bottom: 10px;
+}
+
+#faceblock h4 {
+  display: flex;
+  height: 17px;
+}
+
+#faceblock h4 span {
+  flex: 1;
+}
+
+#faceblock h4 a {
+  flex: 0;
+  visibility: hidden;
+}
+
+#faceblock h4:hover a {
+  visibility: visible;
+}
+
+#faceblock-filters {
+  margin-top: 5px;
+  padding: 5px 6px 7px;
+}
+
+#faceblock input[type='text'] {
+  width: 100px;
+}
+
+#faceblock input[type='checkbox'] {
+  margin: 0;
+  position: relative;
+  top: -1px;
+}
+
+#faceblock section {
+  margin-top: 10px;
+}
+
+#faceblock section:first-of-type {
+  margin-top: 0;
+}
+
+#faceblock section h5 {
+  margin-top: 5px;
+}
+
+#faceblock section:first-of-type h5 {
+  margin-top: 0;
+}
+
+#faceblock section ul {
+  line-height: 1;
+}
+
+#faceblock section li {
+  margin: 4px 0;
+}

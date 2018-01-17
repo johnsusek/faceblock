@@ -2,31 +2,26 @@
 
 Vue.component('filter-blocklists', {
   template: html`
-    <div id="faceblock-blocklists">
-      <section>
-        <label>
-          <span></span>
-          <h5>Blocklists (beta)</h5>
-          <ul>
-            <li v-for="subscription in blocklists.subscriptions">
-              {{ subscription.label }}
-              <a @click="removeSubscription(subscription)">x</a>
-            </li>
-          </ul>
-          <div>
-            <select v-model="selected">
-              <option disabled value=""></option>
-              <option :value="list.value" v-for="list in blocklists.lists">
-                {{ list.label }}
-              </option>
-            </select>
-            <a @click="addSubscription">Add</a>
-            &#183;
-            <a @click="previewSubscription">View</a>
-          </div>
-        </label>
-      </section>
-    </div>
+    <section id="faceblock-blocklists">
+      <h5>Blocklists (beta)</h5>
+      <ul>
+        <li v-for="subscription in blocklists.subscriptions" v-if="subscription">
+          {{ subscription.label }}
+          <a @click="removeSubscription(subscription)">x</a>
+        </li>
+      </ul>
+      <div>
+        <select v-model="selected">
+          <option disabled value=""></option>
+          <option :value="list.value" v-for="list in blocklists.lists">
+            {{ list.label }}
+          </option>
+        </select>
+        <a @click="addSubscription">Add</a>
+        &#183;
+        <a @click="previewSubscription">View</a>
+      </div>
+    </section>
   `(),
   store: ['blocklists', 'toggles', 'keywords'],
   data() {

@@ -1,4 +1,17 @@
 let app = new Vue({
+  template: html`
+    <div id="faceblock">
+      <h4 @click="store.filters.visible = !store.filters.visible">
+        <span>FaceBlock</span>
+        <a>
+          <span v-show="store.filters.visible">Hide</span>
+          <span v-show="!store.filters.visible">Show</span>
+        </a>
+      </h4>
+      <filters></filters>
+      <filtered-feed></filtered-feed>
+    </div>
+  `(),
   data: {
     store: window.store.state
   },
@@ -16,6 +29,7 @@ let app = new Vue({
       this.store = savedState;
     }
     this.store.blocklists.subscriptions.forEach(subscription => {
+      if (!subscription) return;
       const DURATION_2_DAYS = 172800;
       if (+new Date() - subscription.fetchDate > DURATION_2_DAYS) {
         // It's been longer than two days, refresh the list
@@ -24,6 +38,10 @@ let app = new Vue({
     });
   },
   methods: {
+    toggleFilters() {
+      console.log('toggling filters');
+      this.store.filters.visible = !this.store.filters.visible;
+    },
     stateFreeze() {
       if (this.store) {
         // console.log('Freezing state', JSON.stringify(this.store));
@@ -39,20 +57,10 @@ let app = new Vue({
   }
 });
 
-let appMarkup = html`
-  <div id="faceblock">
-    <h4 class="navHeader">
-      <span class="sectionDragHandle">FaceBlock</span>
-    </h4>
-    <filters></filters>
-    <filtered-feed></filtered-feed>
-  </div>
-`;
-
 let faceblockCheckInterval = setInterval(() => {
   if (document.querySelector('#universalNav')) {
     clearInterval(faceblockCheckInterval);
-    document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', appMarkup());
-    app.$mount('#faceblock');
+    document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
+    app.$mount('#faceblock-inject');
   }
 }, 10);

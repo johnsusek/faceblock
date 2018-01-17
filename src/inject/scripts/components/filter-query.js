@@ -2,14 +2,15 @@
 
 Vue.component('filter-query', {
   template: html`
-    <div id="nocontrol-query" class="nocontrol-panel">
+    <section id="nocontrol-query" class="nocontrol-panel">
+      <h5>Query</h5>
       <div id="nocontrol-querybuilder"></div>
       <div id="nocontrol-querybuilder-controls">
         <button @click="handleSet">Set</button>
         <button @click="handleDebug">Debug</button>
       </div>
       <pre><code class="rainbow"></code></pre>
-    </div>
+    </section>
   `(),
   created() {
     window.jQuery('#nocontrol-querybuilder').queryBuilder({

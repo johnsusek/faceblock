@@ -2,24 +2,19 @@
 
 Vue.component('filter-keywords', {
   template: html`
-    <div id="faceblock-keywords">
-      <section>
-        <label>
-          <span></span>
-          <h5>Blockwords</h5>
-        </label>
-        <ul>
-          <li v-for="keyword in keywords">
-            <span>{{ keyword }}</span>
-            <a @click="removeKeyword(keyword)">x</a>
-          </li>
-        </ul>
-        <div>
-          <input type="text" v-model="newKeyword" @keyup.enter="addKeyword">
-          <button @click="addKeyword">Add</button>
-        </div>
-      </section>
-    </div>
+    <section id="faceblock-keywords">
+      <h5>Blockwords</h5>
+      <ul>
+        <li v-for="keyword in keywords">
+          <span>{{ keyword }}</span>
+          <a @click="removeKeyword(keyword)">x</a>
+        </li>
+      </ul>
+      <div>
+        <input type="text" v-model="newKeyword" @keyup.enter="addKeyword">
+        <button @click="addKeyword">Add</button>
+      </div>
+    </section>
   `(),
   store: ['keywords'],
   data() {

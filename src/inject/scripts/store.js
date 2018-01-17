@@ -1,5 +1,8 @@
 window.store = {
   state: {
+    filters: {
+      visible: true
+    },
     currentFilterPath: '[]',
     manualPath: '',
     toggles: [
