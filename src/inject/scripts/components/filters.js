@@ -56,7 +56,6 @@ Vue.component('filters', {
   },
   watch: {
     combinedFilter() {
-      console.log('Setting currentFilterpath to...', this.combinedFilter);
       this.currentFilterPath = this.combinedFilter;
     }
   }

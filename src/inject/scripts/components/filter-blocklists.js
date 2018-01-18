@@ -3,7 +3,7 @@
 Vue.component('filter-blocklists', {
   template: html`
     <section id="faceblock-blocklists">
-      <h5>Blocklists (beta)</h5>
+      <h5 title="Pre-built lists of common blockwords. Click 'View' to see the list. Click 'Add' to begin blocking any posts that contain any of the words in that blocklist.">Blocklists (beta)</h5>
       <ul>
         <li v-for="subscription in blocklists.subscriptions" v-if="subscription">
           <a target="_blank" :href="subscription.url">{{ subscription.label }}</a>

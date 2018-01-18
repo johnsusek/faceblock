@@ -15,15 +15,15 @@ Vue.component('filtered-feed', {
     // is not actually a Vue component :)
     allPosts() {
       if (!this.allPosts) {
-        console.log('allPosts was empty when attempting to redraw the feed');
+        // console.log('allPosts was empty when attempting to redraw the feed');
         return;
       }
       this.redrawFeed();
     },
     currentFilterPath() {
-      console.log('currentFilterPath updated to ', this.currentFilterPath);
+      // console.log('currentFilterPath updated to ', this.currentFilterPath);
       if (!this.currentFilterPath) {
-        console.log('Tried to apply an empty filter path to feed');
+        // console.log('Tried to apply an empty filter path to feed');
         return;
       }
       this.redrawFeed();
@@ -65,6 +65,7 @@ Vue.component('filtered-feed', {
           el.title = JSON.stringify(post, null, 2);
 
           Vue.set(this.allPosts, dedupekey, post);
+          this.redrawFeed();
         }
       });
     }).observe(document, {
@@ -75,11 +76,10 @@ Vue.component('filtered-feed', {
   methods: {
     redrawFeed() {
       if (!document.querySelector('[role="feed"]')) {
-        console.log('Could not find feed when attempting to redraw it');
         return;
       }
 
-      console.log('Redrawing feed using filter', this.currentFilterPath);
+      // console.log('Redrawing feed using filter', this.currentFilterPath);
 
       // Optimization: hide the feed before changing stories visibility,
       // to prevent a bunch of reflows. Need to check if this actually
@@ -90,6 +90,9 @@ Vue.component('filtered-feed', {
       // the mutation observers, so we can check if each post passes
       // the current filter, and show or hide it.
       Object.values(this.allPosts).forEach(post => {
+        if (!document.getElementById(post.el)) {
+          return;
+        }
         const result = jpath.search([post], this.currentFilterPath);
         if (result && result.length) {
           // jpath returned the post, so it passed the filter - show it

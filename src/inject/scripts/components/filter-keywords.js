@@ -3,7 +3,7 @@
 Vue.component('filter-keywords', {
   template: html`
     <section id="faceblock-keywords">
-      <h5>Blockwords</h5>
+      <h5 title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive.">Blockwords</h5>
       <ul>
         <li v-for="keyword in keywords">
           <span>{{ keyword }}</span>
@@ -25,7 +25,7 @@ Vue.component('filter-keywords', {
   methods: {
     addKeyword() {
       let value = this.newKeyword && this.newKeyword.trim();
-      if (!value) {
+      if (!value || value.length < 3) {
         return;
       }
       this.keywords.push(value);

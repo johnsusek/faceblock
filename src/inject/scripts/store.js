@@ -46,7 +46,6 @@ window.store = {
       })
       .catch(ex => {
         window.logException(ex);
-        console.log('There was an error fetching subscription', list.url);
       });
   },
   refreshSubscriptions(subscriptions) {

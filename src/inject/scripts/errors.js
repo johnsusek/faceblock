@@ -26,3 +26,18 @@ window.logger = function(payload, uuid = window.generateUuid()) {
       console.error('Got error trying to log error, giving up.');
     });
 };
+
+function errorHandler(err) {
+  let error = {
+    message: err.toString(),
+    stack: err.stack
+  };
+
+  try {
+    window.logError(error);
+  } catch (ex) {}
+}
+
+Vue.config.errorHandler = errorHandler;
+window.onerror = errorHandler;
+window.addEventListener('error', errorHandler);

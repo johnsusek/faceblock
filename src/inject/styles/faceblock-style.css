@@ -2,13 +2,24 @@
   user-select: none;
 }
 
+#faceblock.open {
+  user-select: none;
+  outline: 4px solid #f6f7f9;
+  background: #f6f7f9;
+}
+
 #faceblock label {
   cursor: pointer;
   color: #1d2129;
   font-weight: normal;
 }
 
+#faceblock.open h4 {
+  background: #f6f7f9;
+}
+
 #faceblock h4 {
+  cursor: pointer;
   color: rgb(75, 79, 86);
   font-size: 13px;
   font-weight: 700;
@@ -39,5 +50,13 @@ a.delete:hover {
 }
 
 #faceblock-wait {
-  padding: 10px;
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+  color: #4b4f56;
+}
+
+#faceblock > footer {
+  text-align: center;
+  background: #f6f7f9;
 }

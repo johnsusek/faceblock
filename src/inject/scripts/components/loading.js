@@ -24,7 +24,8 @@ function injectLoaderUI() {
   });
 
   // Place "Please wait" prompt
-  document.querySelector('[role="feed"]').insertAdjacentHTML('beforeEnd', loadingMarkup());
+  document.querySelector('[role="feed"]') &&
+    document.querySelector('[role="feed"]').insertAdjacentHTML('beforeEnd', loadingMarkup());
 }
 
 // TODO: mutation observer to hide this when done loading

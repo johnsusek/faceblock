@@ -64,8 +64,13 @@ a.delete {
 }
 
 #faceblock-wait {
-  background: #fff;
-  border: 1px solid #dddfe2;
-  border-radius: 3px;
-  color: #4b4f56;
+  padding: 10px;
+}
+
+#faceblock > footer {
+  padding: 5px 0;
+}
+
+#faceblock-blocklists select {
+  margin-right: 4px;
 }

@@ -1,22 +1,25 @@
 let app = new Vue({
   template: html`
-    <div id="faceblock">
-      <h4 @click="store.filters.visible = !store.filters.visible">
-        <span>FaceBlock</span>
-        <a>
-          <span v-show="store.filters.visible">Hide</span>
-          <span v-show="!store.filters.visible">Show</span>
-        </a>
-      </h4>
-      <filters></filters>
-      <filtered-feed></filtered-feed>
-      <div>
-        <a :href="aboutUrl">About</a>
+    <div>
+      <div id="faceblock" :class="{ open: store.filters.visible }">
+        <h4 @click="store.filters.visible = !store.filters.visible">
+          <span>FaceBlock</span>
+          <a>
+            <span v-show="store.filters.visible">Hide</span>
+            <span v-show="!store.filters.visible">Show</span>
+          </a>
+        </h4>
+        <filters></filters>
+        <filtered-feed></filtered-feed>
+        <footer v-show="store.filters.visible">
+          <hr>
+          <a :href="aboutUrl" target="_blank">Support</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
+        </footer>
       </div>
     </div>
   `(),
   data: {
-    aboutUrl: chrome.runtime.getURL('about.html'),
+    aboutUrl: 'https://faceblock.declaredintent.com/about/',
     store: window.store.state
   },
   watch: {
