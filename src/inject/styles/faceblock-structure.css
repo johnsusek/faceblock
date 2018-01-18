@@ -67,10 +67,14 @@ a.delete {
   padding: 10px;
 }
 
-#faceblock > footer {
-  padding: 5px 0;
-}
-
 #faceblock-blocklists select {
   margin-right: 4px;
+}
+
+#faceblock footer {
+  margin-top: 6px;
+}
+
+#faceblock hr {
+  margin: 3px 0;
 }
