@@ -1,0 +1,4 @@
+.faceblock_hide_trending #pagelet_trending_tags_and_topics,
+.faceblock_hide_sponsored #pagelet_ego_pane {
+  display: none !important;
+}

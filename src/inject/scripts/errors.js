@@ -1,17 +1,19 @@
 window.logException = function(ex) {
+  console.log(ex);
+  debugger;
   const uuid = window.generateUuid();
   const exception = {
     message: ex.toString(),
     stack: ex.stack
   };
   window.logger({ exception }, uuid);
-  console.info(`[faceblock] Caught exception ${uuid}. Please include this identifier if reporting a bug.`, exception);
+  console.error(`[faceblock] Caught exception ${uuid}. Please include this identifier if reporting a bug.`, exception);
 };
 
 window.logError = function(error) {
   const uuid = window.generateUuid();
   window.logger({ error }, uuid);
-  console.info(`[faceblock] Caught error ${uuid}. Please include this identifier if reporting a bug.`, error);
+  console.error(`[faceblock] Caught error ${uuid}. Please include this identifier if reporting a bug.`, error);
 };
 
 window.logger = function(payload, uuid = window.generateUuid()) {
@@ -28,10 +30,23 @@ window.logger = function(payload, uuid = window.generateUuid()) {
 };
 
 function errorHandler(err) {
-  let error = {
-    message: err.toString(),
-    stack: err.stack
-  };
+  let error = {};
+
+  if (err instanceof ErrorEvent) {
+    error = {
+      message: err.message
+    };
+  } else if (err.error) {
+    error = {
+      message: err.error.toString(),
+      stack: err.error.stack
+    };
+  } else {
+    error = {
+      message: err.toString(),
+      stack: err.stack
+    };
+  }
 
   try {
     window.logError(error);
@@ -39,5 +54,4 @@ function errorHandler(err) {
 }
 
 Vue.config.errorHandler = errorHandler;
-window.onerror = errorHandler;
 window.addEventListener('error', errorHandler);

@@ -42,13 +42,13 @@ let app = new Vue({
     stateFreeze() {
       if (this.store) {
         // console.log('Freezing state', JSON.stringify(this.store));
-        localStorage.setItem('nocontrol_state', JSON.stringify(this.store));
+        localStorage.setItem('faceblock_state', JSON.stringify(this.store));
       }
     },
     stateThaw() {
-      // console.log('Thawing state', localStorage.getItem('nocontrol_state'));
-      if (localStorage.getItem('nocontrol_state')) {
-        return JSON.parse(localStorage.getItem('nocontrol_state') || '{}');
+      // console.log('Thawing state', localStorage.getItem('faceblock_state'));
+      if (localStorage.getItem('faceblock_state')) {
+        return JSON.parse(localStorage.getItem('faceblock_state') || '{}');
       }
     }
   }
@@ -61,3 +61,12 @@ let faceblockCheckInterval = setInterval(() => {
     app.$mount('#faceblock-inject');
   }
 }, 10);
+
+window.addEventListener('hashchange', () => {
+  console.log('hash change');
+  debugger;
+  if (!document.querySelector('#faceblock-inject') && document.querySelector('#universalNav')) {
+    document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
+    app.$mount('#faceblock-inject');
+  }
+});

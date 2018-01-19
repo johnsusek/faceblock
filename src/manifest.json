@@ -16,7 +16,7 @@
         "inject/styles/lib/query-builder.default.css",
         "inject/styles/faceblock-style.css",
         "inject/styles/faceblock-structure.css",
-        "inject/styles/hidenews.css",
+        "inject/styles/sidebar.css",
         "inject/styles/spinner.css",
         "inject/styles/stories.css"
       ]
@@ -37,6 +37,7 @@
         "inject/scripts/components/filteredFeed.js",
         "inject/scripts/components/faceblock.js",
         "inject/scripts/components/filters.js",
+        "inject/scripts/components/filter-sidebar.js",
         "inject/scripts/components/filter-manual.js",
         "inject/scripts/components/filter-toggles.js",
         "inject/scripts/components/filter-keywords.js",
@@ -48,6 +49,5 @@
       ],
       "run_at": "document_start"
     }
-  ],
-  "web_accessible_resources": ["about.html"]
+  ]
 }

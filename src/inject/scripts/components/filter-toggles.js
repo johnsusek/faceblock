@@ -3,7 +3,7 @@
 Vue.component('filter-toggles', {
   template: html`
     <section id="filter-toggles">
-      <h5 title="Check a box to block posts of that type.">Block</h5>
+      <h5 title="Check a box to block posts of that type.">Block feed</h5>
       <ul>
         <li v-for="toggle in toggles">
           <label>

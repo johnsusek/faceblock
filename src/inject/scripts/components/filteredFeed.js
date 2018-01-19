@@ -131,10 +131,25 @@ function updatePostFromEl(post, el) {
   post.profiles = getProfiles(el);
   post.hovercards = getHovercards(el);
   post.text = el.innerText;
-  post.external_links = el.querySelectorAll('a[target="_blank"]').length;
-  post.external_links_2 = el.querySelectorAll('a[data-lynx-mode]').length;
+
+  if (el.querySelectorAll('a[href^="https://l.facebook.com/l.php"').length) {
+    post.external_links = true;
+  }
 
   return post;
+}
+
+function getExternalLinks(el) {
+  let links = [];
+  el.querySelectorAll('a').forEach(a => {
+    if (a.href) {
+      console.log(a.href);
+      if (!a.href.match(/^http[s]:\/\/(www\.)?facebook.com.*/)) {
+        links.push(a);
+      }
+    }
+  });
+  return links;
 }
 
 function getProfiles(el) {

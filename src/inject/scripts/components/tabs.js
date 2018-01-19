@@ -47,9 +47,9 @@
 //   document.getElementById('faceblock-tabs').addEventListener('click', e => {
 //     switchTabClass(e);
 //     console.log(e.target.dataset);
-//     if (e.target.dataset.nocontrolQuery) {
+//     if (e.target.dataset.faceblockQuery) {
 //       // TODO: validation of query
-//       window.store.currentFilterPath = e.target.dataset.nocontrolQuery;
+//       window.store.currentFilterPath = e.target.dataset.faceblockQuery;
 //     }
 //   });
 // }

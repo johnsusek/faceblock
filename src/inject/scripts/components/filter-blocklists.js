@@ -33,6 +33,9 @@ Vue.component('filter-blocklists', {
     addSubscription() {
       // Find the list object
       let list = this.blocklists.lists.find(s => s.value === this.selected);
+      if (!list) {
+        return;
+      }
       // Put it into subscriptions
       this.blocklists.subscriptions.push(list);
       // Remove from available list
@@ -48,7 +51,7 @@ Vue.component('filter-blocklists', {
     },
     previewSubscription() {
       let list = this.blocklists.lists.find(s => s.value === this.selected);
-      window.open(list.url);
+      if (list) window.open(list.url);
     }
   }
 });

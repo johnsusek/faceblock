@@ -1,7 +1,12 @@
 window.store = {
   state: {
+    version: 1,
     filters: {
-      visible: false
+      visible: true,
+      sidebar: {
+        hideTrending: false,
+        hideSponsored: false
+      }
     },
     currentFilterPath: '[]',
     manualPath: '',
@@ -17,6 +22,36 @@ window.store = {
         label: 'Pages',
         checked: false,
         filter: '[? meta.page_insight == null]'
+      },
+      {
+        value: 'your_memories',
+        label: 'Your memories',
+        checked: false,
+        filter: '[? meta.throwback_promotion_id == null ]'
+      },
+      {
+        value: 'external_links',
+        label: 'External links',
+        checked: false,
+        filter: '[? external_links == null ]'
+      },
+      {
+        value: 'friend_commented_on',
+        label: '‘Friend commented on’',
+        checked: false,
+        filter: ''
+      },
+      {
+        value: 'shared_post',
+        label: 'Shared post',
+        checked: false,
+        filter: ''
+      },
+      {
+        value: 'has_attachment',
+        label: 'Has attachment',
+        checked: false,
+        filter: ''
       }
     ],
     keywords: [],
