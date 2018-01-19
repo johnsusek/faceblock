@@ -62,7 +62,7 @@ Vue.component('filtered-feed', {
           post = updatePostFromEl(post, el);
 
           // update our debugging tooltip
-          el.title = JSON.stringify(post, null, 2);
+          el.setAttribute('rel', JSON.stringify(post, null, 2));
 
           Vue.set(this.allPosts, dedupekey, post);
           this.redrawFeed();
@@ -123,7 +123,7 @@ function createPostFromEl(el, metaJSON) {
     delete post.meta.page_insights[post.meta.page_id];
   }
 
-  el.title = JSON.stringify(post, null, 2);
+  el.setAttribute('rel', JSON.stringify(post, null, 2));
   return post;
 }
 
@@ -135,6 +135,26 @@ function updatePostFromEl(post, el) {
   if (el.querySelectorAll('a[href^="https://l.facebook.com/l.php"').length) {
     post.external_links = true;
   }
+
+  post.dataset = Object.assign({}, el.dataset);
+
+  el.querySelectorAll('a').forEach(a => {
+    if (!a.href || !a.href.startsWith('http')) {
+      return;
+    }
+
+    let url = new URL(a.href);
+
+    //  /jobloe/posts/1234
+    // 01^^^^^^2^^^^^3^^^^
+    if (post.meta.top_level_post_id) {
+      let parts = url.pathname.split('/');
+      // Link to a post, that doesn't link to itself
+      if (parts[2] === 'posts' && parts[3] !== post.meta.top_level_post_id) {
+        post.links_to_post = true;
+      }
+    }
+  });
 
   return post;
 }

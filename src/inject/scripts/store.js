@@ -18,12 +18,6 @@ window.store = {
         filter: '[? meta.is_sponsored == null]'
       },
       {
-        value: 'pages',
-        label: 'Pages',
-        checked: false,
-        filter: '[? meta.page_insight == null]'
-      },
-      {
         value: 'your_memories',
         label: 'Your memories',
         checked: false,
@@ -37,21 +31,22 @@ window.store = {
       },
       {
         value: 'friend_commented_on',
-        label: '‘Friend commented on’',
+        label: '‘…commented on this’',
         checked: false,
-        filter: ''
+        filter:
+          "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ] | [? contains(text, 'commented on this') == `false`]"
       },
       {
         value: 'shared_post',
         label: 'Shared post',
         checked: false,
-        filter: ''
+        filter: '[? links_to_post == null ]'
       },
       {
-        value: 'has_attachment',
-        label: 'Has attachment',
+        value: 'pages',
+        label: 'Pages',
         checked: false,
-        filter: ''
+        filter: "[? meta.page_insight == null] | [? dataset.story_category != '4' ]"
       }
     ],
     keywords: [],

@@ -1,4 +1,4 @@
-let app = new Vue({
+let appConfig = {
   template: html`
     <div>
       <div id="faceblock" :class="{ open: store.filters.visible }">
@@ -13,7 +13,7 @@ let app = new Vue({
         <filtered-feed></filtered-feed>
         <footer v-show="store.filters.visible">
           <hr>
-          <a :href="aboutUrl" target="_blank">Support</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
+          <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
         </footer>
       </div>
     </div>
@@ -52,21 +52,32 @@ let app = new Vue({
       }
     }
   }
-});
+};
 
-let faceblockCheckInterval = setInterval(() => {
+let interval = setInterval(() => {
   if (document.querySelector('#universalNav')) {
-    clearInterval(faceblockCheckInterval);
-    document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
-    app.$mount('#faceblock-inject');
+    clearInterval(interval);
+    if (!document.querySelector('#faceblock')) {
+      let app = new Vue(appConfig);
+      document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
+      app.$mount('#faceblock-inject');
+    }
   }
 }, 10);
 
-window.addEventListener('hashchange', () => {
-  console.log('hash change');
-  debugger;
-  if (!document.querySelector('#faceblock-inject') && document.querySelector('#universalNav')) {
-    document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
-    app.$mount('#faceblock-inject');
+// Wait for the background script to send us a message
+chrome.runtime.onMessage.addListener(req => {
+  // We'll get injected here on visits to the root url via history.pushState()
+  if (req.extensionEvent === 'onHistoryStateUpdated') {
+    let interval = setInterval(() => {
+      if (document.querySelector('#universalNav')) {
+        clearInterval(interval);
+        if (!document.querySelector('#faceblock')) {
+          let app = new Vue(appConfig);
+          document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
+          app.$mount('#faceblock-inject');
+        }
+      }
+    }, 10);
   }
 });
