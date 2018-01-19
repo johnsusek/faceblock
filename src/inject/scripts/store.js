@@ -18,10 +18,10 @@ window.store = {
         filter: '[? meta.is_sponsored == null]'
       },
       {
-        value: 'your_memories',
-        label: 'Your memories',
+        value: 'shared_post',
+        label: 'Shared post',
         checked: false,
-        filter: '[? meta.throwback_promotion_id == null ]'
+        filter: '[? links_to_post == null ]'
       },
       {
         value: 'external_links',
@@ -30,17 +30,17 @@ window.store = {
         filter: '[? external_links == null ]'
       },
       {
+        value: 'your_memories',
+        label: 'Your memories',
+        checked: false,
+        filter: '[? meta.throwback_promotion_id == null ]'
+      },
+      {
         value: 'friend_commented_on',
         label: '‘…commented on this’',
         checked: false,
         filter:
           "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ] | [? contains(text, 'commented on this') == `false`]"
-      },
-      {
-        value: 'shared_post',
-        label: 'Shared post',
-        checked: false,
-        filter: '[? links_to_post == null ]'
       },
       {
         value: 'pages',

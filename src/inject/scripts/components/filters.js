@@ -5,8 +5,8 @@ Vue.component('filters', {
     <div id="faceblock-filters" v-show="filters.visible">
       <filter-keywords></filter-keywords> 
       <filter-blocklists></filter-blocklists> 
-      <filter-sidebar></filter-sidebar> 
       <filter-toggles></filter-toggles> 
+      <filter-sidebar></filter-sidebar> 
     </div>
   `(),
   store: ['filters', 'blocklists', 'currentFilterPath', 'keywords', 'manualPath', 'toggles'],
