@@ -2,7 +2,7 @@
 
 Vue.component('filtered-feed', {
   template: html`
-    <div id="faceblock-feed"></div>
+    <div id="feedblock-feed"></div>
   `(),
   store: ['currentFilterPath', 'keywords', 'toggles'],
   data() {

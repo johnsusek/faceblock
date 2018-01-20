@@ -2,7 +2,7 @@
 
 Vue.component('filter-keywords', {
   template: html`
-    <section id="faceblock-keywords">
+    <section id="feedblock-keywords">
       <h5 title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive.">Blockwords</h5>
       <ul>
         <li v-for="keyword in keywords">

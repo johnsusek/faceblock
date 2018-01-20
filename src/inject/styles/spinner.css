@@ -1,6 +1,6 @@
-/* faceblock-Spinner  */
+/* feedblock-Spinner  */
 
-.faceblock-spinner {
+.feedblock-spinner {
   display: inline-block;
   margin: 0 auto 0;
   vertical-align: text-bottom;
@@ -8,7 +8,7 @@
   text-align: left;
 }
 
-.faceblock-spinner > div {
+.feedblock-spinner > div {
   width: 5px;
   height: 5px;
   background-color: #999;
@@ -19,12 +19,12 @@
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.faceblock-spinner .faceblock-bounce1 {
+.feedblock-spinner .feedblock-bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.faceblock-spinner .faceblock-bounce2 {
+.feedblock-spinner .feedblock-bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }

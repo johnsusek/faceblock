@@ -1,5 +1,5 @@
 {
-  "name": "FaceBlock",
+  "name": "FeedBlock for Facebook",
   "version": "0.1.1",
   "manifest_version": 2,
   "description": "Block things you don't want to see in your Facebook feed.",
@@ -17,8 +17,8 @@
       "css": [
         "inject/styles/lib/highlight.min.css",
         "inject/styles/lib/query-builder.default.css",
-        "inject/styles/faceblock-style.css",
-        "inject/styles/faceblock-structure.css",
+        "inject/styles/feedblock-style.css",
+        "inject/styles/feedblock-structure.css",
         "inject/styles/sidebar.css",
         "inject/styles/spinner.css",
         "inject/styles/stories.css"
@@ -38,7 +38,7 @@
         "inject/scripts/funcs.js",
         "inject/scripts/store.js",
         "inject/scripts/components/filteredFeed.js",
-        "inject/scripts/components/faceblock.js",
+        "inject/scripts/components/feedblock.js",
         "inject/scripts/components/filters.js",
         "inject/scripts/components/filter-sidebar.js",
         "inject/scripts/components/filter-manual.js",

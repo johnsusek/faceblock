@@ -2,7 +2,7 @@
 
 Vue.component('filter-blocklists', {
   template: html`
-    <section id="faceblock-blocklists">
+    <section id="feedblock-blocklists">
       <h5 title="Pre-built lists of common blockwords. Click 'View' to see the list. Click 'Add' to begin blocking any posts that contain any of the words in that blocklist.">Blocklists (beta)</h5>
       <ul>
         <li v-for="subscription in blocklists.subscriptions" v-if="subscription">

@@ -6,11 +6,11 @@ let interactiveCheckInterval = setInterval(() => {
 }, 10);
 
 let loadingMarkup = window.html`
-  <div id="faceblock-wait" class="faceblock-panel">
-    <div class="faceblock-spinner">
-      <div class="faceblock-bounce1"></div>
-      <div class="faceblock-bounce2"></div>
-      <div class="faceblock-bounce3"></div>
+  <div id="feedblock-wait" class="feedblock-panel">
+    <div class="feedblock-spinner">
+      <div class="feedblock-bounce1"></div>
+      <div class="feedblock-bounce2"></div>
+      <div class="feedblock-bounce3"></div>
     </div>
     Trying to find additional posts that match filters
     </a>

@@ -2,7 +2,7 @@
 
 Vue.component('filter-manual', {
   template: html`
-    <section id="faceblock-filter-manual">
+    <section id="feedblock-filter-manual">
       <h5>Filter</h5>
       {{ manualPath }}
       <input 

@@ -2,7 +2,7 @@
 
 Vue.component('filters', {
   template: html`
-    <div id="faceblock-filters" v-show="filters.visible">
+    <div id="feedblock-filters" v-show="filters.visible">
       <filter-keywords></filter-keywords> 
       <filter-blocklists></filter-blocklists> 
       <filter-toggles></filter-toggles> 

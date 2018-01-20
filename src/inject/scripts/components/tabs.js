@@ -6,26 +6,26 @@
 // }, 10);
 
 // let tabsMarkup = window.html`
-//   <div id="faceblock-filters">
-//     <div id="faceblock-tabs">
+//   <div id="feedblock-filters">
+//     <div id="feedblock-tabs">
 //       <ul>
 //         <li>
-//           <a data-faceblock-query="[]" class="faceblock-tab-active">All</a>
+//           <a data-feedblock-query="[]" class="feedblock-tab-active">All</a>
 //         </li>
 //         <li>
-//           <a data-faceblock-query="[? ( (  meta.page_insight == null ) ) ]">Friends</a>
+//           <a data-feedblock-query="[? ( (  meta.page_insight == null ) ) ]">Friends</a>
 //         </li>
 //         <li>
-//           <a data-faceblock-query="[? ( (  meta.page_insight != null ) ) ]">Pages</a>
+//           <a data-feedblock-query="[? ( (  meta.page_insight != null ) ) ]">Pages</a>
 //         </li>
 //         <li>
-//           <a data-faceblock-query="[? ( (  meta.page_insight &amp;&amp; starts_with(meta.page_insight.psn, \`EntGroup\`)) ) ]">Groups</a>
+//           <a data-feedblock-query="[? ( (  meta.page_insight &amp;&amp; starts_with(meta.page_insight.psn, \`EntGroup\`)) ) ]">Groups</a>
 //         </li>
 //       </ul>
 //     </div>
-//     <div id="faceblock-toggles">
+//     <div id="feedblock-toggles">
 //       <label>
-//         <input type="checkbox" data-faceblock-and="isSponsored" checked="checked">
+//         <input type="checkbox" data-feedblock-and="isSponsored" checked="checked">
 //         Suggested
 //       </label>
 //     </div>
@@ -39,17 +39,17 @@
 //     .insertAdjacentHTML('afterBegin', tabsMarkup());
 
 //   // Toggles
-//   document.getElementById('faceblock-toggles').addEventListener('change', e => {
+//   document.getElementById('feedblock-toggles').addEventListener('change', e => {
 //     handleToggles(e);
 //   });
 
 //   // Tabs
-//   document.getElementById('faceblock-tabs').addEventListener('click', e => {
+//   document.getElementById('feedblock-tabs').addEventListener('click', e => {
 //     switchTabClass(e);
 //     console.log(e.target.dataset);
-//     if (e.target.dataset.faceblockQuery) {
+//     if (e.target.dataset.feedblockQuery) {
 //       // TODO: validation of query
-//       window.store.currentFilterPath = e.target.dataset.faceblockQuery;
+//       window.store.currentFilterPath = e.target.dataset.feedblockQuery;
 //     }
 //   });
 // }
@@ -64,9 +64,9 @@
 //   let button = e.target;
 //   button
 //     .closest('ul')
-//     .querySelectorAll('.faceblock-tab-active')
+//     .querySelectorAll('.feedblock-tab-active')
 //     .forEach(el => {
-//       el.classList.remove('faceblock-tab-active');
+//       el.classList.remove('feedblock-tab-active');
 //     });
-//   button.classList.add('faceblock-tab-active');
+//   button.classList.add('feedblock-tab-active');
 // }

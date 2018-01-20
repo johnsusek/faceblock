@@ -56,7 +56,7 @@ window.store = {
         {
           value: 'us_politics',
           label: 'US Politics',
-          url: 'https://faceblock.declaredintent.com/blocklists/us_politics.json',
+          url: 'https://feedblock.declaredintent.com/blocklists/us_politics.json',
           fetchDate: 0,
           keywords: []
         }

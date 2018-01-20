@@ -1,61 +1,61 @@
-#faceblock {
+#feedblock {
   margin-bottom: 10px;
 }
 
-#faceblock h4 {
+#feedblock h4 {
   display: flex;
   height: 17px;
 }
 
-#faceblock h4 span {
+#feedblock h4 span {
   flex: 1;
 }
 
-#faceblock h4 a {
+#feedblock h4 a {
   flex: 0;
   visibility: hidden;
 }
 
-#faceblock h4:hover a {
+#feedblock h4:hover a {
   visibility: visible;
 }
 
-#faceblock-filters {
+#feedblock-filters {
   margin-top: 5px;
   padding: 5px 6px 7px;
 }
 
-#faceblock input[type='text'] {
+#feedblock input[type='text'] {
   width: 100px;
 }
 
-#faceblock input[type='checkbox'] {
+#feedblock input[type='checkbox'] {
   margin: 0;
   position: relative;
   top: -1px;
 }
 
-#faceblock section {
+#feedblock section {
   margin-top: 10px;
 }
 
-#faceblock section:first-of-type {
+#feedblock section:first-of-type {
   margin-top: 0;
 }
 
-#faceblock section h5 {
+#feedblock section h5 {
   margin-top: 5px;
 }
 
-#faceblock section:first-of-type h5 {
+#feedblock section:first-of-type h5 {
   margin-top: 0;
 }
 
-#faceblock section ul {
+#feedblock section ul {
   line-height: 1;
 }
 
-#faceblock section li {
+#feedblock section li {
   margin: 4px 0;
 }
 
@@ -63,18 +63,18 @@ a.delete {
   padding: 0 2px;
 }
 
-#faceblock-wait {
+#feedblock-wait {
   padding: 10px;
 }
 
-#faceblock-blocklists select {
+#feedblock-blocklists select {
   margin-right: 4px;
 }
 
-#faceblock footer {
+#feedblock footer {
   margin-top: 6px;
 }
 
-#faceblock hr {
+#feedblock hr {
   margin: 3px 0;
 }

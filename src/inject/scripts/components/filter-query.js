@@ -2,10 +2,10 @@
 
 Vue.component('filter-query', {
   template: html`
-    <section id="faceblock-query" class="faceblock-panel">
+    <section id="feedblock-query" class="feedblock-panel">
       <h5>Query</h5>
-      <div id="faceblock-querybuilder"></div>
-      <div id="faceblock-querybuilder-controls">
+      <div id="feedblock-querybuilder"></div>
+      <div id="feedblock-querybuilder-controls">
         <button @click="handleSet">Set</button>
         <button @click="handleDebug">Debug</button>
       </div>
@@ -13,13 +13,13 @@ Vue.component('filter-query', {
     </section>
   `(),
   created() {
-    window.jQuery('#faceblock-querybuilder').queryBuilder({
+    window.jQuery('#feedblock-querybuilder').queryBuilder({
       filters: queryBuilderFilters
     });
   },
   methods: {
     handleSet() {
-      let rules = window.jQuery('#faceblock-querybuilder').queryBuilder('getRules');
+      let rules = window.jQuery('#feedblock-querybuilder').queryBuilder('getRules');
 
       if (!rules) {
         return;
@@ -35,10 +35,10 @@ Vue.component('filter-query', {
     },
 
     handleDebug() {
-      let rules = window.jQuery('#faceblock-querybuilder').queryBuilder('getRules');
+      let rules = window.jQuery('#feedblock-querybuilder').queryBuilder('getRules');
       let queryResult = runQueryFromRules(rules);
-      document.querySelector('#faceblock-query code').innerText = JSON.stringify(queryResult, null, 2);
-      window.hljs.highlightBlock(document.querySelector('#faceblock-query code'));
+      document.querySelector('#feedblock-query code').innerText = JSON.stringify(queryResult, null, 2);
+      window.hljs.highlightBlock(document.querySelector('#feedblock-query code'));
     }
   }
 });

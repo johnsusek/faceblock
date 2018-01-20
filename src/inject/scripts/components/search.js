@@ -6,11 +6,11 @@
 // }, 10);
 
 // let searchMarkup = html`
-//   <div id="faceblock-search">
+//   <div id="feedblock-search">
 //     <input type="text">
-//     <div id="faceblock-search-controls">
-//       <button id="faceblock-search-debug">Debug</button>
-//       <button id="faceblock-search-set">Set</button>
+//     <div id="feedblock-search-controls">
+//       <button id="feedblock-search-debug">Debug</button>
+//       <button id="feedblock-search-set">Set</button>
 //     </div>
 //     <pre><code class="rainbow"></code></pre>
 //   </div>
@@ -21,24 +21,24 @@
 //     .querySelector('[id^="topnews_main_stream"], [id^="feed_stream"], [role="feed"]')
 //     .insertAdjacentHTML('afterBegin', searchMarkup());
 
-//   document.querySelector('#faceblock-search input').addEventListener('keydown', e => {
+//   document.querySelector('#feedblock-search input').addEventListener('keydown', e => {
 //     if (e.which === 13) {
 //       handleDebug();
 //     }
 //   });
 
-//   document.getElementById('faceblock-search-set').addEventListener('click', handleSet);
-//   document.getElementById('faceblock-search-debug').addEventListener('click', handleDebug);
+//   document.getElementById('feedblock-search-set').addEventListener('click', handleSet);
+//   document.getElementById('feedblock-search-debug').addEventListener('click', handleDebug);
 // }
 
 // function handleSet() {
-//   window.store.currentFilterPath = document.querySelector('#faceblock-search input').value;
+//   window.store.currentFilterPath = document.querySelector('#feedblock-search input').value;
 // }
 
 // function handleDebug() {
-//   let path = document.querySelector('#faceblock-search input').value;
+//   let path = document.querySelector('#feedblock-search input').value;
 //   let result = jpath.search(Object.values(window.store.allPosts), path);
 
-//   document.querySelector('#faceblock-search code').innerText = JSON.stringify(result, null, 2);
-//   window.hljs.highlightBlock(document.querySelector('#faceblock-search code'));
+//   document.querySelector('#feedblock-search code').innerText = JSON.stringify(result, null, 2);
+//   window.hljs.highlightBlock(document.querySelector('#feedblock-search code'));
 // }

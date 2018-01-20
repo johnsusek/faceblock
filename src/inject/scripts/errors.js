@@ -7,19 +7,19 @@ window.logException = function(ex) {
     stack: ex.stack
   };
   window.logger({ exception }, uuid);
-  console.error(`[faceblock] Caught exception ${uuid}. Please include this identifier if reporting a bug.`, exception);
+  console.error(`[feedblock] Caught exception ${uuid}. Please include this identifier if reporting a bug.`, exception);
 };
 
 window.logError = function(error) {
   const uuid = window.generateUuid();
   window.logger({ error }, uuid);
-  console.error(`[faceblock] Caught error ${uuid}. Please include this identifier if reporting a bug.`, error);
+  console.error(`[feedblock] Caught error ${uuid}. Please include this identifier if reporting a bug.`, error);
 };
 
 window.logger = function(payload, uuid = window.generateUuid()) {
   window
     .postJSON('https://log.declaredintent.com/entries', {
-      namespace: 'com.declaredintent.faceblock',
+      namespace: 'com.declaredintent.feedblock',
       useragent: navigator && navigator.userAgent,
       payload,
       uuid

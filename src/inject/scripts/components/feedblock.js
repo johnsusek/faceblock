@@ -1,9 +1,9 @@
 let appConfig = {
   template: html`
     <div>
-      <div id="faceblock" :class="{ open: store.filters.visible }">
+      <div id="feedblock" :class="{ open: store.filters.visible }">
         <h4 @click="store.filters.visible = !store.filters.visible">
-          <span>FaceBlock</span>
+          <span>FeedBlock</span>
           <a>
             <span v-show="store.filters.visible">Hide</span>
             <span v-show="!store.filters.visible">Show</span>
@@ -19,7 +19,7 @@ let appConfig = {
     </div>
   `(),
   data: {
-    aboutUrl: 'https://faceblock.declaredintent.com/about/',
+    aboutUrl: 'https://feedblock.declaredintent.com/about/',
     store: window.store.state
   },
   watch: {
@@ -42,13 +42,13 @@ let appConfig = {
     stateFreeze() {
       if (this.store) {
         // console.log('Freezing state', JSON.stringify(this.store));
-        localStorage.setItem('faceblock_state', JSON.stringify(this.store));
+        localStorage.setItem('feedblock_state', JSON.stringify(this.store));
       }
     },
     stateThaw() {
-      // console.log('Thawing state', localStorage.getItem('faceblock_state'));
-      if (localStorage.getItem('faceblock_state')) {
-        return JSON.parse(localStorage.getItem('faceblock_state') || '{}');
+      // console.log('Thawing state', localStorage.getItem('feedblock_state'));
+      if (localStorage.getItem('feedblock_state')) {
+        return JSON.parse(localStorage.getItem('feedblock_state') || '{}');
       }
     }
   }
@@ -57,10 +57,10 @@ let appConfig = {
 let interval = setInterval(() => {
   if (document.querySelector('#universalNav')) {
     clearInterval(interval);
-    if (!document.querySelector('#faceblock')) {
+    if (!document.querySelector('#feedblock')) {
       let app = new Vue(appConfig);
-      document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
-      app.$mount('#faceblock-inject');
+      document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
+      app.$mount('#feedblock-inject');
     }
   }
 }, 10);
@@ -72,10 +72,10 @@ chrome.runtime.onMessage.addListener(req => {
     let interval = setInterval(() => {
       if (document.querySelector('#universalNav')) {
         clearInterval(interval);
-        if (!document.querySelector('#faceblock')) {
+        if (!document.querySelector('#feedblock')) {
           let app = new Vue(appConfig);
-          document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="faceblock-inject"></div>');
-          app.$mount('#faceblock-inject');
+          document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
+          app.$mount('#feedblock-inject');
         }
       }
     }, 10);
