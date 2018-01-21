@@ -11,7 +11,13 @@
     "scripts": ["background.js"]
   },
   "default_locale": "en",
-  "permissions": ["webNavigation", "tabs", "https://www.facebook.com/*", "https://log.declaredintent.com/*"],
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "https://www.facebook.com/*",
+    "https://www.twitter.com/*",
+    "https://log.declaredintent.com/*"
+  ],
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],
@@ -50,6 +56,11 @@
         "inject/scripts/components/filter-blocklists.js",
         "inject/scripts/components/loading.js"
       ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://www.twitter.com/*"],
+      "js": ["inject/scripts/twitterDump.js"],
       "run_at": "document_start"
     }
   ]
