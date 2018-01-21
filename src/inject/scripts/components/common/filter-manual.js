@@ -12,7 +12,7 @@ Vue.component('filter-manual', {
     </section>
   `(),
   store: {
-    manualPath: 'filters.manualPath'
+    manualPath: CURRENT_NETWORK + '.filters.manualPath'
   },
   data() {
     return {

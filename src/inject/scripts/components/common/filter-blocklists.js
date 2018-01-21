@@ -24,7 +24,7 @@ Vue.component('filter-blocklists', {
     </section>
   `(),
   store: {
-    blocklists: 'filters.blocklists'
+    blocklists: CURRENT_NETWORK + '.filters.blocklists'
   },
   data() {
     return {

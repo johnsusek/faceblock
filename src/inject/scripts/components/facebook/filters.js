@@ -11,5 +11,7 @@ Vue.component('filters', {
       <filtered-feed></filtered-feed>
     </div>
   `(),
-  store: ['filters']
+  store: {
+    filters: 'facebook.filters'
+  }
 });

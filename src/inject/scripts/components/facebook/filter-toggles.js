@@ -21,6 +21,6 @@ Vue.component('filter-toggles', {
     </section>
   `(),
   store: {
-    toggles: 'filters.toggles'
+    toggles: 'facebook.filters.toggles'
   }
 });

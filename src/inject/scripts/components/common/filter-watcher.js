@@ -4,7 +4,10 @@
 // filtered-feed then watches currentFilterPath and redraws when it changes
 Vue.component('filter-watcher', {
   template: '<div></div>',
-  store: ['filters', 'currentFilterPath'],
+  store: {
+    filters: CURRENT_NETWORK + '.filters',
+    currentFilterPath: CURRENT_NETWORK + '.currentFilterPath'
+  },
   computed: {
     combinedFilter() {
       let filterPath = '[]';

@@ -7,19 +7,19 @@ Vue.component('filter-sidebar', {
       <ul>
         <li>
           <label>
-            <input type="checkbox" value="false" v-model="hideTrending"> Trending
+            <input type="checkbox" v-model="hideTrending"> Trending
           </label>      
         </li>
         <li>
           <label>
-            <input type="checkbox" value="false" v-model="hideWTF"> Who to follow
+            <input type="checkbox" v-model="hideWTF"> Who to follow
           </label>      
         </li>
       </ul>
     </section>`(),
   store: {
-    hideTrending: 'filters.sidebar.hideTrending',
-    hideWTF: 'filters.sidebar.hideWTF'
+    hideTrending: 'twitter.filters.sidebar.hideTrending',
+    hideWTF: 'twitter.filters.sidebar.hideWTF'
   },
   created() {
     this.toggleTrending();

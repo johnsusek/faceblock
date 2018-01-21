@@ -1,9 +1,9 @@
 {
-  "name": "FeedBlock for Facebook",
+  "name": "FeedBlock for Facebook and Twitter",
   "short_name": "FeedBlock",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "manifest_version": 2,
-  "description": "Block things you don't want to see in your Facebook feed.",
+  "description": "Block things you don't want to see in your Facebook and Twitter feed.",
   "icons": {
     "128": "icons/icon128.png"
   },
@@ -39,11 +39,7 @@
         "inject/scripts/errors.js",
         "inject/scripts/funcs.js",
         "inject/scripts/store.js",
-        "inject/scripts/subscriptions.js",
-        "inject/scripts/components/common/filter-watcher.js",
-        "inject/scripts/components/common/filter-keywords.js",
-        "inject/scripts/components/common/filter-manual.js",
-        "inject/scripts/components/common/filter-blocklists.js"
+        "inject/scripts/subscriptions.js"
       ],
       "run_at": "document_start"
     },
@@ -62,10 +58,21 @@
     {
       "matches": ["https://twitter.com/*"],
       "js": [
+        "inject/scripts/components/twitter/filter-hashtags.js",
         "inject/scripts/components/twitter/filter-sidebar.js",
         "inject/scripts/components/twitter/filtered-feed.js",
         "inject/scripts/components/twitter/filters.js",
         "inject/scripts/components/twitter/app.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://www.facebook.com/*", "https://twitter.com/*"],
+      "js": [
+        "inject/scripts/components/common/filter-watcher.js",
+        "inject/scripts/components/common/filter-keywords.js",
+        "inject/scripts/components/common/filter-manual.js",
+        "inject/scripts/components/common/filter-blocklists.js"
       ],
       "run_at": "document_start"
     }

@@ -1,16 +1,19 @@
+// This is used by common components so they know what store to use when assembling themselves
+const CURRENT_NETWORK = 'twitter';
+
 let appConfig = {
   template: html`
     <div>
-      <div id="feedblock" :class="{ open: store.filters.visible }">
-        <h4 @click="store.filters.visible = !store.filters.visible" :class="{ 'u-textUserColor': store.filters.visible }">
+      <div id="feedblock" :class="{ open: store.twitter.filters.visible }">
+        <h4 @click="store.twitter.filters.visible = !store.twitter.filters.visible" :class="{ 'u-textUserColor': store.twitter.filters.visible }">
           <span>FeedBlock</span>
           <a>
-            <span v-show="store.filters.visible">Hide</span>
-            <span v-show="!store.filters.visible">Show</span>
+            <span v-show="store.twitter.filters.visible">Hide</span>
+            <span v-show="!store.twitter.filters.visible">Show</span>
           </a>
         </h4>
         <filters></filters>
-        <footer v-show="store.filters.visible">
+        <footer v-show="store.twitter.filters.visible">
           <hr>
           <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
         </footer>

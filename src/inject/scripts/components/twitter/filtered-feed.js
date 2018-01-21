@@ -4,24 +4,22 @@ Vue.component('filtered-feed', {
   template: html`
     <div id="feedblock-feed"></div>
   `(),
-  store: ['currentFilterPath'],
+  store: {
+    currentFilterPath: 'twitter.currentFilterPath'
+  },
   data() {
     return {
-      allPosts: {}
+      allTweets: {}
     };
   },
   watch: {
-    // We have to redraw manually because the twitter feed
-    // is not actually a Vue component :)
-    allPosts() {
-      console.log('allPosts updated..redrawing feed');
-      if (!this.allPosts) {
+    allTweets() {
+      if (!this.allTweets) {
         return;
       }
       this.redrawFeed();
     },
     currentFilterPath() {
-      console.log('currentFilterPath updated to ', this.currentFilterPath);
       if (!this.currentFilterPath) {
         return;
       }
@@ -29,24 +27,12 @@ Vue.component('filtered-feed', {
     }
   },
   created() {
-    window.allPosts = window.allPosts || {};
-
     // Watch DOM for new tweets
     new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         if (mutation.target.id === 'stream-items-id') {
           mutation.target.querySelectorAll('[data-tweet-id]').forEach(el => {
-            let tweet = {
-              itemId: el.dataset.itemId,
-              classList: Array.from(el.classList),
-              dataset: Object.assign({}, el.dataset),
-              text: el.querySelector('.tweet-text') && el.querySelector('.tweet-text').innerText
-            };
-            Vue.set(this.allPosts, tweet.dataset.tweetId, tweet);
-            // This seemed to be required during the fb #fallback_feed shenanigans,
-            // so those posts wouldn't flash in for a moment
-            // but not on twitter feed. commenting out for now
-            // this.redrawFeed();
+            Vue.set(this.allTweets, el.dataset.tweetId, tweetFromEl(el));
           });
         }
       });
@@ -57,25 +43,46 @@ Vue.component('filtered-feed', {
   },
   methods: {
     redrawFeed() {
-      console.log('Redrawing feed using filter', this.currentFilterPath);
-
-      // Loop through this.allPosts, which should have gotten built up from
-      // the mutation observers, so we can check if each post passes
+      // Loop through this.allTweets, which should have gotten built up from
+      // the mutation observers, so we can check if each tweet passes
       // the current filter, and show or hide it.
-      Object.values(this.allPosts).forEach(post => {
-        let postEl = document.querySelector(`[data-item-id="${post.itemId}"]`);
-        if (!postEl) {
+      Object.values(this.allTweets).forEach(tweet => {
+        let tweetEl = document.querySelector(`[data-item-id="${tweet.itemId}"]`);
+        if (!tweetEl) {
           return;
         }
-        const result = jpath.search([post], this.currentFilterPath);
+        const result = jpath.search([tweet], this.currentFilterPath);
 
         if (result && result.length) {
-          // jpath returned the post, so it passed the filter - show it
-          postEl.style.display = 'block';
+          // jpath returned the tweet, so it passed the filter - show it
+          tweetEl.style.display = 'block';
         } else {
-          postEl.style.display = 'none';
+          tweetEl.style.display = 'none';
         }
       });
     }
   }
 });
+
+function tweetFromEl(el) {
+  let tweet = {
+    itemId: el.dataset.itemId,
+    classList: Array.from(el.classList),
+    dataset: Object.assign({}, el.dataset),
+    hashtags: [...el.querySelectorAll('.tweet-text .twitter-hashtag')].map(hashtag => {
+      return hashtag.innerText;
+    }),
+    mentions: [...el.querySelectorAll('.tweet-text .twitter-atreply')].map(hashtag => {
+      return hashtag.innerText;
+    }),
+    hasGif: !!el.querySelector('.PlayableMedia--gif'),
+    hasVideo: !!el.querySelector('.PlayableMedia--video'),
+    hasPhoto: !!el.querySelector('.AdaptiveMedia-photoContainer'),
+    externalUrls: (externalUrls = [...el.querySelectorAll('[data-expanded-url]')].map(a => {
+      return a.dataset.expandedUrl;
+    })),
+    text: el.querySelector('.tweet-text') && el.querySelector('.tweet-text').innerText
+  };
+
+  return tweet;
+}

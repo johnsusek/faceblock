@@ -5,67 +5,95 @@ window.state = {
 let migrations = [
   state => {
     return {
-      filters: {
-        visible: true,
-        keywords: [],
-        blocklists: {
-          subscriptions: [],
-          lists: [
-            {
-              value: 'us_politics',
-              label: 'US Politics',
-              url: 'https://feedblock.declaredintent.com/blocklists/us_politics.json',
-              fetchDate: 0,
-              keywords: []
-            }
-          ]
+      twitter: {
+        filters: {
+          visible: true,
+          hashtags: [],
+          keywords: [],
+          blocklists: {
+            subscriptions: [],
+            lists: [
+              {
+                value: 'us_politics',
+                label: 'US Politics',
+                url: 'https://feedblock.declaredintent.com/blocklists/us_politics.json',
+                fetchDate: 0,
+                keywords: []
+              }
+            ]
+          },
+          toggles: [],
+          sidebar: {
+            hideTrending: false,
+            hideWTF: false
+          },
+          manualPath: ''
         },
-        toggles: [
-          {
-            value: 'suggested',
-            label: 'Suggested',
-            checked: false,
-            filter: '[? meta.is_sponsored == null]'
-          },
-          {
-            value: 'shared_post',
-            label: 'Shared post',
-            checked: false,
-            filter: '[? links_to_post == null ]'
-          },
-          {
-            value: 'external_links',
-            label: 'External links',
-            checked: false,
-            filter: '[? external_links == null ]'
-          },
-          {
-            value: 'your_memories',
-            label: 'Your memories',
-            checked: false,
-            filter: '[? meta.throwback_promotion_id == null ]'
-          },
-          {
-            value: 'friend_commented_on',
-            label: '‘…commented on this’',
-            checked: false,
-            filter:
-              "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ] | [? contains(text, 'commented on this') == `false`]"
-          },
-          {
-            value: 'pages',
-            label: 'Pages',
-            checked: false,
-            filter: "[? meta.page_insight == null] | [? dataset.story_category != '4' ]"
-          }
-        ],
-        sidebar: {
-          hideTrending: false,
-          hideSponsored: false
-        },
-        manualPath: ''
+        currentFilterPath: '[]'
       },
-      currentFilterPath: '[]'
+      facebook: {
+        filters: {
+          visible: true,
+          keywords: [],
+          blocklists: {
+            subscriptions: [],
+            lists: [
+              {
+                value: 'us_politics',
+                label: 'US Politics',
+                url: 'https://feedblock.declaredintent.com/blocklists/us_politics.json',
+                fetchDate: 0,
+                keywords: []
+              }
+            ]
+          },
+          toggles: [
+            {
+              value: 'suggested',
+              label: 'Suggested',
+              checked: false,
+              filter: '[? meta.is_sponsored == null]'
+            },
+            {
+              value: 'shared_post',
+              label: 'Shared post',
+              checked: false,
+              filter: '[? links_to_post == null ]'
+            },
+            {
+              value: 'external_links',
+              label: 'External links',
+              checked: false,
+              filter: '[? external_links == null ]'
+            },
+            {
+              value: 'your_memories',
+              label: 'Your memories',
+              checked: false,
+              filter: '[? meta.throwback_promotion_id == null ]'
+            },
+            {
+              value: 'friend_commented_on',
+              label: '‘…commented on this’',
+              checked: false,
+              filter:
+                "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ] | [? contains(text, 'commented on this') == `false`]"
+            },
+            {
+              value: 'pages',
+              label: 'Pages',
+              checked: false,
+              filter: "[? meta.page_insight == null] | [? dataset.story_category != '4' ]"
+            }
+          ],
+          sidebar: {
+            hideTrending: false,
+            hideSponsored: false
+          },
+          manualPath: ''
+        },
+        currentFilterPath: '[]'
+      }
     };
   }
 ];

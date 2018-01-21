@@ -1,18 +1,19 @@
-const DEBUG = 1;
+// This is used by common components so they know what store to use when assembling themselves
+const CURRENT_NETWORK = 'facebook';
 
 let appConfig = {
   template: html`
     <div>
-      <div id="feedblock" :class="{ open: store.filters.visible }">
-        <h4 @click="store.filters.visible = !store.filters.visible">
+      <div id="feedblock" :class="{ open: store.facebook.filters.visible }">
+        <h4 @click="store.facebook.filters.visible = !store.facebook.filters.visible">
           <span>FeedBlock</span>
           <a>
-            <span v-show="store.filters.visible">Hide</span>
-            <span v-show="!store.filters.visible">Show</span>
+            <span v-show="store.facebook.filters.visible">Hide</span>
+            <span v-show="!store.facebook.filters.visible">Show</span>
           </a>
         </h4>
         <filters></filters>
-        <footer v-show="store.filters.visible">
+        <footer v-show="store.facebook.filters.visible">
           <hr>
           <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
         </footer>
