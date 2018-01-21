@@ -11,7 +11,9 @@ Vue.component('filter-manual', {
         @keyup.enter="applyNewManualPath">
     </section>
   `(),
-  store: ['manualPath'],
+  store: {
+    manualPath: 'filters.manualPath'
+  },
   data() {
     return {
       newManualPath: ''

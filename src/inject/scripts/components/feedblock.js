@@ -1,3 +1,5 @@
+const DEBUG = 1;
+
 let appConfig = {
   template: html`
     <div>
@@ -20,7 +22,7 @@ let appConfig = {
   `(),
   data: {
     aboutUrl: 'https://feedblock.declaredintent.com/about/',
-    store: window.store.state
+    store: window.state
   },
   watch: {
     store: {
@@ -32,21 +34,25 @@ let appConfig = {
   },
   created() {
     let savedState = this.stateThaw();
+
+    // The version in localStorage might be an old data structure, so we
+    // check in our migration function and make sure it is up-to-date
     if (savedState) {
-      // TODO check version on saved state, and if different, run migration script
-      this.store = savedState;
+      this.store = window.runMigrations(savedState);
+    } else {
+      this.store = window.runMigrations(this.store);
     }
-    window.store.refreshSubscriptions(this.store.blocklists.subscriptions);
+
+    // Freeze the state with any potential changes from migrations
+    this.stateFreeze();
   },
   methods: {
     stateFreeze() {
       if (this.store) {
-        // console.log('Freezing state', JSON.stringify(this.store));
         localStorage.setItem('feedblock_state', JSON.stringify(this.store));
       }
     },
     stateThaw() {
-      // console.log('Thawing state', localStorage.getItem('feedblock_state'));
       if (localStorage.getItem('feedblock_state')) {
         return JSON.parse(localStorage.getItem('feedblock_state') || '{}');
       }

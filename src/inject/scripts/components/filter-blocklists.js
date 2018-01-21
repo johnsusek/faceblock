@@ -23,11 +23,18 @@ Vue.component('filter-blocklists', {
       </div>
     </section>
   `(),
-  store: ['blocklists', 'toggles', 'keywords'],
+  store: {
+    blocklists: 'filters.blocklists'
+  },
   data() {
     return {
       selected: ''
     };
+  },
+  created() {
+    if (this.blocklists && this.blocklists.subscriptions) {
+      window.refreshSubscriptions(this.blocklists.subscriptions);
+    }
   },
   methods: {
     addSubscription() {
@@ -41,7 +48,7 @@ Vue.component('filter-blocklists', {
       // Remove from available list
       this.blocklists.lists = this.blocklists.lists.filter(s => s.value !== list.value);
       // Finally fetch the list the user requested, which will put it into our state
-      window.store.fetchSubscription(list);
+      window.fetchSubscription(list);
     },
     removeSubscription(subscription) {
       // Remove it from the subscriptions

@@ -1,6 +1,7 @@
 {
   "name": "FeedBlock for Facebook",
-  "version": "0.1.1",
+  "short_name": "FeedBlock",
+  "version": "0.2.0",
   "manifest_version": 2,
   "description": "Block things you don't want to see in your Facebook feed.",
   "icons": {
@@ -37,6 +38,7 @@
         "inject/scripts/errors.js",
         "inject/scripts/funcs.js",
         "inject/scripts/store.js",
+        "inject/scripts/subscriptions.js",
         "inject/scripts/components/filteredFeed.js",
         "inject/scripts/components/feedblock.js",
         "inject/scripts/components/filters.js",
@@ -46,9 +48,7 @@
         "inject/scripts/components/filter-keywords.js",
         "inject/scripts/components/filter-query.js",
         "inject/scripts/components/filter-blocklists.js",
-        "inject/scripts/components/loading.js",
-        "inject/scripts/components/search.js",
-        "inject/scripts/components/tabs.js"
+        "inject/scripts/components/loading.js"
       ],
       "run_at": "document_start"
     }

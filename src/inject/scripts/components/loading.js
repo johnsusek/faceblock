@@ -28,4 +28,21 @@ function injectLoaderUI() {
     document.querySelector('[role="feed"]').insertAdjacentHTML('beforeEnd', loadingMarkup());
 }
 
-// TODO: mutation observer to hide this when done loading
+// Watch DOM for the "There are no more posts..." message
+// super dirty, but in this case it's the only way to do this
+new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    let el = mutation.target;
+    if (el.innerText === 'There are no more posts to show right now.') {
+      document.querySelector('#feedblock-wait').style.display = 'none';
+    } else if (el.innerText.startsWith('{')) {
+      try {
+        var data = JSON.parse(el.innerText);
+        console.log(data);
+      } catch (error) {}
+    }
+  });
+}).observe(document, {
+  childList: true,
+  subtree: true
+});

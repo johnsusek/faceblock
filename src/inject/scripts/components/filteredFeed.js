@@ -4,7 +4,7 @@ Vue.component('filtered-feed', {
   template: html`
     <div id="feedblock-feed"></div>
   `(),
-  store: ['currentFilterPath', 'keywords', 'toggles'],
+  store: ['currentFilterPath'],
   data() {
     return {
       allPosts: {}
@@ -35,9 +35,12 @@ Vue.component('filtered-feed', {
       mutations.forEach(mutation => {
         let el = mutation.target;
         let meta = mutation.oldValue;
-        if (el.dataset && el.dataset.dedupekey && meta && meta.startsWith('{')) {
-          Vue.set(this.allPosts, el.dataset.dedupekey, createPostFromEl(el, meta));
+        let dedupekey = Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER));
+        if (el.dataset && el.dataset.dedupekey) {
+          dedupekey = el.dataset.dedupekey;
         }
+        Vue.set(this.allPosts, dedupekey, createPostFromEl(el, meta));
+        this.redrawFeed();
       });
     }).observe(document, {
       attributeFilter: ['data-ft'],
@@ -157,19 +160,6 @@ function updatePostFromEl(post, el) {
   });
 
   return post;
-}
-
-function getExternalLinks(el) {
-  let links = [];
-  el.querySelectorAll('a').forEach(a => {
-    if (a.href) {
-      console.log(a.href);
-      if (!a.href.match(/^http[s]:\/\/(www\.)?facebook.com.*/)) {
-        links.push(a);
-      }
-    }
-  });
-  return links;
 }
 
 function getProfiles(el) {

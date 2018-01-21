@@ -20,5 +20,7 @@ Vue.component('filter-toggles', {
       </ul>
     </section>
   `(),
-  store: ['toggles', 'keywords']
+  store: {
+    toggles: 'filters.toggles'
+  }
 });

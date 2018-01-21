@@ -9,19 +9,19 @@ Vue.component('filters', {
       <filter-sidebar></filter-sidebar> 
     </div>
   `(),
-  store: ['filters', 'blocklists', 'currentFilterPath', 'keywords', 'manualPath', 'toggles'],
+  store: ['filters', 'currentFilterPath'],
   computed: {
     combinedFilter() {
       let filterPath = '[]';
 
-      let togglesPath = jpath.search(this.toggles, '[?checked].filter').join(' | ');
+      let togglesPath = jpath.search(this.filters.toggles, '[?checked].filter').join(' | ');
       if (togglesPath) {
         filterPath += ' | ' + togglesPath;
       }
 
       let keywordsPath = '';
 
-      this.keywords.forEach(keyword => {
+      this.filters.keywords.forEach(keyword => {
         if (!keyword) {
           return;
         }
@@ -34,7 +34,7 @@ Vue.component('filters', {
 
       let blocklistKeywordsPath = '';
 
-      this.blocklists.subscriptions.forEach(subscription => {
+      this.filters.blocklists.subscriptions.forEach(subscription => {
         if (!subscription) return;
         subscription.keywords.forEach(keyword => {
           if (!keyword) {
@@ -48,10 +48,11 @@ Vue.component('filters', {
         filterPath += blocklistKeywordsPath;
       }
 
-      if (this.manualPath) {
-        filterPath += ' | ' + this.manualPath;
+      if (this.filters.manualPath) {
+        filterPath += ' | ' + this.filters.manualPath;
       }
 
+      DEBUG && console.log('filterPath', filterPath);
       return filterPath;
     }
   },

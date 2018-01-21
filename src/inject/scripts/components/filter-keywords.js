@@ -16,7 +16,9 @@ Vue.component('filter-keywords', {
       </div>
     </section>
   `(),
-  store: ['keywords'],
+  store: {
+    keywords: 'filters.keywords'
+  },
   data() {
     return {
       newKeyword: ''
@@ -29,6 +31,7 @@ Vue.component('filter-keywords', {
         return;
       }
       this.keywords.push(value);
+      console.log(this.keywords);
       this.newKeyword = '';
     },
     removeKeyword(keyword) {
