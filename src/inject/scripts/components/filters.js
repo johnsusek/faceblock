@@ -52,7 +52,6 @@ Vue.component('filters', {
         filterPath += ' | ' + this.filters.manualPath;
       }
 
-      DEBUG && console.log('filterPath', filterPath);
       return filterPath;
     }
   },
