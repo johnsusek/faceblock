@@ -3,8 +3,14 @@
 Vue.component('filter-keywords', {
   template: html`
     <section id="feedblock-keywords">
-      <h5 title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive.">Blockwords</h5>
-      <ul>
+      <h5 
+        v-bind:class="{ 'has-keywords': keywords.length }"
+        @click="showList = !showList" 
+        title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive. Click to toggle the visibility of the list of blockwords.">
+        Blockwords 
+        <span v-show="keywords.length">({{ keywords.length }})</span>
+      </h5>
+      <ul v-show="showList">
         <li v-for="keyword in keywords">
           <span>{{ keyword }}</span>
           <a @click="removeKeyword(keyword)" class="delete">x</a>
@@ -21,7 +27,8 @@ Vue.component('filter-keywords', {
   },
   data() {
     return {
-      newKeyword: ''
+      newKeyword: '',
+      showList: false
     };
   },
   methods: {
@@ -36,6 +43,9 @@ Vue.component('filter-keywords', {
     },
     removeKeyword(keyword) {
       this.keywords = this.keywords.filter(k => k !== keyword);
+      if (!this.keywords.length) {
+        this.showList = false;
+      }
     }
   }
 });

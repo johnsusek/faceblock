@@ -60,6 +60,8 @@ let appConfig = {
   }
 };
 
+// Inject immediately (instead of waiting for a message the background script)
+// for the case of initial page load, so the UI doesn't flash in
 let interval = setInterval(() => {
   if (document.querySelector('#universalNav')) {
     clearInterval(interval);

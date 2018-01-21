@@ -61,3 +61,7 @@ a.delete:hover {
   text-align: center;
   background: #f6f7f9;
 }
+
+#feedblock-keywords h5.has-keywords {
+  cursor: pointer;
+}
