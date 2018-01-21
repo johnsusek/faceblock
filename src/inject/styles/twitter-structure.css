@@ -1,0 +1,9 @@
+#feedblock {
+  margin: 0 1px;
+  padding: 10px;
+}
+
+.feedblock_hide_trending .module.trends,
+.feedblock_hide_wtf .module.wtf-module {
+  display: none !important;
+}

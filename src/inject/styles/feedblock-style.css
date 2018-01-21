@@ -2,43 +2,17 @@
   user-select: none;
 }
 
-#feedblock.open {
-  user-select: none;
-  outline: 4px solid #f6f7f9;
-  background: #f6f7f9;
+#feedblock li {
+  list-style: none;
 }
 
-#feedblock label {
-  cursor: pointer;
-  color: #1d2129;
-  font-weight: normal;
-}
-
-#feedblock.open h4 {
-  background: #f6f7f9;
-  color: #4266b2;
-}
-
-#feedblock h4 {
-  cursor: pointer;
-  color: rgb(75, 79, 86);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: -0.13px;
-  line-height: 17px;
-  -webkit-font-smoothing: antialiased;
-}
-
-#feedblock h4 a {
-  font-weight: 300;
-}
-
-#feedblock-filters {
-  background: #f6f7f9;
+#feedblock footer {
+  text-align: center;
 }
 
 a.delete {
   color: rgb(156, 0, 0);
+  cursor: pointer;
 }
 
 a.delete:hover {
@@ -46,22 +20,14 @@ a.delete:hover {
   color: #fff;
 }
 
-#feedblock-filters li {
-  list-style: none;
-}
-
-#feedblock-wait {
-  background: #fff;
-  border: 1px solid #dddfe2;
-  border-radius: 3px;
-  color: #4b4f56;
-}
-
-#feedblock > footer {
-  text-align: center;
-  background: #f6f7f9;
+#feedblock label {
+  cursor: pointer;
 }
 
 #feedblock-keywords h5.has-keywords {
+  cursor: pointer;
+}
+
+#feedblock h4 {
   cursor: pointer;
 }

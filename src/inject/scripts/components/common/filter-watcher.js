@@ -1,14 +1,9 @@
-/* <filters></filters> */
+/* <filter-watcher></filter-watcher> */
 
-Vue.component('filters', {
-  template: html`
-    <div id="feedblock-filters" v-show="filters.visible">
-      <filter-keywords></filter-keywords> 
-      <filter-blocklists></filter-blocklists> 
-      <filter-toggles></filter-toggles> 
-      <filter-sidebar></filter-sidebar> 
-    </div>
-  `(),
+// This watches all the filters in the state, and builds currentFilterPath whenever they change
+// filtered-feed then watches currentFilterPath and redraws when it changes
+Vue.component('filter-watcher', {
+  template: '<div></div>',
   store: ['filters', 'currentFilterPath'],
   computed: {
     combinedFilter() {

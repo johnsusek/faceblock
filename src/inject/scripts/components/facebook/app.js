@@ -12,7 +12,6 @@ let appConfig = {
           </a>
         </h4>
         <filters></filters>
-        <filtered-feed></filtered-feed>
         <footer v-show="store.filters.visible">
           <hr>
           <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>

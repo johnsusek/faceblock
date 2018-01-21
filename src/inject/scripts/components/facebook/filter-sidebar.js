@@ -7,12 +7,12 @@ Vue.component('filter-sidebar', {
       <ul>
         <li>
           <label>
-            <input type="checkbox" value="true" v-model="hideTrending"> Trending
+            <input type="checkbox" value="false" v-model="hideTrending"> Trending
           </label>      
         </li>
         <li>
           <label>
-            <input type="checkbox" value="true" v-model="hideSponsored"> Sponsored
+            <input type="checkbox" value="false" v-model="hideSponsored"> Sponsored
           </label>      
         </li>
       </ul>

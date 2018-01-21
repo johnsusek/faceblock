@@ -11,56 +11,62 @@
     "scripts": ["background.js"]
   },
   "default_locale": "en",
-  "permissions": [
-    "webNavigation",
-    "tabs",
-    "https://www.facebook.com/*",
-    "https://www.twitter.com/*",
-    "https://log.declaredintent.com/*"
-  ],
+  "permissions": ["webNavigation", "tabs", "https://log.declaredintent.com/*"],
   "content_scripts": [
     {
-      "matches": ["https://www.facebook.com/*"],
-      "css": [
-        "inject/styles/lib/highlight.min.css",
-        "inject/styles/lib/query-builder.default.css",
-        "inject/styles/feedblock-style.css",
-        "inject/styles/feedblock-structure.css",
-        "inject/styles/sidebar.css",
-        "inject/styles/spinner.css",
-        "inject/styles/stories.css"
-      ]
+      "matches": ["https://www.facebook.com/*", "https://twitter.com/*"],
+      "css": ["inject/styles/feedblock-structure.css", "inject/styles/feedblock-style.css"]
     },
     {
       "matches": ["https://www.facebook.com/*"],
+      "css": [
+        "inject/styles/lib/spinner.css",
+        "inject/styles/facebook-structure.css",
+        "inject/styles/facebook-style.css"
+      ]
+    },
+    {
+      "matches": ["https://twitter.com/*"],
+      "css": ["inject/styles/twitter-structure.css", "inject/styles/twitter-style.css"]
+    },
+    {
+      "matches": ["https://www.facebook.com/*", "https://twitter.com/*"],
       "js": [
         "inject/scripts/lib/vue.min.js",
         "inject/scripts/lib/vue-stash.js",
-        "inject/scripts/lib/highlight.min.js",
         "inject/scripts/lib/jmespath.js",
-        "inject/scripts/lib/jquery-1.12.4.min.js",
-        "inject/scripts/lib/query-builder.standalone.js",
         "inject/scripts/comm.js",
         "inject/scripts/errors.js",
         "inject/scripts/funcs.js",
         "inject/scripts/store.js",
         "inject/scripts/subscriptions.js",
-        "inject/scripts/components/filteredFeed.js",
-        "inject/scripts/components/feedblock.js",
-        "inject/scripts/components/filters.js",
-        "inject/scripts/components/filter-sidebar.js",
-        "inject/scripts/components/filter-manual.js",
-        "inject/scripts/components/filter-toggles.js",
-        "inject/scripts/components/filter-keywords.js",
-        "inject/scripts/components/filter-query.js",
-        "inject/scripts/components/filter-blocklists.js",
-        "inject/scripts/components/loading.js"
+        "inject/scripts/components/common/filter-watcher.js",
+        "inject/scripts/components/common/filter-keywords.js",
+        "inject/scripts/components/common/filter-manual.js",
+        "inject/scripts/components/common/filter-blocklists.js"
       ],
       "run_at": "document_start"
     },
     {
-      "matches": ["https://www.twitter.com/*"],
-      "js": ["inject/scripts/twitterDump.js"],
+      "matches": ["https://www.facebook.com/*"],
+      "js": [
+        "inject/scripts/components/facebook/filter-sidebar.js",
+        "inject/scripts/components/facebook/filter-toggles.js",
+        "inject/scripts/components/facebook/filtered-feed.js",
+        "inject/scripts/components/facebook/filters.js",
+        "inject/scripts/components/facebook/loading.js",
+        "inject/scripts/components/facebook/app.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": [
+        "inject/scripts/components/twitter/filter-sidebar.js",
+        "inject/scripts/components/twitter/filtered-feed.js",
+        "inject/scripts/components/twitter/filters.js",
+        "inject/scripts/components/twitter/app.js"
+      ],
       "run_at": "document_start"
     }
   ]

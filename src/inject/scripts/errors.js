@@ -17,16 +17,17 @@ window.logError = function(error) {
 };
 
 window.logger = function(payload, uuid = window.generateUuid()) {
-  window
-    .postJSON('https://log.declaredintent.com/entries', {
-      namespace: 'com.declaredintent.feedblock',
-      useragent: navigator && navigator.userAgent,
-      payload,
-      uuid
-    })
-    .catch(() => {
-      console.error('Got error trying to log error, giving up.');
-    });
+  console.error(payload);
+  // window
+  //   .postJSON('https://log.declaredintent.com/entries', {
+  //     namespace: 'com.declaredintent.feedblock',
+  //     useragent: navigator && navigator.userAgent,
+  //     payload,
+  //     uuid
+  //   })
+  //   .catch(() => {
+  //     console.error('Got error trying to log error, giving up.');
+  //   });
 };
 
 function errorHandler(err) {
