@@ -33,10 +33,7 @@ function errorHandler(err) {
   let error = {};
 
   if (err instanceof ErrorEvent) {
-    console.log('DOES THIS HAVE MORE BESIDES ERR.MESSAGE?', err);
-    error = {
-      message: err.message
-    };
+    error = err;
   } else if (err.error) {
     error = {
       message: err.error.toString(),
