@@ -23,10 +23,11 @@ let migrations = [
               }
             ]
           },
-          toggles: [],
           sidebar: {
+            hideFooter: false,
             hideTrending: false,
-            hideWTF: false
+            hideWTF: false,
+            hideLiveVideo: false
           },
           manualPath: ''
         },
@@ -53,7 +54,7 @@ let migrations = [
               value: 'suggested',
               label: 'Suggested',
               checked: false,
-              filter: '[? meta.is_sponsored == null]'
+              filter: '[? meta.is_sponsored == null ]'
             },
             {
               value: 'shared_post',
@@ -96,6 +97,42 @@ let migrations = [
         currentFilterPath: '[]'
       }
     };
+  },
+  state => {
+    state.twitter.filters.toggles = [
+      {
+        value: 'videos',
+        label: 'Videos',
+        checked: false,
+        filter: '[? !hasVideo ]'
+      },
+      {
+        value: 'photos',
+        label: 'Photos',
+        checked: false,
+        filter: '[? !hasPhoto ]'
+      },
+      {
+        value: 'gifs',
+        label: 'GIFs',
+        checked: false,
+        filter: '[? !hasGif ]'
+      },
+      {
+        value: 'external_links',
+        label: 'External links',
+        checked: false,
+        filter: '[? !hasExternalLinks ]'
+      },
+      {
+        value: 'quoted_tweets',
+        label: 'Quoted tweets',
+        checked: false,
+        filter: '[? !hasQuotedTweets ]'
+      }
+    ];
+
+    return state;
   }
 ];
 

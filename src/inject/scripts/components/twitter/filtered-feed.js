@@ -66,6 +66,17 @@ Vue.component('filtered-feed', {
 });
 
 function tweetFromEl(el) {
+  let externalLinks = [...el.querySelectorAll('[data-expanded-url]')]
+    .filter(a => {
+      let url = new URL(a.dataset.expandedUrl);
+      if (!url.hostname.endsWith('twitter.com')) {
+        return a;
+      }
+    })
+    .map(a => {
+      return a.dataset.expandedUrl;
+    });
+
   let tweet = {
     itemId: el.dataset.itemId,
     classList: Array.from(el.classList),
@@ -76,13 +87,15 @@ function tweetFromEl(el) {
     mentions: [...el.querySelectorAll('.tweet-text .twitter-atreply')].map(hashtag => {
       return hashtag.innerText;
     }),
+    hasQuotedTweets: !!el.querySelector('.QuoteTweet-container'),
     hasGif: !!el.querySelector('.PlayableMedia--gif'),
     hasVideo: !!el.querySelector('.PlayableMedia--video'),
     hasPhoto: !!el.querySelector('.AdaptiveMedia-photoContainer'),
-    externalUrls: (externalUrls = [...el.querySelectorAll('[data-expanded-url]')].map(a => {
-      return a.dataset.expandedUrl;
-    })),
-    text: el.innerText
+    externalLinks,
+    hasExternalLinks: !!externalLinks.length,
+    length: el.querySelector('.tweet-text').innerText.length,
+    text: el.innerText,
+    tweetText: el.querySelector('.tweet-text').innerText
   };
 
   return tweet;

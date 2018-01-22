@@ -7,7 +7,7 @@ Vue.component('filters', {
       <filter-hashtags></filter-hashtags> 
       <filter-mentions></filter-mentions> 
       <filter-blocklists></filter-blocklists> 
-      <filter-manual></filter-manual> 
+      <filter-toggles></filter-toggles> 
       <filter-sidebar></filter-sidebar> 
       <filter-watcher></filter-watcher>
       <filtered-feed></filtered-feed>

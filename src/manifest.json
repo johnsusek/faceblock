@@ -47,7 +47,6 @@
       "matches": ["https://www.facebook.com/*"],
       "js": [
         "inject/scripts/components/facebook/filter-sidebar.js",
-        "inject/scripts/components/facebook/filter-toggles.js",
         "inject/scripts/components/facebook/filtered-feed.js",
         "inject/scripts/components/facebook/filters.js",
         "inject/scripts/components/facebook/loading.js",
@@ -71,9 +70,9 @@
     {
       "matches": ["https://www.facebook.com/*", "https://twitter.com/*"],
       "js": [
+        "inject/scripts/components/common/filter-toggles.js",
         "inject/scripts/components/common/filter-watcher.js",
         "inject/scripts/components/common/filter-keywords.js",
-        "inject/scripts/components/common/filter-manual.js",
         "inject/scripts/components/common/filter-blocklists.js"
       ],
       "run_at": "document_start"

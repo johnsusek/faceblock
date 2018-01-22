@@ -3,7 +3,7 @@
   margin-bottom: 10px;
 }
 
-a {
+#feedblock a {
   cursor: pointer;
 }
 
@@ -12,7 +12,11 @@ a {
   cursor: pointer;
 }
 
-.autocomplete-list li a,
-.autocomplete-list li a:hover {
+#feedblock .autocomplete-list li a,
+#feedblock .autocomplete-list li a:hover {
   text-decoration: none;
+}
+
+#feedblock footer {
+  margin-top: 10px;
 }
