@@ -1,9 +1,9 @@
 {
-  "name": "FeedBlock for Facebook and Twitter",
+  "name": "FeedBlock",
   "short_name": "FeedBlock",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "manifest_version": 2,
-  "description": "Block things you don't want to see in your Facebook and Twitter feed.",
+  "description": "Block things you don't want to see in your Facebook and Twitter feeds.",
   "icons": {
     "128": "icons/icon128.png"
   },

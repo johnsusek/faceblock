@@ -93,9 +93,8 @@ function tweetFromEl(el) {
     hasPhoto: !!el.querySelector('.AdaptiveMedia-photoContainer'),
     externalLinks,
     hasExternalLinks: !!externalLinks.length,
-    length: el.querySelector('.tweet-text').innerText.length,
     text: el.innerText,
-    tweetText: el.querySelector('.tweet-text').innerText
+    tweetText: el.querySelector('.tweet-text') && el.querySelector('.tweet-text').innerText
   };
 
   return tweet;

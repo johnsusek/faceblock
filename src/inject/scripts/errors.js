@@ -58,4 +58,4 @@ Vue.config.errorHandler = errorHandler;
 
 // Below is missing call stack b/c of async stuff, so commenting out for now
 // Shouldn't be needed unless I miss a try/catch somewhere outside Vue
-// window.addEventListener('error', errorHandler);
+window.addEventListener('error', errorHandler);
