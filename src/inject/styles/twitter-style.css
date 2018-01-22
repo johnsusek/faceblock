@@ -1,0 +1,22 @@
+#feedblock {
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+#feedblock a {
+  cursor: pointer;
+}
+
+#feedblock-mentions h5.has-mentions,
+#feedblock-hashtags h5.has-hashtags {
+  cursor: pointer;
+}
+
+#feedblock .autocomplete-list li a,
+#feedblock .autocomplete-list li a:hover {
+  text-decoration: none;
+}
+
+#feedblock footer {
+  margin-top: 10px;
+}

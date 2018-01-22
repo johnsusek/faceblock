@@ -3,8 +3,6 @@
 Vue.component('filter-manual', {
   template: html`
     <section id="feedblock-filter-manual">
-      <h5>Filter</h5>
-      {{ manualPath }}
       <input 
         v-model="newManualPath" 
         type="text" 
@@ -12,7 +10,7 @@ Vue.component('filter-manual', {
     </section>
   `(),
   store: {
-    manualPath: 'filters.manualPath'
+    manualPath: CURRENT_NETWORK + '.filters.manualPath'
   },
   data() {
     return {

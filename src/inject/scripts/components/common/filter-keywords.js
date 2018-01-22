@@ -23,7 +23,7 @@ Vue.component('filter-keywords', {
     </section>
   `(),
   store: {
-    keywords: 'filters.keywords'
+    keywords: CURRENT_NETWORK + '.filters.keywords'
   },
   data() {
     return {

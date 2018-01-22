@@ -33,6 +33,7 @@ function errorHandler(err) {
   let error = {};
 
   if (err instanceof ErrorEvent) {
+    console.log('DOES THIS HAVE MORE BESIDES ERR.MESSAGE?', err);
     error = {
       message: err.message
     };
@@ -54,4 +55,7 @@ function errorHandler(err) {
 }
 
 Vue.config.errorHandler = errorHandler;
-window.addEventListener('error', errorHandler);
+
+// Below is missing call stack b/c of async stuff, so commenting out for now
+// Shouldn't be needed unless I miss a try/catch somewhere outside Vue
+// window.addEventListener('error', errorHandler);

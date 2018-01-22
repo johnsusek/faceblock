@@ -1,0 +1,41 @@
+/* By default, hide all tweets, so they don't flash onto the page during load */
+/* Our code will overwrite this for tweets that should be displayed */
+/* .tweet[data-item-id] { */
+/* display: none; */
+/* } */
+
+#feedblock {
+  margin: 0 1px;
+  padding: 10px;
+}
+
+.feedblock_hide_footer .Footer,
+.feedblock_hide_livevideo .LiveVideoHomePageModuleContainer,
+.feedblock_hide_trending .module.trends,
+.feedblock_hide_wtf .module.wtf-module {
+  display: none !important;
+}
+
+#feedblock input[type='text'] {
+  width: 210px;
+}
+
+#feedblock .autocomplete-list {
+  background: #fff;
+  width: 210px;
+}
+
+#feedblock .autocomplete-list li {
+  padding: 0 10px;
+  margin: 0;
+}
+
+#feedblock .autocomplete-list li a {
+  padding: 3px 0;
+  margin: 0;
+  display: block;
+}
+
+#feedblock .autocomplete-list li a.delete {
+  display: inline-block;
+}

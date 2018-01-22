@@ -4,7 +4,9 @@ Vue.component('filtered-feed', {
   template: html`
     <div id="feedblock-feed"></div>
   `(),
-  store: ['currentFilterPath'],
+  store: {
+    currentFilterPath: 'facebook.currentFilterPath'
+  },
   data() {
     return {
       allPosts: {}

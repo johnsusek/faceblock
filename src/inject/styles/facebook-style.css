@@ -1,0 +1,48 @@
+#feedblock.open {
+  user-select: none;
+  outline: 4px solid #f6f7f9;
+  background: #f6f7f9;
+}
+
+#feedblock label {
+  color: #1d2129;
+  font-weight: normal;
+}
+
+#feedblock.open h4 {
+  background: #f6f7f9;
+  color: #4266b2;
+}
+
+#feedblock h4 {
+  cursor: pointer;
+  color: rgb(75, 79, 86);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.13px;
+  line-height: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#feedblock h4 a {
+  font-weight: 300;
+}
+
+#feedblock-filters {
+  background: #f6f7f9;
+}
+
+a.delete:hover {
+  color: #fff;
+}
+
+#feedblock-wait {
+  background: #fff;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+  color: #4b4f56;
+}
+
+#feedblock > footer {
+  background: #f6f7f9;
+}

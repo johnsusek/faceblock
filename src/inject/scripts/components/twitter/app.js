@@ -1,19 +1,19 @@
-const DEBUG = 1;
+// This is used by common components so they know what store to use when assembling themselves
+const CURRENT_NETWORK = 'twitter';
 
 let appConfig = {
   template: html`
     <div>
-      <div id="feedblock" :class="{ open: store.filters.visible }">
-        <h4 @click="store.filters.visible = !store.filters.visible">
+      <div id="feedblock" :class="{ open: store.twitter.filters.visible }">
+        <h4 @click="store.twitter.filters.visible = !store.twitter.filters.visible" :class="{ 'u-textUserColor': store.twitter.filters.visible }">
           <span>FeedBlock</span>
           <a>
-            <span v-show="store.filters.visible">Hide</span>
-            <span v-show="!store.filters.visible">Show</span>
+            <span v-show="store.twitter.filters.visible">Hide</span>
+            <span v-show="!store.twitter.filters.visible">Show</span>
           </a>
         </h4>
         <filters></filters>
-        <filtered-feed></filtered-feed>
-        <footer v-show="store.filters.visible">
+        <footer v-show="store.twitter.filters.visible">
           <hr>
           <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
         </footer>
@@ -63,26 +63,30 @@ let appConfig = {
 // Inject immediately (instead of waiting for a message the background script)
 // for the case of initial page load, so the UI doesn't flash in
 let interval = setInterval(() => {
-  if (document.querySelector('#universalNav')) {
+  if (document.querySelector('.dashboard-left .DashboardProfileCard')) {
     clearInterval(interval);
     if (!document.querySelector('#feedblock')) {
       let app = new Vue(appConfig);
-      document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
+      document
+        .querySelector('.dashboard-left .DashboardProfileCard')
+        .insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
       app.$mount('#feedblock-inject');
     }
   }
 }, 10);
 
 // Wait for the background script to send us a message
-chrome.runtime.onMessage.addListener(req => {
+chrome.runtime.onMessage.addListener(msg => {
   // We'll get injected here on visits to the root url via history.pushState()
-  if (req.extensionEvent === 'onHistoryStateUpdated') {
+  if (msg.extensionEvent === 'onHistoryStateUpdated') {
     let interval = setInterval(() => {
-      if (document.querySelector('#universalNav')) {
+      if (document.querySelector('.dashboard-left .DashboardProfileCard')) {
         clearInterval(interval);
         if (!document.querySelector('#feedblock')) {
           let app = new Vue(appConfig);
-          document.querySelector('#universalNav').insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
+          document
+            .querySelector('.dashboard-left .DashboardProfileCard')
+            .insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
           app.$mount('#feedblock-inject');
         }
       }
