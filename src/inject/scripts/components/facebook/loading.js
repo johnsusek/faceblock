@@ -1,7 +1,9 @@
 let interactiveCheckInterval = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(interactiveCheckInterval);
-    injectLoaderUI();
+    if (document.querySelector('#universalNav')) {
+      injectLoaderUI();
+    }
   }
 }, 10);
 

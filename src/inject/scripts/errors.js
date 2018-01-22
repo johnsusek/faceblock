@@ -33,7 +33,16 @@ function errorHandler(err) {
   let error = {};
 
   if (err instanceof ErrorEvent) {
-    error = err;
+    error = {
+      message: err.message,
+      filename: err.filename,
+      lineno: err.lineno,
+      colno: err.colno,
+      error: {
+        message: err.error.toString(),
+        stack: err.error.stack
+      }
+    };
   } else if (err.error) {
     error = {
       message: err.error.toString(),

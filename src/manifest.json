@@ -1,7 +1,7 @@
 {
   "name": "FeedBlock",
   "short_name": "FeedBlock",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "manifest_version": 2,
   "description": "Block things you don't want to see in your Facebook and Twitter feeds.",
   "icons": {
