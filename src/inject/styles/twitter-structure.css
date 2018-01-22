@@ -1,3 +1,9 @@
+/* By default, hide all tweets, so they don't flash onto the page during load */
+/* Our code will overwrite this for tweets that should be displayed */
+.tweet[data-item-id] {
+  /* display: none; */
+}
+
 #feedblock {
   margin: 0 1px;
   padding: 10px;
@@ -6,4 +12,12 @@
 .feedblock_hide_trending .module.trends,
 .feedblock_hide_wtf .module.wtf-module {
   display: none !important;
+}
+
+.autocomplete-list li a {
+  display: block;
+}
+
+.autocomplete-list li a.delete {
+  display: inline-block;
 }

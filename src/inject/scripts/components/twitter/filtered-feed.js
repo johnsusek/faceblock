@@ -33,6 +33,7 @@ Vue.component('filtered-feed', {
         if (mutation.target.id === 'stream-items-id') {
           mutation.target.querySelectorAll('[data-tweet-id]').forEach(el => {
             Vue.set(this.allTweets, el.dataset.tweetId, tweetFromEl(el));
+            this.redrawFeed();
           });
         }
       });
@@ -81,7 +82,7 @@ function tweetFromEl(el) {
     externalUrls: (externalUrls = [...el.querySelectorAll('[data-expanded-url]')].map(a => {
       return a.dataset.expandedUrl;
     })),
-    text: el.querySelector('.tweet-text') && el.querySelector('.tweet-text').innerText
+    text: el.innerText
   };
 
   return tweet;

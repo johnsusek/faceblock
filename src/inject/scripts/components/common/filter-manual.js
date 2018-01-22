@@ -3,8 +3,6 @@
 Vue.component('filter-manual', {
   template: html`
     <section id="feedblock-filter-manual">
-      <h5>Filter</h5>
-      {{ manualPath }}
       <input 
         v-model="newManualPath" 
         type="text" 

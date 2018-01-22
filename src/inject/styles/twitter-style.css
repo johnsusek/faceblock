@@ -6,3 +6,13 @@
 a {
   cursor: pointer;
 }
+
+#feedblock-mentions h5.has-mentions,
+#feedblock-hashtags h5.has-hashtags {
+  cursor: pointer;
+}
+
+.autocomplete-list li a,
+.autocomplete-list li a:hover {
+  text-decoration: none;
+}

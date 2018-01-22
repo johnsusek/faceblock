@@ -58,6 +58,8 @@
     {
       "matches": ["https://twitter.com/*"],
       "js": [
+        "inject/scripts/components/twitter/autocomplete-twitter.js",
+        "inject/scripts/components/twitter/filter-mentions.js",
         "inject/scripts/components/twitter/filter-hashtags.js",
         "inject/scripts/components/twitter/filter-sidebar.js",
         "inject/scripts/components/twitter/filtered-feed.js",

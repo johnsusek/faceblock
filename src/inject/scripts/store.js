@@ -9,6 +9,7 @@ let migrations = [
         filters: {
           visible: true,
           hashtags: [],
+          mentions: [],
           keywords: [],
           blocklists: {
             subscriptions: [],
