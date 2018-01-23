@@ -133,6 +133,11 @@ let migrations = [
     ];
 
     return state;
+  },
+  state => {
+    // Shared post - make it
+    state.facebook.filters.toggles[1].filter = "[? links_to_post == null && contains(text, 'shared')]";
+    return state;
   }
 ];
 
