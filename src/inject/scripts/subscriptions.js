@@ -1,6 +1,10 @@
+let blocklistUrls = {
+  usPolitics: 'https://feedblock.declaredintent.com/blocklists/us_politics.json'
+};
+
 window.fetchSubscription = function(subscription) {
   return window
-    .getJSON(subscription.url)
+    .getJSON(blocklistUrls[subscription.value])
     .then(json => {
       subscription.fetchDate = +new Date();
       if (json.payload && json.payload.keywords) {

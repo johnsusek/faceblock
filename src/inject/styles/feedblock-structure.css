@@ -88,3 +88,7 @@ a.delete {
   float: left;
   width: 317px;
 }
+
+#feedblock-filter-manual input[type='text'] {
+  width: 97%;
+}

@@ -35,16 +35,11 @@ let appConfig = {
   created() {
     let savedState = this.stateThaw();
 
-    // The version in localStorage might be an old data structure, so we
-    // check in our migration function and make sure it is up-to-date
-    if (savedState) {
-      this.store = window.runMigrations(savedState);
-    } else {
-      this.store = window.runMigrations(this.store);
+    // The version in localStorage might be an old data structure
+    if (savedState && savedState.version < 2) {
+      this.store = getInitialState();
+      this.stateFreeze();
     }
-
-    // Freeze the state with any potential changes from migrations
-    this.stateFreeze();
   },
   methods: {
     stateFreeze() {

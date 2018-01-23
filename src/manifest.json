@@ -1,5 +1,5 @@
 {
-  "name": "FeedBlock",
+  "name": "FeedBlock – Facebook and Twitter Blocker",
   "short_name": "FeedBlock",
   "version": "0.3.2",
   "manifest_version": 2,
@@ -70,6 +70,7 @@
     {
       "matches": ["https://www.facebook.com/*", "https://twitter.com/*"],
       "js": [
+        "inject/scripts/components/common/filter-manual.js",
         "inject/scripts/components/common/filter-toggles.js",
         "inject/scripts/components/common/filter-watcher.js",
         "inject/scripts/components/common/filter-keywords.js",

@@ -1,5 +1,24 @@
 /* <filter-watcher></filter-watcher> */
 
+let toggles = {
+  twitter: {
+    videos: '[? !hasVideo ]',
+    photos: '[? !hasPhoto ]',
+    gifs: '[? !hasGif ]',
+    external_links: '[? !hasExternalLinks ]',
+    quoted_tweets: '[? !hasQuotedTweets ]'
+  },
+  facebook: {
+    suggested: '[? meta.is_sponsored == null ]',
+    shared_post: "[? links_to_post == null && contains(text, 'shared') ]",
+    external_links: '[? external_links == null ]',
+    your_memories: '[? meta.throwback_promotion_id == null ]',
+    friend_commented_on: "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ]",
+    pages:
+      "[? meta.page_insight.role != `1` || (meta.page_insight.role == `1` && meta.page_insight.post_context.object_fbtype == `657`) ] | [? dataset.story_category != '4' ]"
+  }
+};
+
 // This watches all the filters in the state, and builds currentFilterPath whenever they change
 // filtered-feed then watches currentFilterPath and redraws when it changes
 Vue.component('filter-watcher', {
@@ -12,7 +31,12 @@ Vue.component('filter-watcher', {
     combinedFilter() {
       let filterPath = '[]';
 
-      let togglesPath = jpath.search(this.filters.toggles, '[?checked].filter').join(' | ');
+      // Find all the checked filters, join their filter values with pipes
+      let togglesPath = jpath
+        .search(this.filters.toggles, '[? checked ].value')
+        .map(t => toggles[CURRENT_NETWORK][t])
+        .join(' | ');
+
       if (togglesPath) {
         filterPath += ' | ' + togglesPath;
       }

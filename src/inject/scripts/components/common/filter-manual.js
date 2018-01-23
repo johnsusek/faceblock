@@ -3,10 +3,12 @@
 Vue.component('filter-manual', {
   template: html`
     <section id="feedblock-filter-manual">
-      <input 
+      <h5>Manual</h5>
+      <textarea 
         v-model="newManualPath" 
         type="text" 
         @keyup.enter="applyNewManualPath">
+      {{ manualPath }}
     </section>
   `(),
   store: {
@@ -20,7 +22,6 @@ Vue.component('filter-manual', {
   methods: {
     applyNewManualPath() {
       this.manualPath = this.newManualPath;
-      this.newManualPath = '';
     }
   }
 });
