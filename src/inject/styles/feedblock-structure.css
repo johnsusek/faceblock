@@ -35,6 +35,11 @@
   top: -1px;
 }
 
+.win #feedblock input[type='checkbox'],
+.ms-windows #feedblock input[type='checkbox'] {
+  top: 2px;
+}
+
 #feedblock section {
   margin-top: 10px;
 }
