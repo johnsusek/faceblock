@@ -80,7 +80,11 @@ Vue.component('filtered-feed', {
   },
   methods: {
     redrawFeed() {
-      if (!document.querySelector('[role="feed"]')) {
+      // feed - for homepage
+      // capsule_container - for profile pages
+      let feedSelector = '[role="feed"], #recent_capsule_container';
+
+      if (!document.querySelector(feedSelector)) {
         return;
       }
 
@@ -89,7 +93,7 @@ Vue.component('filtered-feed', {
       // Optimization: hide the feed before changing stories visibility,
       // to prevent a bunch of reflows. Need to check if this actually
       // helps, and how much.
-      document.querySelector('[role="feed"]').style.display = 'none';
+      document.querySelector(feedSelector).style.display = 'none';
 
       // Loop through this.allPosts, which should have gotten built up from
       // the mutation observers, so we can check if each post passes
@@ -107,7 +111,7 @@ Vue.component('filtered-feed', {
         }
       });
 
-      document.querySelector('[role="feed"]').style.display = 'block';
+      document.querySelector(feedSelector).style.display = 'block';
     }
   }
 });
@@ -136,13 +140,12 @@ function updatePostFromEl(post, el) {
   post.profiles = getProfiles(el);
   post.hovercards = getHovercards(el);
   post.text = el.innerText;
+  post.external_links = getHasExternalLinks(el);
 
-  if (el.querySelectorAll('a[href^="https://l.facebook.com/l.php"').length) {
-    post.external_links = true;
-  }
-
+  // Dataset
   post.dataset = Object.assign({}, el.dataset);
 
+  // Links to post
   el.querySelectorAll('a').forEach(a => {
     if (!a.href || !a.href.startsWith('http')) {
       return;
@@ -162,6 +165,23 @@ function updatePostFromEl(post, el) {
   });
 
   return post;
+}
+
+function getHasExternalLinks(el) {
+  let hasExternalLinks;
+
+  let externalLinks = el.querySelectorAll('a[href^="https://l.facebook.com/l.php"');
+  externalLinks.forEach(externalLink => {
+    // There is an external (link-shortened) url...
+    let url = new URL(externalLink.href);
+    let actualUrl = url.searchParams.get('u');
+    if (actualUrl && !actualUrl.match(/(jpg|jpeg|gif|png|gifv|mp4)$/)) {
+      // ...and it isn't a link to an image/video, so mark the post
+      hasExternalLinks = true;
+    }
+  });
+
+  return hasExternalLinks;
 }
 
 function getProfiles(el) {

@@ -83,3 +83,8 @@ a.delete {
 #feedblock hr {
   margin: 3px 0;
 }
+
+.fbTimelineCapsule #feedblock {
+  float: left;
+  width: 317px;
+}
