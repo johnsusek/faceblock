@@ -48,7 +48,7 @@ Vue.component('filtered-feed', {
       // the mutation observers, so we can check if each tweet passes
       // the current filter, and show or hide it.
       Object.values(this.allTweets).forEach(tweet => {
-        let tweetEl = document.querySelector(`[data-item-id="${tweet.itemId}"]`);
+        let tweetEl = document.querySelector(`.tweet[data-item-id="${tweet.itemId}"]`);
         if (!tweetEl) {
           return;
         }

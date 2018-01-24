@@ -1,8 +1,8 @@
 /* By default, hide all tweets, so they don't flash onto the page during load */
 /* Our code will overwrite this for tweets that should be displayed */
-/* .tweet[data-item-id] { */
-/* display: none; */
-/* } */
+.tweet[data-item-id] {
+  display: none;
+}
 
 #feedblock {
   margin: 0 1px;

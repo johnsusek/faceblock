@@ -38,10 +38,7 @@ function errorHandler(err) {
       filename: err.filename,
       lineno: err.lineno,
       colno: err.colno,
-      error: {
-        message: err.error.toString(),
-        stack: err.error.stack
-      }
+      error: err.error
     };
   } else if (err.error) {
     error = {
