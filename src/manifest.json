@@ -1,10 +1,12 @@
 {
   "name": "FeedBlock – Facebook and Twitter Blocker",
   "short_name": "FeedBlock",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "manifest_version": 2,
   "description": "Block things you don't want to see in your Facebook and Twitter feeds.",
   "icons": {
+    "32": "icons/icon32.png",
+    "64": "icons/icon64.png",
     "128": "icons/icon128.png"
   },
   "background": {
@@ -35,6 +37,7 @@
         "inject/scripts/lib/vue.min.js",
         "inject/scripts/lib/vue-stash.js",
         "inject/scripts/lib/jmespath.js",
+        "inject/scripts/lib/lodash.core.js",
         "inject/scripts/comm.js",
         "inject/scripts/errors.js",
         "inject/scripts/funcs.js",

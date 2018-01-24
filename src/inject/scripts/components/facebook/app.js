@@ -34,11 +34,12 @@ let appConfig = {
   },
   created() {
     let savedState = this.stateThaw();
-
     // The version in localStorage might be an old data structure
-    if (savedState && savedState.version < 2) {
+    if (!savedState || (savedState && savedState.version < 2)) {
       this.store = getInitialState();
       this.stateFreeze();
+    } else {
+      this.store = savedState;
     }
   },
   methods: {

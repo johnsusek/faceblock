@@ -10,7 +10,7 @@ let toggles = {
   },
   facebook: {
     suggested: '[? meta.is_sponsored == null ]',
-    shared_post: "[? links_to_post == null && contains(text, 'shared') ]",
+    shared_post: "[? links_to_post == null && !contains(text, 'shared') ]",
     external_links: '[? external_links == null ]',
     your_memories: '[? meta.throwback_promotion_id == null ]',
     friend_commented_on: "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ]",

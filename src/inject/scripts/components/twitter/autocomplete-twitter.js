@@ -34,7 +34,7 @@ Vue.component('autocomplete-twitter', {
     };
   },
   methods: {
-    getSuggestions() {
+    getSuggestions: _.debounce(function() {
       if (!this.searchTerm) {
         return;
       }
@@ -60,7 +60,7 @@ Vue.component('autocomplete-twitter', {
           })
           .slice(0, 10);
       });
-    },
+    }, 250),
     selectionChoose(event) {
       let suggestion = '';
 
