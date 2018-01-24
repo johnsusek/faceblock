@@ -15,59 +15,43 @@ let appConfig = {
         <filters></filters>
         <footer v-show="store.twitter.filters.visible">
           <hr>
-          <a :href="aboutUrl" target="_blank">About</a> &#183; <a :href="aboutUrl" target="_blank">Contribute</a>
+          <a href="https://feedblock.declaredintent.com" target="_blank">About</a> &#183; <a href="https://feedblock.declaredintent.com" target="_blank">Contribute</a>
         </footer>
       </div>
     </div>
   `(),
   data: {
-    aboutUrl: 'https://feedblock.declaredintent.com/about/',
     store: window.state
   },
   watch: {
     store: {
       handler() {
-        this.stateFreeze();
+        stateFreeze(this.store);
       },
       deep: true
     }
   },
   created() {
-    let savedState = this.stateThaw();
-
-    if (!savedState || (savedState && savedState.version < 2)) {
-      this.store = getInitialState();
-      this.stateFreeze();
-    } else {
-      this.store = savedState;
-    }
-  },
-  methods: {
-    stateFreeze() {
-      if (this.store) {
-        localStorage.setItem('feedblock_state', JSON.stringify(this.store));
-      }
-    },
-    stateThaw() {
-      if (localStorage.getItem('feedblock_state')) {
-        return JSON.parse(localStorage.getItem('feedblock_state') || '{}');
-      }
-    }
+    this.store = stateThaw();
   }
 };
+
+function checkInject() {
+  clearInterval(interval);
+  if (!document.querySelector('#feedblock')) {
+    let app = new Vue(appConfig);
+    document
+      .querySelector('.dashboard-left .DashboardProfileCard')
+      .insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
+    app.$mount('#feedblock-inject');
+  }
+}
 
 // Inject immediately (instead of waiting for a message the background script)
 // for the case of initial page load, so the UI doesn't flash in
 let interval = setInterval(() => {
   if (document.querySelector('.dashboard-left .DashboardProfileCard')) {
-    clearInterval(interval);
-    if (!document.querySelector('#feedblock')) {
-      let app = new Vue(appConfig);
-      document
-        .querySelector('.dashboard-left .DashboardProfileCard')
-        .insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
-      app.$mount('#feedblock-inject');
-    }
+    checkInject(interval);
   }
 }, 10);
 
@@ -77,14 +61,7 @@ chrome.runtime.onMessage.addListener(msg => {
   if (msg.extensionEvent === 'onHistoryStateUpdated') {
     let interval = setInterval(() => {
       if (document.querySelector('.dashboard-left .DashboardProfileCard')) {
-        clearInterval(interval);
-        if (!document.querySelector('#feedblock')) {
-          let app = new Vue(appConfig);
-          document
-            .querySelector('.dashboard-left .DashboardProfileCard')
-            .insertAdjacentHTML('afterEnd', '<div id="feedblock-inject"></div>');
-          app.$mount('#feedblock-inject');
-        }
+        checkInject(interval);
       }
     }, 10);
   }

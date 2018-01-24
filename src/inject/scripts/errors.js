@@ -33,6 +33,11 @@ function errorHandler(err) {
   let error = {};
 
   if (err instanceof ErrorEvent) {
+    // No filename means we caught an error from native (fb/twitter) code,
+    // don't want to log this
+    !err.filename && console.log(err);
+    if (!err.filename) return;
+
     error = {
       message: err.message,
       filename: err.filename,
@@ -58,7 +63,4 @@ function errorHandler(err) {
 }
 
 Vue.config.errorHandler = errorHandler;
-
-// Below is missing call stack b/c of async stuff, so commenting out for now
-// Shouldn't be needed unless I miss a try/catch somewhere outside Vue
 window.addEventListener('error', errorHandler);

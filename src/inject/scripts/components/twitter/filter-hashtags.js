@@ -10,7 +10,7 @@ Vue.component('filter-hashtags', {
       <h5 
         v-bind:class="{ 'has-hashtags': hashtags.length }"
         @click="showList = !showList" 
-        title="">
+        title="Include #hashtags to be blocked. Press Enter to add.">
         Blocked hashtags 
         <span v-show="hashtags.length">({{ hashtags.length }})</span>
       </h5>

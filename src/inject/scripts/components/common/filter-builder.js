@@ -1,4 +1,4 @@
-/* <filter-watcher></filter-watcher> */
+/* <filter-builder></filter-builder> */
 
 let toggles = {
   twitter: {
@@ -14,14 +14,16 @@ let toggles = {
     external_links: '[? external_links == null ]',
     your_memories: '[? meta.throwback_promotion_id == null ]',
     friend_commented_on: "[? meta.page_insight.psn != 'EntCommentNodeBasedEdgeStory' ]",
-    pages:
-      "[? meta.page_insight.role != `1` || (meta.page_insight.role == `1` && meta.page_insight.post_context.object_fbtype == `657`) ] | [? dataset.story_category != '4' ]"
+    pages: `
+      [? meta.page_insight.role != \`1\` && meta.page_insight.role != \`16\` ] | 
+      [? dataset.story_category != \`4\` ]
+    `
   }
 };
 
 // This watches all the filters in the state, and builds currentFilterPath whenever they change
 // filtered-feed then watches currentFilterPath and redraws when it changes
-Vue.component('filter-watcher', {
+Vue.component('filter-builder', {
   template: '<div></div>',
   store: {
     filters: CURRENT_NETWORK + '.filters',
@@ -79,5 +81,9 @@ Vue.component('filter-watcher', {
     combinedFilter() {
       this.currentFilterPath = this.combinedFilter;
     }
+  },
+  created() {
+    // console.log('Setting currentFilterPath (startup) to', this.combinedFilter);
+    this.currentFilterPath = this.combinedFilter;
   }
 });

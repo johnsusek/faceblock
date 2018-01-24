@@ -6,7 +6,7 @@ Vue.component('filter-mentions', {
       <h5 
         v-bind:class="{ 'has-mentions': mentions.length }"
         @click="showList = !showList" 
-        title="">
+        title="Include @mentions to block. Press Enter to add.">
         Blocked mentions 
         <span v-show="mentions.length">({{ mentions.length }})</span>
       </h5>

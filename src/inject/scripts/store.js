@@ -4,7 +4,7 @@ state = getInitialState();
 
 function getInitialState() {
   return {
-    version: 2,
+    version: 3,
     twitter: {
       filters: {
         visible: true,
@@ -115,4 +115,32 @@ function getInitialState() {
       currentFilterPath: '[]'
     }
   };
+}
+
+function stateFreeze(stateToFreeze) {
+  // Filter out some things we don't want to save to localStorage,
+  // like currentFilterPath
+  let freezableState = stateFreezable(stateToFreeze);
+  localStorage.setItem('feedblock_state', JSON.stringify(freezableState));
+}
+
+function stateThaw() {
+  let savedState;
+
+  if (localStorage.getItem('feedblock_state')) {
+    savedState = JSON.parse(localStorage.getItem('feedblock_state'));
+  }
+
+  if (!savedState || (savedState && savedState.version < 3)) {
+    // Build initial state if there is nothing saved (new installs)
+    // also, reset old versions of state (early betas)
+    return getInitialState();
+  } else {
+    return savedState;
+  }
+}
+
+function stateFreezable(stateToFreeze) {
+  // remove what we don't want to save...
+  return stateToFreeze;
 }

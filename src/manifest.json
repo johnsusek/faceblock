@@ -75,7 +75,7 @@
       "js": [
         "inject/scripts/components/common/filter-manual.js",
         "inject/scripts/components/common/filter-toggles.js",
-        "inject/scripts/components/common/filter-watcher.js",
+        "inject/scripts/components/common/filter-builder.js",
         "inject/scripts/components/common/filter-keywords.js",
         "inject/scripts/components/common/filter-blocklists.js"
       ],

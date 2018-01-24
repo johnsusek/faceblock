@@ -7,7 +7,7 @@ Vue.component('filters', {
       <filter-blocklists></filter-blocklists> 
       <filter-toggles></filter-toggles> 
       <filter-sidebar></filter-sidebar> 
-      <filter-watcher></filter-watcher>
+      <filter-builder></filter-builder>
       <filtered-feed></filtered-feed>
     </div>
   `(),
