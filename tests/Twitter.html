@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<title>Twitter</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Login</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>https://www.twitter.com/<datalist><option>https://www.twitter.com/</option><option>https://www.facebook.com/</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Extension appears</td></tr>
+</thead>
+<tbody>
+<tr><td>assertVisible</td><td>id=feedblock<datalist><option>id=feedblock</option><option>css=h4 &gt; span</option><option>//div[@id='feedblock']/h4/span</option><option>//h4/span</option><option>css=#faceblock</option><option>#faceblock</option><option>//div[@id='feedblock']</option></datalist></td><td>FeedBlock</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Hide/show works</td></tr>
+</thead>
+<tbody>
+<tr><td>assertText</td><td>link=About<datalist><option>link=About</option><option>css=footer &gt; a</option><option>//a[contains(text(),'About')]</option><option>//div[@id='feedblock']/footer/a</option><option>//a[contains(@href, 'https://feedblock.declaredintent.com')]</option><option>//footer/a</option></datalist></td><td>About</td>
+</tr>
+<tr><td>assertText</td><td>css=h4.u-textUserColor &gt; a &gt; span<datalist><option>css=h4.u-textUserColor &gt; a &gt; span</option><option>//div[@id='feedblock']/h4/a/span</option><option>//h4/a/span</option></datalist></td><td>Hide</td>
+</tr>
+<tr><td>click</td><td>css=h4.u-textUserColor &gt; a &gt; span<datalist><option>css=h4.u-textUserColor &gt; a &gt; span</option><option>//div[@id='feedblock']/h4/a/span</option><option>//h4/a/span</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>css=h4 &gt; a &gt; span<datalist><option>css=h4 &gt; a &gt; span</option><option>//div[@id='feedblock']/h4/a/span</option><option>//h4/a/span</option></datalist></td><td>Show</td>
+</tr>
+<tr><td>click</td><td>css=h4 &gt; a &gt; span<datalist><option>css=h4 &gt; a &gt; span</option><option>//div[@id='feedblock']/h4/a/span</option><option>//h4/a/span</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>link=About<datalist><option>link=About</option><option>css=footer &gt; a</option><option>//a[contains(text(),'About')]</option><option>//div[@id='feedblock']/footer/a</option><option>//a[contains(@href, 'https://feedblock.declaredintent.com')]</option><option>//footer/a</option></datalist></td><td>About</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Blockwords</td></tr>
+</thead>
+<tbody>
+<tr><td>assertVisible</td><td>id=feedblock-keywords<datalist><option>id=feedblock-keywords</option><option>css=h5[title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive. Click to toggle the visibility of the list of blockwords."]</option><option>//section[@id='feedblock-keywords']/h5</option><option>//h5</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>css=#feedblock-keywords &gt; div &gt; input[type="text"]<datalist><option>css=#feedblock-keywords &gt; div &gt; input[type="text"]</option><option>xpath=(//input[@type='text'])[3]</option><option>//section[@id='feedblock-keywords']/div/input</option><option>//section/div/input</option></datalist></td><td>the</td>
+</tr>
+<tr><td>click</td><td>css=#feedblock-keywords &gt; div &gt; button<datalist><option>css=#feedblock-keywords &gt; div &gt; button</option><option>//section[@id='feedblock-keywords']/div/button</option><option>//section/div/button</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>css=#feedblock-keywords &gt; div &gt; input[type="text"]<datalist><option>css=#feedblock-keywords &gt; div &gt; input[type="text"]</option><option>xpath=(//input[@type='text'])[3]</option><option>//section[@id='feedblock-keywords']/div/input</option><option>//section/div/input</option></datalist></td><td>Another</td>
+</tr>
+<tr><td>click</td><td>css=#feedblock-keywords &gt; div &gt; button<datalist><option>css=#feedblock-keywords &gt; div &gt; button</option><option>//section[@id='feedblock-keywords']/div/button</option><option>//section/div/button</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>css=h5.has-keywords &gt; span<datalist><option>css=h5.has-keywords &gt; span</option><option>//section[@id='feedblock-keywords']/h5/span</option><option>//h5/span</option></datalist></td><td>(2)</td>
+</tr>
+<tr><td>assertText</td><td>css=#feedblock-keywords &gt; ul &gt; li &gt; span<datalist><option>css=#feedblock-keywords &gt; ul &gt; li &gt; span</option><option>//section[@id='feedblock-keywords']/ul/li/span</option><option>//section/ul/li/span</option></datalist></td><td>the</td>
+</tr>
+<tr><td>click</td><td>css=h5.has-keywords<datalist><option>css=h5.has-keywords</option><option>//section[@id='feedblock-keywords']/h5</option><option>//h5</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>link=x<datalist><option>link=x</option><option>css=a.delete</option><option>//a[contains(text(),'x')]</option><option>//section[@id='feedblock-keywords']/ul/li/a</option><option>//section/ul/li/a</option></datalist></td><td>x</td>
+</tr>
+<tr><td>assertText</td><td>//section[@id='feedblock-keywords']/ul/li[2]/span<datalist><option>//section[@id='feedblock-keywords']/ul/li[2]/span</option><option>//li[2]/span</option></datalist></td><td>Another</td>
+</tr>
+<tr><td>click</td><td>link=x<datalist><option>link=x</option><option>css=a.delete</option><option>//a[contains(text(),'x')]</option><option>//section[@id='feedblock-keywords']/ul/li/a</option><option>//section/ul/li/a</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>css=h5.has-keywords &gt; span<datalist><option>css=h5.has-keywords &gt; span</option><option>//section[@id='feedblock-keywords']/h5/span</option><option>//h5/span</option></datalist></td><td>(1)</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Blocklists</td></tr>
+</thead>
+<tbody>
+<tr><td>assertVisible</td><td>id=feedblock-blocklists<datalist><option>id=feedblock-blocklists</option><option>id=feedblock-keywords</option><option>css=h5[title="Input a word or phrase and click the 'Add' button to begin blocking all posts that contain that word or phrase. Case sensitive. Click to toggle the visibility of the list of blockwords."]</option><option>//section[@id='feedblock-keywords']/h5</option><option>//h5</option></datalist></td><td></td>
+</tr>
+<tr><td>select</td><td>css=#feedblock-blocklists select<datalist><option>css=#feedblock-blocklists select</option><option>css=select</option><option>//section[@id='feedblock-blocklists']/div/select</option><option>//select</option></datalist></td><td>label=US Politics</td>
+</tr>
+<tr><td>click</td><td>id=feedblock-add-sub<datalist><option>id=feedblock-add-sub</option><option>link=Add</option><option>css=#feedblock-blocklists &gt; div &gt; a</option><option>//a[contains(text(),'Add')]</option><option>//section[@id='feedblock-blocklists']/div/a</option><option>//section[2]/div/a</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>link=US Politics<datalist><option>link=US Politics</option><option>css=#feedblock-blocklists &gt; ul &gt; li &gt; a</option><option>//a[contains(text(),'US Politics')]</option><option>//section[@id='feedblock-blocklists']/ul/li/a</option><option>//section[2]/ul/li/a</option></datalist></td><td>US Politics</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Toggles</td></tr>
+</thead>
+<tbody>
+<tr><td>assertVisible</td><td>css=#filter-toggles<datalist><option>css=#filter-toggles</option><option>css=.is-sponsored</option><option>css=span._m8d</option><option>//div[@id='u_fetchstream_1_2']/div[2]/div/div/div/div/span/span</option><option>//div[3]/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/span/span</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Sidebar</td></tr>
+</thead>
+<tbody>
+<tr><td>assertVisible</td><td>css=.module.trends<datalist><option>css=#pagelet_ego_pane</option><option>css=div._3653 &gt; div</option><option>//div[@id='pagelet_trending_tags_and_topics']/div/div/div/div/div/div</option><option>//div/div/div[6]/div/div/div/div/div/div</option><option>css=.module.trends</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//input[@value='hideTrending']<datalist><option>//input[@value='hideTrending']</option><option>//section[@id='feedblock-sidebar']/ul/li[2]/label/input</option><option>//section[6]/ul/li[2]/label/input</option></datalist></td><td></td>
+</tr>
+<tr><td>assertNotVisible</td><td>css=.module.trends<datalist><option>css=#pagelet_ego_pane</option><option>css=div._3653 &gt; div</option><option>//div[@id='pagelet_trending_tags_and_topics']/div/div/div/div/div/div</option><option>//div/div/div[6]/div/div/div/div/div/div</option><option>css=.module.trends</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
