@@ -48,6 +48,10 @@ Vue.component('filter-toggles', {
           {
             value: 'quoted_tweets',
             label: 'Quoted tweets'
+          },
+          {
+            value: 'retweets',
+            label: 'Retweets'
           }
         ],
         facebook: [

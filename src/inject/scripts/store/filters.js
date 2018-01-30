@@ -15,7 +15,8 @@ let toggleValues = {
     photos: '[? !hasPhoto ]',
     gifs: '[? !hasGif ]',
     external_links: '[? !hasExternalLinks ]',
-    quoted_tweets: '[? !hasQuotedTweets ]'
+    quoted_tweets: '[? !hasQuotedTweets ]',
+    retweets: '[? dataset.retweetId == `null` ]'
   }
 };
 
