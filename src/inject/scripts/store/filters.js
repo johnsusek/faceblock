@@ -16,7 +16,8 @@ let toggleValues = {
     gifs: '[? !hasGif ]',
     external_links: '[? !hasExternalLinks ]',
     quoted_tweets: '[? !hasQuotedTweets ]',
-    retweets: '[? dataset.retweetId == `null` ]'
+    retweets: '[? dataset.retweetId == `null` ]',
+    liked: '[? dataset.componentContext == `null` ]'
   }
 };
 

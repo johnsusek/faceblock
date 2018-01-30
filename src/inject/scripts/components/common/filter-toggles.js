@@ -52,6 +52,10 @@ Vue.component('filter-toggles', {
           {
             value: 'retweets',
             label: 'Retweets'
+          },
+          {
+            value: 'liked',
+            label: 'Liked'
           }
         ],
         facebook: [
