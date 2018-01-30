@@ -45,7 +45,6 @@ Vue.component('filter-blocklists', {
 
   methods: {
     addSubscription() {
-      debugger;
       if (!this.selected) return;
       this.$store.commit('SUBSCRIPTION_ADD', { name: this.selected, network: this.network });
       this.$store.dispatch('SUBSCRIPTION_FETCH', { name: this.selected, network: this.network });

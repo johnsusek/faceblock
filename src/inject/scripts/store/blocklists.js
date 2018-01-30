@@ -23,7 +23,6 @@ var blocklistsStore = {
   },
   mutations: {
     SUBSCRIPTION_ADD(state, { name, network }) {
-      debugger;
       state[network][name].subscribed = true;
     },
     SUBSCRIPTION_REMOVE(state, { name, network }) {
