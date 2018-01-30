@@ -9,6 +9,8 @@ div[id^='more_pager_pagelet'] .async_saving * {
   display: none !important;
 }
 
+.feedblock_hide_footer #pagelet_rhc_footer,
+.feedblock_hide_stories #stories_pagelet_rhc,
 .feedblock_hide_trending #pagelet_trending_tags_and_topics,
 .feedblock_hide_sponsored #pagelet_ego_pane {
   display: none !important;

@@ -1,31 +1,35 @@
-/* <filtered-feed> */
-
 Vue.component('filtered-feed', {
   template: html`
     <div id="feedblock-feed"></div>
   `(),
-  store: {
-    currentFilterPath: 'twitter.currentFilterPath'
+
+  computed: {
+    pathFromFilters: () => store.getters.pathFromFilters
   },
+
   data() {
     return {
       allTweets: {}
     };
   },
+
   watch: {
     allTweets() {
+      console.log('New tweets have arrived.');
       if (!this.allTweets) {
         return;
       }
       this.redrawFeed();
     },
-    currentFilterPath() {
-      if (!this.currentFilterPath) {
+    pathFromFilters() {
+      console.log('The filters have changed.');
+      if (!this.pathFromFilters) {
         return;
       }
       this.redrawFeed();
     }
   },
+
   created() {
     // Watch DOM for new tweets
     new MutationObserver(mutations => {
@@ -42,6 +46,7 @@ Vue.component('filtered-feed', {
       subtree: true
     });
   },
+
   methods: {
     redrawFeed() {
       // Loop through this.allTweets, which should have gotten built up from
@@ -52,7 +57,7 @@ Vue.component('filtered-feed', {
         if (!tweetEl) {
           return;
         }
-        const result = jpath.search([tweet], this.currentFilterPath);
+        const result = jpath.search([tweet], this.pathFromFilters);
 
         if (result && result.length) {
           // jpath returned the tweet, so it passed the filter - show it

@@ -1,5 +1,3 @@
-/* <filter-keywords> */
-
 Vue.component('filter-keywords', {
   template: html`
     <section id="feedblock-keywords">
@@ -22,8 +20,11 @@ Vue.component('filter-keywords', {
       </div>
     </section>
   `(),
-  store: {
-    keywords: CURRENT_NETWORK + '.filters.keywords'
+  props: ['network'],
+  computed: {
+    keywords() {
+      return this.$store.state.filters[this.network].keywords;
+    }
   },
   data() {
     return {
@@ -33,18 +34,11 @@ Vue.component('filter-keywords', {
   },
   methods: {
     addKeyword() {
-      let value = this.newKeyword && this.newKeyword.trim();
-      if (!value || value.length < 3) {
-        return;
-      }
-      this.keywords.push(value);
+      store.commit('KEYWORD_ADD', { keyword: this.newKeyword, network: this.network });
       this.newKeyword = '';
     },
     removeKeyword(keyword) {
-      this.keywords = this.keywords.filter(k => k !== keyword);
-      if (!this.keywords.length) {
-        this.showList = false;
-      }
+      store.commit('KEYWORD_REMOVE', { keyword, network: this.network });
     }
   }
 });

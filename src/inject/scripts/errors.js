@@ -35,7 +35,6 @@ function errorHandler(err) {
   if (err instanceof ErrorEvent) {
     // No filename means we caught an error from native (fb/twitter) code,
     // don't want to log this
-    !err.filename && console.log(err);
     if (!err.filename) return;
 
     error = {
@@ -64,3 +63,13 @@ function errorHandler(err) {
 
 Vue.config.errorHandler = errorHandler;
 window.addEventListener('error', errorHandler);
+
+// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+window.generateUuid = function() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+};

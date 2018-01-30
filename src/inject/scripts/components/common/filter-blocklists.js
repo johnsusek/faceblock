@@ -1,63 +1,60 @@
-/* <filter-blocklists> */
-
 Vue.component('filter-blocklists', {
   template: html`
     <section id="feedblock-blocklists">
       <h5 title="Pre-built lists of common blockwords. Click 'View' to see the list. Click 'Add' to begin blocking any posts that contain any of the words in that blocklist.">Blocklists (beta)</h5>
       <ul>
-        <li v-for="subscription in blocklists.subscriptions" v-if="subscription">
-          <a target="_blank" :href="subscription.url">{{ subscription.label }}</a>
-          <a @click="removeSubscription(subscription)" class="delete">x</a>
+        <li v-for="blocklist in subscribed">
+          <a target="_blank" :href="blocklist.url">{{ blocklist.label }}</a>
+          <a @click="removeSubscription(blocklist.name)" class="delete">x</a>
         </li>
       </ul>
       <div>
         <select v-model="selected">
           <option disabled value=""></option>
-          <option :value="list.value" v-for="list in blocklists.lists">
-            {{ list.label }}
+          <option :value="blocklist.name" v-for="blocklist in unsubscribed">
+            {{ blocklist.label }}
           </option>
         </select>
-        <a @click="addSubscription">Add</a>
+        <a id="feedblock-add-sub" @click="addSubscription">Add</a>
         &#183;
-        <a @click="previewSubscription">View</a>
+        <a id="feedblock-preview-sub" @click="previewSubscription">View</a>
       </div>
     </section>
   `(),
-  store: {
-    blocklists: CURRENT_NETWORK + '.filters.blocklists'
+
+  props: ['network'],
+
+  computed: {
+    unsubscribed() {
+      return this.$store.getters.unsubscribed;
+    },
+    subscribed() {
+      return this.$store.getters.subscribed;
+    }
   },
+
   data() {
     return {
       selected: ''
     };
   },
-  created() {
-    if (this.blocklists && this.blocklists.subscriptions) {
-      window.refreshSubscriptions(this.blocklists.subscriptions);
-    }
+
+  mounted() {
+    this.$store.dispatch('SUBSCRIPTION_REFRESH', { subscribed: this.subscribed, network: this.network });
   },
+
   methods: {
     addSubscription() {
-      // Find the list object
-      let list = this.blocklists.lists.find(s => s.value === this.selected);
-      if (!list) {
-        return;
-      }
-      // Put it into subscriptions
-      this.blocklists.subscriptions.push(list);
-      // Remove from available list
-      this.blocklists.lists = this.blocklists.lists.filter(s => s.value !== list.value);
-      // Finally fetch the list the user requested, which will put it into our state
-      window.fetchSubscription(list);
+      debugger;
+      if (!this.selected) return;
+      this.$store.commit('SUBSCRIPTION_ADD', { name: this.selected, network: this.network });
+      this.$store.dispatch('SUBSCRIPTION_FETCH', { name: this.selected, network: this.network });
     },
-    removeSubscription(subscription) {
-      // Remove it from the subscriptions
-      this.blocklists.subscriptions = this.blocklists.subscriptions.filter(s => s !== subscription);
-      // Add it back to the available list
-      this.blocklists.lists.push(subscription);
+    removeSubscription(name) {
+      this.$store.commit('SUBSCRIPTION_REMOVE', { name, network: this.network });
     },
     previewSubscription() {
-      let list = this.blocklists.lists.find(s => s.value === this.selected);
+      let list = this.unsubscribed.find(s => s.name === this.selected);
       if (list) window.open(list.url);
     }
   }

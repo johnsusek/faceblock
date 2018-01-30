@@ -1,42 +1,17 @@
-// This is used by common components so they know what store to use when assembling themselves
-const CURRENT_NETWORK = 'facebook';
-
 let appConfig = {
   template: html`
     <div>
-      <div id="feedblock" :class="{ open: store.facebook.filters.visible }">
-        <h4 @click="store.facebook.filters.visible = !store.facebook.filters.visible">
-          <span>FeedBlock</span>
-          <a>
-            <span v-show="store.facebook.filters.visible">Hide</span>
-            <span v-show="!store.facebook.filters.visible">Show</span>
-          </a>
-        </h4>
-        <filters></filters>
-        <footer v-show="store.facebook.filters.visible">
-          <hr>
-          <a href="https://feedblock.declaredintent.com" target="_blank">About</a> &#183; <a href="https://feedblock.declaredintent.com" target="_blank">Contribute</a>
-        </footer>
-      </div>
+      <feedblock-facebook></feedblock-facebook>
     </div>
   `(),
-  data: {
-    store: window.state
-  },
-  watch: {
-    store: {
-      handler() {
-        stateFreeze(this.store);
-      },
-      deep: true
-    }
-  },
-  created() {
-    this.store = stateThaw();
+  store,
+  beforeCreate() {
+    this.$store.commit('CURRENT_NETWORK_SET', 'facebook');
   }
 };
 
-function checkInject() {
+// This script decides if and where to inject the Facebook UI
+function checkInject(interval) {
   // For debugging, uncomment to inject onto profile pages:
   // let injectionSelector = '.fbTimelineCapsule';
   // let injectionPosition = 'afterBegin';
@@ -59,8 +34,8 @@ function checkInject() {
 
 // Inject immediately (instead of waiting for a message the background script)
 // for the case of initial page load, so the UI doesn't flash in
-let interval = setInterval(() => {
-  checkInject(interval);
+let intervalFacebookLoad = setInterval(() => {
+  checkInject(intervalFacebookLoad);
 }, 10);
 
 // Wait for the background script to send us a message - for the scenario
@@ -68,8 +43,8 @@ let interval = setInterval(() => {
 chrome.runtime.onMessage.addListener(req => {
   // We'll get injected here on visits to the root url via history.pushState()
   if (req.extensionEvent === 'onHistoryStateUpdated') {
-    let interval = setInterval(() => {
-      checkInject(interval);
+    let intervalFacebookMessage = setInterval(() => {
+      checkInject(intervalFacebookMessage);
     }, 10);
   }
 });

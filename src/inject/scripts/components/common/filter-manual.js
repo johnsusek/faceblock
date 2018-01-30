@@ -1,5 +1,3 @@
-/* <filter-manual></filter-manual> */
-
 Vue.component('filter-manual', {
   template: html`
     <section id="feedblock-filter-manual">
@@ -7,21 +5,19 @@ Vue.component('filter-manual', {
       <textarea 
         v-model="newManualPath" 
         type="text" 
-        @keyup.enter="applyNewManualPath">
-      {{ manualPath }}
+        @keyup.enter="setManualPath">
+      </textarea>
     </section>
   `(),
-  store: {
-    manualPath: CURRENT_NETWORK + '.filters.manualPath'
-  },
+  props: ['network'],
   data() {
     return {
       newManualPath: ''
     };
   },
   methods: {
-    applyNewManualPath() {
-      this.manualPath = this.newManualPath;
+    setManualPath() {
+      store.commit('MANUAL_PATH_SET', { path: this.newManualPath, network: this.network });
     }
   }
 });

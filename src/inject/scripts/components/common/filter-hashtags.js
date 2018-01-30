@@ -1,9 +1,3 @@
-// TODO remove "in case you missed it":
-// js-stream-item stream-item has-recap js-no-dedup DismissibleModule js-has-navigable-stream stream-item separated-module
-// TimelineTweetsModule
-
-/* <filter-hashtags> */
-
 Vue.component('filter-hashtags', {
   template: html`
     <section id="feedblock-hashtags">
@@ -23,14 +17,21 @@ Vue.component('filter-hashtags', {
       <autocomplete-twitter v-on:selectionChoose="addHashtag" prefix="#" resultType="hashtags" resultKey="hashtag"></autocomplete-twitter>
     </section>
   `(),
-  store: {
-    hashtags: 'twitter.filters.hashtags'
+
+  props: ['network'],
+
+  computed: {
+    hashtags() {
+      return this.$store.state.filters[this.network].hashtags;
+    }
   },
+
   data() {
     return {
       showList: false
     };
   },
+
   methods: {
     addHashtag(value) {
       if (!value) {
@@ -39,13 +40,10 @@ Vue.component('filter-hashtags', {
       if (!value.startsWith('#')) {
         value = '#' + value;
       }
-      this.hashtags.push(value);
+      store.commit('HASHTAG_ADD', { hashtag: value, network: this.network });
     },
-    removeHashtag(hashtag) {
-      this.hashtags = this.hashtags.filter(k => k !== hashtag);
-      if (!this.hashtags.length) {
-        this.showList = false;
-      }
+    removeHashtag(value) {
+      store.commit('HASHTAG_REMOVE', { hashtag: value, network: this.network });
     }
   }
 });

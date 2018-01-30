@@ -1,26 +1,88 @@
-/* <filter-toggles> */
-
 Vue.component('filter-toggles', {
   template: html`
     <section id="filter-toggles">
       <h5 title="Check a box to block posts of that type.">Block categories</h5>
       <ul>
-        <li v-for="toggle in toggles">
+        <li v-for="option in options[network]">
           <label>
-            <span>
-              <input 
-                :checked="toggle.checked"
-                :value="toggle.value" 
-                type="checkbox" 
-                @change="toggle.checked = !toggle.checked">
-            </span>
-            <span>{{ toggle.label }}</span>
+            <input 
+              type="checkbox" 
+              :checked="toggles[option.value]" 
+              :value="option.value" 
+              @change="toggleFilter"> 
+            {{ option.label }}
           </label>
         </li>
       </ul>
     </section>
   `(),
-  store: {
-    toggles: CURRENT_NETWORK + '.filters.toggles'
+
+  props: ['network'],
+
+  computed: {
+    toggles() {
+      return this.$store.state.filters[this.network].toggles;
+    }
+  },
+
+  data() {
+    return {
+      options: {
+        twitter: [
+          {
+            value: 'videos',
+            label: 'Videos'
+          },
+          {
+            value: 'photos',
+            label: 'Photos'
+          },
+          {
+            value: 'gifs',
+            label: 'GIFs'
+          },
+          {
+            value: 'external_links',
+            label: 'External links'
+          },
+          {
+            value: 'quoted_tweets',
+            label: 'Quoted tweets'
+          }
+        ],
+        facebook: [
+          {
+            value: 'suggested',
+            label: 'Suggested'
+          },
+          {
+            value: 'shared_post',
+            label: 'Shared post'
+          },
+          {
+            value: 'external_links',
+            label: 'External links'
+          },
+          {
+            value: 'your_memories',
+            label: 'Your memories'
+          },
+          {
+            value: 'friend_commented_on',
+            label: '‘…commented on this’'
+          },
+          {
+            value: 'pages',
+            label: 'Page posts'
+          }
+        ]
+      }
+    };
+  },
+
+  methods: {
+    toggleFilter(ev) {
+      store.commit('FILTER_TOGGLE', { filter: ev.target.value, network: this.network });
+    }
   }
 });

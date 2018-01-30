@@ -1,36 +1,37 @@
-/* <filtered-feed> */
-
 Vue.component('filtered-feed', {
   template: html`
     <div id="feedblock-feed"></div>
   `(),
-  store: {
-    currentFilterPath: 'facebook.currentFilterPath'
+
+  computed: {
+    pathFromFilters: () => store.getters.pathFromFilters
   },
+
   data() {
     return {
       allPosts: {}
     };
   },
+
   watch: {
-    // We have to redraw manually because the facebook feed
-    // is not actually a Vue component :)
+    // For when new posts come in, automatically do a redraw in case they
+    // should be hidden
     allPosts() {
+      console.log('New posts have arrived.');
+      // console.log('allPosts was modified, updating feed!');
       if (!this.allPosts) {
-        // console.log('allPosts was empty when attempting to redraw the feed');
         return;
       }
       this.redrawFeed();
     },
-    currentFilterPath() {
-      // console.log('currentFilterPath updated to ', this.currentFilterPath);
-      if (!this.currentFilterPath) {
-        // console.log('Tried to apply an empty filter path to feed');
-        return;
-      }
+    // For when the filters change
+    pathFromFilters() {
+      console.log('The filters have changed.');
+      // console.log(this.pathFromFilters);
       this.redrawFeed();
     }
   },
+
   created() {
     // Watch DOM for new posts
     new MutationObserver(mutations => {
@@ -78,6 +79,7 @@ Vue.component('filtered-feed', {
       childList: true
     });
   },
+
   methods: {
     redrawFeed() {
       // feed - for homepage
@@ -88,7 +90,11 @@ Vue.component('filtered-feed', {
         return;
       }
 
-      // console.log('Redrawing feed using filter', this.currentFilterPath);
+      if (!this.pathFromFilters) {
+        this.pathFromFilters = '[]';
+      }
+
+      // console.log('Redrawing feed using filter', this.pathFromFilters);
 
       // Optimization: hide the feed before changing stories visibility,
       // to prevent a bunch of reflows. Need to check if this actually
@@ -102,7 +108,7 @@ Vue.component('filtered-feed', {
         if (!document.getElementById(post.el)) {
           return;
         }
-        const result = jpath.search([post], this.currentFilterPath);
+        const result = jpath.search([post], this.pathFromFilters);
         if (result && result.length) {
           // jpath returned the post, so it passed the filter - show it
           document.getElementById(post.el).style.display = 'block';
@@ -117,7 +123,6 @@ Vue.component('filtered-feed', {
 });
 
 function createPostFromEl(el, metaJSON) {
-  // TODO: error checking & data validation
   let post = {
     id: el.dataset.dedupekey,
     el: el.id,
@@ -163,6 +168,12 @@ function updatePostFromEl(post, el) {
       }
     }
   });
+
+  post.friend_commented_on = !![...el.querySelectorAll('h5')].find(a => a.textContent.includes(' commented on this.'));
+
+  if (post.meta.is_sponsored) {
+    el.classList.add('is-sponsored');
+  }
 
   return post;
 }
