@@ -1,6 +1,4 @@
 window.logException = function(ex) {
-  console.log(ex);
-  debugger;
   const uuid = window.generateUuid();
   const exception = {
     message: ex.toString(),

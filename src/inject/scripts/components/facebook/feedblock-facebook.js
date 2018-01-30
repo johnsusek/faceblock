@@ -13,7 +13,6 @@ Vue.component('feedblock-facebook', {
           <filter-keywords network="facebook"></filter-keywords> 
           <filter-blocklists network="facebook"></filter-blocklists> 
           <filter-toggles network="facebook"></filter-toggles> 
-          <filter-manual network="facebook"></filter-manual>
           <filter-sidebar network="facebook"></filter-sidebar> 
           <filtered-feed></filtered-feed>
         </div>

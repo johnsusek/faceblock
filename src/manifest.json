@@ -1,7 +1,7 @@
 {
-  "name": "FeedBlock – Facebook and Twitter Feed Filter",
+  "name": "FeedBlock – Fix social media annoyances",
   "short_name": "FeedBlock",
-  "version": "0.3.5",
+  "version": "0.4.1",
   "manifest_version": 2,
   "description": "Block things you don't want to see in your Facebook and Twitter feeds.",
   "icons": {

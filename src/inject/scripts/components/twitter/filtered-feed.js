@@ -36,6 +36,7 @@ Vue.component('filtered-feed', {
       mutations.forEach(mutation => {
         if (mutation.target.id === 'stream-items-id') {
           mutation.target.querySelectorAll('[data-tweet-id]').forEach(el => {
+            console.log('Added tweet to database.', el.dataset.tweetId);
             Vue.set(this.allTweets, el.dataset.tweetId, tweetFromEl(el));
             this.redrawFeed();
           });
@@ -49,21 +50,31 @@ Vue.component('filtered-feed', {
 
   methods: {
     redrawFeed() {
-      // Loop through this.allTweets, which should have gotten built up from
-      // the mutation observers, so we can check if each tweet passes
-      // the current filter, and show or hide it.
-      Object.values(this.allTweets).forEach(tweet => {
-        let tweetEl = document.querySelector(`.tweet[data-item-id="${tweet.itemId}"]`);
-        if (!tweetEl) {
-          return;
-        }
-        const result = jpath.search([tweet], this.pathFromFilters);
+      // Loop through each stream item (which may contain multiple tweets for convos)
+      let streamItemEls = document.querySelectorAll('#timeline #stream-items-id .stream-item');
 
-        if (result && result.length) {
-          // jpath returned the tweet, so it passed the filter - show it
-          tweetEl.style.display = 'block';
+      streamItemEls.forEach(streamItemEl => {
+        let blockStreamItem = false;
+
+        // Loop through each tweet in the stream item
+        streamItemEl.querySelectorAll('.tweet').forEach(tweetEl => {
+          const tweet = this.allTweets[tweetEl.dataset.tweetId];
+          if (!tweet) {
+            // Tweet is on the page, but not in our database yet.. hmm..
+            return;
+          }
+          const result = jpath.search([tweet], this.pathFromFilters);
+
+          // If this tweet should be blocked, hide the stream item
+          if (!result || !result.length) {
+            blockStreamItem = true;
+          }
+        });
+
+        if (blockStreamItem) {
+          streamItemEl.style.display = 'none';
         } else {
-          tweetEl.style.display = 'none';
+          streamItemEl.style.display = 'block';
         }
       });
     }
@@ -83,6 +94,7 @@ function tweetFromEl(el) {
     });
 
   let tweet = {
+    tweetId: el.dataset.tweetId,
     itemId: el.dataset.itemId,
     classList: Array.from(el.classList),
     dataset: Object.assign({}, el.dataset),
@@ -101,6 +113,8 @@ function tweetFromEl(el) {
     text: el.innerText,
     tweetText: el.querySelector('.tweet-text') && el.querySelector('.tweet-text').innerText
   };
+
+  el.dataset.feedblockDebug = JSON.stringify(tweet, null, 2);
 
   return tweet;
 }

@@ -137,7 +137,8 @@ function createPostFromEl(el, metaJSON) {
     delete post.meta.page_insights[post.meta.page_id];
   }
 
-  el.setAttribute('rel', JSON.stringify(post, null, 2));
+  el.dataset.feedblockDebug = JSON.stringify(post, null, 2);
+
   return post;
 }
 

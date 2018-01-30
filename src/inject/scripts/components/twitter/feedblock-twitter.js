@@ -16,7 +16,6 @@ Vue.component('feedblock-twitter', {
           <filter-blocklists network="twitter"></filter-blocklists> 
           <filter-toggles network="twitter"></filter-toggles> 
           <filter-sidebar network="twitter"></filter-sidebar>
-          <filter-manual network="twitter"></filter-manual> 
           <filtered-feed></filtered-feed> 
         </div>
         <footer v-show="visible">
